@@ -14,10 +14,10 @@ export type MovieItem = {
     vote_average: number;
     vote_count: number;
 };
-export type MovieList = MovieItem[];
+export type MoviesList = MovieItem[];
 export type MoviesResponce = {
     page: number;
-    movies: MovieList;
+    movies: MoviesList;
     total_pages: number;
     total_results: number;
 };

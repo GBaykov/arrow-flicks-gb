@@ -1,3 +1,4 @@
+import { ApplicationState } from '@redux/configure-store';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type AppFilters = {
@@ -45,4 +46,10 @@ export const appSlice = createSlice({
     },
 });
 
+export const appSelector = (state: ApplicationState) => state.app;
+export const appIsLoading = (state: ApplicationState) => state.app.isLoading;
+export const appFilters = (state: ApplicationState) => state.app.filters;
+export const appSortBy = (state: ApplicationState) => state.app.sortBy;
+
+export const { setAppFilters, setAppLoading, setAppSortBy } = appSlice.actions;
 export default appSlice.reducer;
