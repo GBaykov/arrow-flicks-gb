@@ -12,6 +12,6 @@ export enum ApiEndpoints {
 export const PATHS = {
     INITIAL: '/',
     MAIN: '/main',
-    RATED_MOVIES: '/tated-movies',
-    MOVIE_DETAIL: '/movie-deail',
+    RATED_MOVIES: '/rated-movies',
+    MOVIE_DETAILS: '/movie-detail',
 };

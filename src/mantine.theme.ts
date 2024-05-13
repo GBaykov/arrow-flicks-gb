@@ -71,8 +71,8 @@ export const AppMantineTheme = createTheme({
             h6: { fontWeight: '400', fontSize: rem(16), lineHeight: '1.4' },
         },
     },
-    radius: { xs: rem(6), sm: rem(8), md: rem(10) },
-    defaultRadius: 'md',
+    radius: { xs: rem(6), sm: rem(8), md: rem(10), lg: rem(12) },
+    defaultRadius: 'sm',
     spacing: { xs: rem(8), sm: rem(12), md: rem(16), lg: rem(18), xl: rem(24) },
     cursorType: 'pointer',
     breakpoints: {
