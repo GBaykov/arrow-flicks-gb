@@ -3,6 +3,8 @@
 export const API_URL = 'https://tmdb-api-proxy.onrender.com';
 export const RESERVE_API_URL = 'https://exciting-analysis-production.up.railway.app';
 
+export const IMG_BASE_URL = 'http://image.tmdb.org/t/p/';
+
 export enum ApiEndpoints {
     DISCOVER_MOVIES = 'discover/movie',
     GENRE_LIST = 'genre/movie/list',
@@ -11,7 +13,7 @@ export enum ApiEndpoints {
 
 export const PATHS = {
     INITIAL: '/',
-    MAIN: '/main',
+    MAIN: '/movie',
     RATED_MOVIES: '/rated-movies',
-    MOVIE_DETAILS: '/movie-detail',
+    MOVIE_DETAILS: '/movie/:movieId',
 };

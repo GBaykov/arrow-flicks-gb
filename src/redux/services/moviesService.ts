@@ -4,11 +4,12 @@ import {
     setGenreList,
     setMovieDetails,
     setMovieList,
+    setMoviesResponce,
     setPage,
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import { GenreType, MovieDetails, MoviesResponce } from '@redux/storeTypes';
+import { GenreResponce, GenreType, MovieDetails, MoviesResponce } from '@redux/storeTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const moviesAPI = createApi({
@@ -19,7 +20,7 @@ export const moviesAPI = createApi({
     tagTypes: ['Movies', 'GenreList'],
 
     endpoints: (builder) => ({
-        getGenreList: builder.query<GenreType[], void>({
+        getGenreList: builder.query<GenreResponce, void>({
             query: () => ({
                 url: ApiEndpoints.GENRE_LIST,
                 method: 'GET',
@@ -29,9 +30,8 @@ export const moviesAPI = createApi({
                 try {
                     dispatch(setAppLoading(true));
                     const { data } = await queryFulfilled;
-
+                    dispatch(setGenreList(data.genres));
                     dispatch(setAppLoading(false));
-                    dispatch(setGenreList(data));
                 } catch {
                     dispatch(setAppLoading(false));
                 }
@@ -49,21 +49,22 @@ export const moviesAPI = createApi({
                     dispatch(setAppLoading(true));
                     const { data } = await queryFulfilled;
 
-                    dispatch(setAppLoading(false));
-
-                    dispatch(setMovieList(data.movies));
+                    console.log(data.results);
+                    dispatch(setMoviesResponce(data));
+                    dispatch(setMovieList(data.results));
                     dispatch(setPage(data.page));
                     dispatch(setTotalPages(data.total_pages));
                     dispatch(setTotalResults(data.total_results));
+                    dispatch(setAppLoading(false));
                 } catch {
                     dispatch(setAppLoading(false));
                 }
             },
             providesTags: ['Movies'],
         }),
-        getMovieDetails: builder.query<MovieDetails, void>({
-            query: () => ({
-                url: ApiEndpoints.MOVIE_DEAILS,
+        getMovieDetails: builder.query<MovieDetails, number>({
+            query: (id) => ({
+                url: `${ApiEndpoints.MOVIE_DEAILS}/${id}`,
                 method: 'GET',
             }),
 
@@ -72,8 +73,8 @@ export const moviesAPI = createApi({
                     dispatch(setAppLoading(true));
                     const { data } = await queryFulfilled;
 
-                    dispatch(setAppLoading(false));
                     dispatch(setMovieDetails(data));
+                    dispatch(setAppLoading(false));
                 } catch {
                     dispatch(setAppLoading(false));
                 }
@@ -83,5 +84,9 @@ export const moviesAPI = createApi({
     }),
 });
 
-export const { useGetGenreListQuery, useLazyGetMoviesQuery, useLazyGetMovieDetailsQuery } =
-    moviesAPI;
+export const {
+    useGetGenreListQuery,
+    useGetMoviesQuery,
+    useLazyGetMoviesQuery,
+    useLazyGetMovieDetailsQuery,
+} = moviesAPI;

@@ -16,7 +16,7 @@ export const AppMantineTheme = createTheme({
             '#591FAA',
             '#4D1896',
         ],
-        grey: [
+        gray: [
             '#FFFFFF',
             '#F5F5F6',
             '#EAEBED',

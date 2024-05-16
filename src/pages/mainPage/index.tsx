@@ -1,3 +1,4 @@
+import { CardField } from '@components/cardField';
 import { PATHS } from '@constants/general';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { AppLayout } from '@pages/layout';
@@ -9,7 +10,7 @@ export const MainPage: FC = () => {
     dispatch(push(PATHS.MAIN));
     return (
         <AppLayout>
-            <div>MAIN PAGE</div>
+            <CardField />
         </AppLayout>
     );
 };

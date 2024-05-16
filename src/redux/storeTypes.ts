@@ -17,7 +17,7 @@ export type MovieItem = {
 export type MoviesList = MovieItem[];
 export type MoviesResponce = {
     page: number;
-    movies: MoviesList;
+    results: MoviesList;
     total_pages: number;
     total_results: number;
 };
@@ -25,6 +25,9 @@ export type MoviesResponce = {
 export type GenreType = {
     id: number;
     name: string;
+};
+export type GenreResponce = {
+    genres: GenreType[];
 };
 
 export type MovieVideo = {

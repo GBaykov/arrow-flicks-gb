@@ -1,5 +1,5 @@
 import { ApplicationState } from '@redux/configure-store';
-import { GenreType, MovieDetails, MoviesList } from '@redux/storeTypes';
+import { GenreType, MovieDetails, MoviesList, MoviesResponce } from '@redux/storeTypes';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type MoviesState = {
@@ -9,6 +9,7 @@ export type MoviesState = {
     total_results: number;
     movie_details: MovieDetails | null;
     genre_list: GenreType[];
+    movies_responce: MoviesResponce | null;
 };
 const initialState: MoviesState = {
     page: 1,
@@ -17,6 +18,7 @@ const initialState: MoviesState = {
     total_results: 0,
     movie_details: null,
     genre_list: [],
+    movies_responce: null,
 };
 
 export const moviesSlice = createSlice({
@@ -41,6 +43,9 @@ export const moviesSlice = createSlice({
         setGenreList(state, { payload: genre_list }: PayloadAction<GenreType[]>) {
             state.genre_list = genre_list;
         },
+        setMoviesResponce(state, { payload: movies_responce }: PayloadAction<MoviesResponce>) {
+            state.movies_responce = movies_responce;
+        },
     },
 });
 
@@ -56,6 +61,7 @@ export const {
     setTotalResults,
     setMovieDetails,
     setGenreList,
+    setMoviesResponce,
 } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
