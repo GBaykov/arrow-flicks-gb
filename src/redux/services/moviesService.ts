@@ -9,8 +9,13 @@ import {
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import { GenreResponce, GenreType, MovieDetails, MoviesResponce } from '@redux/storeTypes';
+import { GenreResponce, MovieDetails, MoviesResponce } from '@redux/storeTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const headers = {
+    accept: 'application/json',
+    'Content-Type': 'application/json',
+};
 
 export const moviesAPI = createApi({
     reducerPath: 'moviesAPI',
@@ -24,6 +29,8 @@ export const moviesAPI = createApi({
             query: () => ({
                 url: ApiEndpoints.GENRE_LIST,
                 method: 'GET',
+                headers,
+                mode: 'no-cors',
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -42,6 +49,8 @@ export const moviesAPI = createApi({
             query: () => ({
                 url: ApiEndpoints.DISCOVER_MOVIES,
                 method: 'GET',
+                headers,
+                mode: 'no-cors',
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -66,6 +75,8 @@ export const moviesAPI = createApi({
             query: (id) => ({
                 url: `${ApiEndpoints.MOVIE_DEAILS}/${id}`,
                 method: 'GET',
+                headers,
+                mode: 'no-cors',
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {

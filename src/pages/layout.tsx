@@ -1,5 +1,6 @@
 import {
     AppShell,
+    Box,
     Burger,
     Button,
     Group,
@@ -14,6 +15,7 @@ import appLogo from '../assets/icons/logo.svg';
 import { useGetGenreListQuery, useGetMoviesQuery } from '@redux/services/moviesService';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { appIsLoading } from '@redux/reducers/appSlice';
+import { AppLoader } from '@components/loader';
 
 export type AppLayutProps = {
     children: ReactNode;
@@ -26,8 +28,8 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const theme = useMantineTheme();
     const isLoading = useAppSelector(appIsLoading);
     return (
-        <>
-            {isLoading && <Loader size='xl' />}
+        <Box pos='relative'>
+            {isLoading && <AppLoader visible={isLoading} />}
             {!isLoading && (
                 <AppShell
                     // TO DO:  withBorder={false}
@@ -55,6 +57,6 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                     <AppShell.Main p={'40px 90px 82px 370px'}>{children}</AppShell.Main>
                 </AppShell>
             )}
-        </>
+        </Box>
     );
 };
