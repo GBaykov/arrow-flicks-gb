@@ -2,16 +2,14 @@ import { API_URL, ApiEndpoints, IMG_BASE_URL, PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {
     ActionIcon,
+    Anchor,
     Button,
     Card,
     Flex,
     Group,
     Image,
-    NavLink,
     Stack,
     Text,
-    ThemeIcon,
-    rem,
     useMantineTheme,
 } from '@mantine/core';
 import { MovieItem } from '@redux/storeTypes';
@@ -64,17 +62,32 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                 <Flex justify='space-between' direction={'column'} w={'100%'} h={'100%'}>
                     <Stack>
                         <Group justify='space-between' wrap='nowrap'>
-                            <Button p={0} onClick={onNavLinkClick} variant='subtle'>
-                                <Text fw='600' size={'xl'}>
-                                    {movie_info.title}
-                                </Text>
-                            </Button>
+                            <Anchor
+                                underline='never'
+                                p={0}
+                                onClick={onNavLinkClick}
+                                variant='subtle'
+                                bg={'transparent'}
+                                style={{ wordWrap: 'break-word', display: 'inline-block' }}
+                                fw='600'
+                                size={'xl'}
+                            >
+                                {/* <Text
+                                    fw='600'
+                                    size={'xl'}
+                                    w={240}
+                                    style={{ wordWrap: 'break-word' }}
+                                > */}
+                                {movie_info.title}
+                                {/* </Text> */}
+                            </Anchor>
                             <ActionIcon
                                 size={'24px'}
                                 variant='transparent'
                                 color={isRated ? theme.colors.purple[5] : theme.colors.gray[3]}
                             >
                                 <img
+                                    style={{ border: 'none' }}
                                     src={isRated ? purpleStar : star}
                                     // src={star}
                                 />

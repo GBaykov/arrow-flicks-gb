@@ -30,7 +30,6 @@ export const moviesAPI = createApi({
                 url: ApiEndpoints.GENRE_LIST,
                 method: 'GET',
                 headers,
-                mode: 'no-cors',
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -50,7 +49,6 @@ export const moviesAPI = createApi({
                 url: ApiEndpoints.DISCOVER_MOVIES,
                 method: 'GET',
                 headers,
-                mode: 'no-cors',
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -76,7 +74,6 @@ export const moviesAPI = createApi({
                 url: `${ApiEndpoints.MOVIE_DEAILS}/${id}`,
                 method: 'GET',
                 headers,
-                mode: 'no-cors',
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
