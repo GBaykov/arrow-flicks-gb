@@ -20,7 +20,8 @@ export const AppModal: FC = () => {
     const onSaveRating = () => {
         if (chosenMovie) {
             const storagedMovie: StoragedItem = { movie: chosenMovie, personalRate: value };
-            console.log(value);
+
+            localStorage.removeItem('rated');
             if (!ratedMovie) {
                 ratedMovies.push(storagedMovie);
                 localStorage.setItem('rated', JSON.stringify(ratedMovies));
@@ -29,8 +30,9 @@ export const AppModal: FC = () => {
                     (item) => item.movie?.id !== chosenMovie?.id,
                 );
                 newRatedArr.push(storagedMovie);
+
                 localStorage.removeItem('rated');
-                localStorage.setItem('rated', JSON.stringify(ratedMovies));
+                localStorage.setItem('rated', JSON.stringify(newRatedArr));
             }
         }
         dispatch(setAppModal(null));

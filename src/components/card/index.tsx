@@ -13,7 +13,7 @@ import {
     useMantineTheme,
 } from '@mantine/core';
 import { MovieItem, StoragedItem } from '@redux/appTypes';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import yellowStar from '../../assets/icons/yellowStar.svg';
 import purpleStar from '../../assets/icons/purpleStar.svg';
@@ -25,22 +25,25 @@ export type FilmCardProps = {
 };
 
 import noPosterImg from '../../assets/images/noPoster.png';
-import { setAppModal } from '@redux/reducers/appSlice';
+import { appModal, setAppModal } from '@redux/reducers/appSlice';
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const genres = useAppSelector(genreList);
     const theme = useMantineTheme();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const chosenMovie = useAppSelector(appModal);
 
     const onMovieClick = () => {
         navigate(`${PATHS.MAIN}/${movie_info.id}`, { state: movie_info.id });
     };
 
     const storagedRated = localStorage.getItem('rated');
+
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
     const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
-    const isRated = Boolean(ratedMovie);
+    const [isRated, setIsRated] = useState(Boolean(ratedMovie));
+    // const isRated = Boolean(ratedMovie);
     const release_year = movie_info.release_date.split('-')[0];
     const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
     const getGenreNameById = (id: number) => {
@@ -54,9 +57,12 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
 
     const onStarClick = () => {
         dispatch(setAppModal(movie_info));
-        console.log(movie_info, 'OPEN');
     };
 
+    useEffect(() => {
+        setIsRated(Boolean(ratedMovie));
+    }, [chosenMovie]);
+    console.log('rerender,', movie_info.title);
     return (
         <Card padding={'24px'} withBorder h={218}>
             <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>
