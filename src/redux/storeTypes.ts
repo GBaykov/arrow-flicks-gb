@@ -90,7 +90,8 @@ export type MovieDetails = {
     status: string;
     tagline: string;
     title: string;
-    video: {
+    video: boolean;
+    videos: {
         results: MovieVideo[];
     };
     vote_average: number;

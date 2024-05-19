@@ -3,6 +3,7 @@ import {
     Box,
     Burger,
     Button,
+    Flex,
     Group,
     Loader,
     NavLink,
@@ -34,56 +35,69 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const isMovieOrMovieDetails = location.pathname.includes(PATHS.MAIN);
+    const isMovieOrMovieDetails =
+        location.pathname.includes(PATHS.MAIN) || location.pathname === PATHS.INITIAL;
 
     return (
-        <Box pos='relative'>
+        <Box pos='relative' m={'0 auto'} w={'100%'} bg={theme.colors.gray[1]}>
             {isLoading && <AppLoader visible={isLoading} />}
             {!isLoading && (
-                <AppShell
-                    // TO DO:  withBorder={false}
-                    w={'100%'}
-                    bg={theme.colors.gray[1]}
-                    withBorder={false}
-                    layout='alt'
-                    header={{ height: 40 }}
-                    navbar={{ width: 280, breakpoint: 'sm', collapsed: { mobile: !opened } }}
-                    padding='md'
-                >
-                    <AppShell.Header bg={theme.colors.gray[1]}>
-                        <Group h='100%' px='md'>
-                            <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
-                        </Group>
-                    </AppShell.Header>
-                    <AppShell.Navbar bg={theme.colors.purple[2]} p='xl'>
-                        <Group gap={'sm'}>
-                            <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
-                            <img src={appLogo} />
-                            <Text fw={600} size={'xxl'} c={theme.colors.purple[5]}>
-                                ArrowFlicks
-                            </Text>
-                            <Stack mt={80} gap={'md'} w={'100%'}>
-                                <NavLink
-                                    fz={'lg'}
-                                    component='button'
-                                    active={isMovieOrMovieDetails}
-                                    // label={'Movies'}
-                                    label={<Text fz={'lg'}>Movies</Text>}
-                                    onClick={() => navigate(PATHS.MAIN)}
+                <Flex justify={'center'}>
+                    <AppShell
+                        // TO DO:  withBorder={false}
+                        w={'100%'}
+                        bg={theme.colors.gray[1]}
+                        withBorder={false}
+                        layout='alt'
+                        header={{ height: 40 }}
+                        navbar={{ width: 280, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+                        padding='md'
+                    >
+                        <AppShell.Header bg={theme.colors.gray[1]}>
+                            <Group h='100%' px='md'>
+                                <Burger
+                                    opened={opened}
+                                    onClick={toggle}
+                                    hiddenFrom='sm'
+                                    size='sm'
                                 />
-                                <NavLink
-                                    fz={'lg'}
-                                    component='button'
-                                    active={location.pathname === PATHS.RATED_MOVIES}
-                                    // label={'Rated movies'}
-                                    label={<Text fz={'lg'}>Rated movies</Text>}
-                                    onClick={() => navigate(PATHS.RATED_MOVIES)}
+                            </Group>
+                        </AppShell.Header>
+                        <AppShell.Navbar bg={theme.colors.purple[2]} p='xl'>
+                            <Group gap={'sm'}>
+                                <Burger
+                                    opened={opened}
+                                    onClick={toggle}
+                                    hiddenFrom='sm'
+                                    size='sm'
                                 />
-                            </Stack>
-                        </Group>
-                    </AppShell.Navbar>
-                    <AppShell.Main p={'40px 90px 82px 370px'}>{children}</AppShell.Main>
-                </AppShell>
+                                <img src={appLogo} />
+                                <Text fw={600} size={'xxl'} c={theme.colors.purple[5]}>
+                                    ArrowFlicks
+                                </Text>
+                                <Stack mt={80} gap={'md'} w={'100%'}>
+                                    <NavLink
+                                        fz={'lg'}
+                                        component='button'
+                                        active={isMovieOrMovieDetails}
+                                        // label={'Movies'}
+                                        label={<Text fz={'lg'}>Movies</Text>}
+                                        onClick={() => navigate(PATHS.MAIN)}
+                                    />
+                                    <NavLink
+                                        fz={'lg'}
+                                        component='button'
+                                        active={location.pathname === PATHS.RATED_MOVIES}
+                                        // label={'Rated movies'}
+                                        label={<Text fz={'lg'}>Rated movies</Text>}
+                                        onClick={() => navigate(PATHS.RATED_MOVIES)}
+                                    />
+                                </Stack>
+                            </Group>
+                        </AppShell.Navbar>
+                        <AppShell.Main p={'40px 90px 82px 370px'}>{children}</AppShell.Main>
+                    </AppShell>
+                </Flex>
             )}
         </Box>
     );

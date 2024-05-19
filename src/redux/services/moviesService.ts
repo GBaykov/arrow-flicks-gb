@@ -71,7 +71,7 @@ export const moviesAPI = createApi({
         }),
         getMovieDetails: builder.query<MovieDetails, number>({
             query: (id) => ({
-                url: `${ApiEndpoints.MOVIE_DEAILS}/${id}`,
+                url: `${ApiEndpoints.MOVIE_DEAILS}/${id}?append_to_response=videos`,
                 method: 'GET',
                 headers,
             }),
@@ -95,6 +95,7 @@ export const moviesAPI = createApi({
 export const {
     useGetGenreListQuery,
     useGetMoviesQuery,
+    useGetMovieDetailsQuery,
     useLazyGetMoviesQuery,
     useLazyGetMovieDetailsQuery,
 } = moviesAPI;

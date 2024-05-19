@@ -31,8 +31,8 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const theme = useMantineTheme();
     const navigate = useNavigate();
 
-    const onNavLinkClick = () => {
-        navigate(`${PATHS.MAIN}/${movie_info.id}`);
+    const onMovieClick = () => {
+        navigate(`${PATHS.MAIN}/${movie_info.id}`, { state: movie_info.id });
     };
 
     const storagedRated = localStorage.getItem('rated');
@@ -65,7 +65,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                             <Anchor
                                 underline='never'
                                 p={0}
-                                onClick={onNavLinkClick}
+                                onClick={onMovieClick}
                                 variant='subtle'
                                 bg={'transparent'}
                                 style={{ wordWrap: 'break-word', display: 'inline-block' }}
@@ -91,6 +91,11 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                     src={isRated ? purpleStar : star}
                                     // src={star}
                                 />
+                                {isRated && (
+                                    <Text fw={600} fz={'lg'} lh={'sm'}>
+                                        {' '}
+                                    </Text>
+                                )}
                             </ActionIcon>
                         </Group>
                         <Text size='lg' fw='400' c={theme.colors.gray[6]}>
@@ -108,11 +113,11 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                             </Text>
                         </Group>
                     </Stack>
-                    <Group>
-                        {' '}
+                    <Group gap={'xs'}>
                         <Text size='lg' fw='400' c={theme.colors.gray[6]}>
                             Genres
                         </Text>
+
                         {displayedGenresIds.map((id, index) => {
                             return (
                                 <Text
@@ -124,7 +129,8 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                     c={theme.colors.gray[9]}
                                 >
                                     {getGenreNameById(id)}
-                                    {index !== movie_info.genre_ids.length - 1 && ','}
+                                    {index !== displayedGenresIds.length - 1 && `,`}
+                                    {<br />}
                                 </Text>
                             );
                         })}
