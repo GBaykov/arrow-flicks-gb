@@ -22,6 +22,7 @@ import { AppLoader } from '@components/loader';
 import { PATHS } from '@constants/general';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './active.module.css';
+import { AppModal } from '@components/modal';
 export type AppLayutProps = {
     children: ReactNode;
 };
@@ -37,9 +38,11 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
 
     const isMovieOrMovieDetails =
         location.pathname.includes(PATHS.MAIN) || location.pathname === PATHS.INITIAL;
+    // localStorage.clear();
 
     return (
         <Box pos='relative' m={'0 auto'} w={'100%'} bg={theme.colors.gray[1]}>
+            {<AppModal />}
             {isLoading && <AppLoader visible={isLoading} />}
             {!isLoading && (
                 <Flex justify={'center'}>
@@ -95,7 +98,9 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                                 </Stack>
                             </Group>
                         </AppShell.Navbar>
-                        <AppShell.Main p={'40px 90px 82px 370px'}>{children}</AppShell.Main>
+                        <AppShell.Main miw={'100%'} p={'40px 90px 82px 370px'}>
+                            {children}
+                        </AppShell.Main>
                     </AppShell>
                 </Flex>
             )}

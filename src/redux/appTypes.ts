@@ -97,3 +97,8 @@ export type MovieDetails = {
     vote_average: number;
     vote_count: number;
 };
+
+export type StoragedItem = {
+    movie: MovieItem;
+    personalRate: number;
+};

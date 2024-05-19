@@ -9,7 +9,7 @@ import {
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import { GenreResponce, MovieDetails, MoviesResponce } from '@redux/storeTypes';
+import { GenreResponce, MovieDetails, MoviesResponce } from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const headers = {
@@ -55,8 +55,6 @@ export const moviesAPI = createApi({
                 try {
                     dispatch(setAppLoading(true));
                     const { data } = await queryFulfilled;
-
-                    console.log(data.results);
                     dispatch(setMoviesResponce(data));
                     dispatch(setMovieList(data.results));
                     dispatch(setPage(data.page));

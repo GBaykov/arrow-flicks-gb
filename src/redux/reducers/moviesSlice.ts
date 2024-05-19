@@ -1,5 +1,5 @@
 import { ApplicationState } from '@redux/configure-store';
-import { GenreType, MovieDetails, MoviesList, MoviesResponce } from '@redux/storeTypes';
+import { GenreType, MovieDetails, MoviesList, MoviesResponce } from '@redux/appTypes';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type MoviesState = {

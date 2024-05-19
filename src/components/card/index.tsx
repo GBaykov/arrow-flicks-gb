@@ -12,7 +12,7 @@ import {
     Text,
     useMantineTheme,
 } from '@mantine/core';
-import { MovieItem } from '@redux/storeTypes';
+import { MovieItem, StoragedItem } from '@redux/appTypes';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import yellowStar from '../../assets/icons/yellowStar.svg';
@@ -25,19 +25,22 @@ export type FilmCardProps = {
 };
 
 import noPosterImg from '../../assets/images/noPoster.png';
+import { setAppModal } from '@redux/reducers/appSlice';
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const genres = useAppSelector(genreList);
     const theme = useMantineTheme();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const onMovieClick = () => {
         navigate(`${PATHS.MAIN}/${movie_info.id}`, { state: movie_info.id });
     };
 
     const storagedRated = localStorage.getItem('rated');
-    const ratedMovieIds: number[] = storagedRated ? JSON.parse(storagedRated) : [];
-    const isRated = ratedMovieIds.includes(movie_info.id);
+    const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
+    const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
+    const isRated = Boolean(ratedMovie);
     const release_year = movie_info.release_date.split('-')[0];
     const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
     const getGenreNameById = (id: number) => {
@@ -47,6 +50,11 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
 
     const getPoster = (path: string, poster_width: string) => {
         return path ? `${IMG_BASE_URL}${poster_width}${movie_info.poster_path}` : noPosterImg;
+    };
+
+    const onStarClick = () => {
+        dispatch(setAppModal(movie_info));
+        console.log(movie_info, 'OPEN');
     };
 
     return (
@@ -81,22 +89,25 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                 {movie_info.title}
                                 {/* </Text> */}
                             </Anchor>
-                            <ActionIcon
-                                size={'24px'}
-                                variant='transparent'
-                                color={isRated ? theme.colors.purple[5] : theme.colors.gray[3]}
-                            >
-                                <img
-                                    style={{ border: 'none' }}
-                                    src={isRated ? purpleStar : star}
-                                    // src={star}
-                                />
+                            <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>
+                                <ActionIcon
+                                    // size={'24px'}
+                                    variant='transparent'
+                                    // color={isRated ? theme.colors.purple[5] : theme.colors.gray[3]}
+                                    onClick={onStarClick}
+                                >
+                                    <img
+                                        style={{ border: 'none' }}
+                                        src={isRated ? purpleStar : star}
+                                        // src={star}
+                                    />
+                                </ActionIcon>
                                 {isRated && (
                                     <Text fw={600} fz={'lg'} lh={'sm'}>
-                                        {' '}
+                                        {ratedMovie?.personalRate}
                                     </Text>
                                 )}
-                            </ActionIcon>
+                            </Flex>
                         </Group>
                         <Text size='lg' fw='400' c={theme.colors.gray[6]}>
                             {release_year}
