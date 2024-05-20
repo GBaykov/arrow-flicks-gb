@@ -1,35 +1,24 @@
-import { MovieItem } from '@redux/appTypes';
+import { SortTypes } from '@constants/enums';
+import { AppFilters, MovieItem } from '@redux/appTypes';
 import { ApplicationState } from '@redux/configure-store';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-export type AppFilters = {
-    genre_ids: number[];
-    year: string;
-
-    rating: {
-        from: number;
-        to: number;
-    };
-};
-
 export type AppState = {
     filters: AppFilters;
-    sortBy: string;
+    sort_by: SortTypes;
     isLoading: boolean;
     movieForModal: MovieItem | null;
 };
 const intialFilters = {
-    genre_ids: [],
-    year: '',
-    rating: {
-        from: 0,
-        to: 10,
-    },
+    with_genres: [''],
+    primary_release_year: '',
+    'vote_average.lte': 0,
+    'vote_average.gte': 0,
 };
 
 const initialState: AppState = {
     filters: intialFilters,
-    sortBy: '',
+    sort_by: SortTypes.MostPopular,
     isLoading: false,
     movieForModal: null,
 };
@@ -44,8 +33,8 @@ export const appSlice = createSlice({
         setAppModal(state, { payload: movieForModal }: PayloadAction<MovieItem | null>) {
             state.movieForModal = movieForModal;
         },
-        setAppSortBy(state, { payload: sortBy }: PayloadAction<string>) {
-            state.sortBy = sortBy;
+        setAppSortBy(state, { payload: sort_by }: PayloadAction<SortTypes>) {
+            state.sort_by = sort_by;
         },
         setAppFilters(state, { payload }: PayloadAction<AppFilters>) {
             state.filters = payload;
@@ -56,7 +45,7 @@ export const appSlice = createSlice({
 export const appSelector = (state: ApplicationState) => state.app;
 export const appIsLoading = (state: ApplicationState) => state.app.isLoading;
 export const appFilters = (state: ApplicationState) => state.app.filters;
-export const appSortBy = (state: ApplicationState) => state.app.sortBy;
+export const appSortBy = (state: ApplicationState) => state.app.sort_by;
 export const appModal = (state: ApplicationState) => state.app.movieForModal;
 
 export const { setAppFilters, setAppLoading, setAppSortBy, setAppModal } = appSlice.actions;

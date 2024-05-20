@@ -43,7 +43,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
     const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
-    // const isRated = Boolean(ratedMovie);
     const release_year = movie_info.release_date.split('-')[0];
     const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
     const getGenreNameById = (id: number) => {
@@ -62,7 +61,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     useEffect(() => {
         setIsRated(Boolean(ratedMovie));
     }, [chosenMovie]);
-    console.log('rerender,', movie_info.title);
     return (
         <Card padding={'24px'} withBorder h={218}>
             <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>

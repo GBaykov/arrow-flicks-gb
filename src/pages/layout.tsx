@@ -17,12 +17,13 @@ import { FC, ReactNode } from 'react';
 import appLogo from '../assets/icons/logo.svg';
 import { useGetGenreListQuery, useGetMoviesQuery } from '@redux/services/moviesService';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { appIsLoading } from '@redux/reducers/appSlice';
+import { appFilters, appIsLoading, appSortBy } from '@redux/reducers/appSlice';
 import { AppLoader } from '@components/loader';
 import { PATHS } from '@constants/general';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './active.module.css';
 import { AppModal } from '@components/modal';
+import { moviesPage } from '@redux/reducers/moviesSlice';
 export type AppLayutProps = {
     children: ReactNode;
 };
@@ -30,7 +31,11 @@ export type AppLayutProps = {
 export const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const [opened, { toggle }] = useDisclosure();
     const { data: genres_data } = useGetGenreListQuery();
-    const { data: movies_data } = useGetMoviesQuery();
+    const page = useAppSelector(moviesPage);
+    // const filters = useAppSelector(appFilters);
+    // const { from, to, year, genre_ids } = filters;
+    // const sort = useAppSelector(appSortBy);
+    const { data } = useGetMoviesQuery({ page, language: 'en-US' });
     const theme = useMantineTheme();
     const isLoading = useAppSelector(appIsLoading);
     const location = useLocation();

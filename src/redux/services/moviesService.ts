@@ -9,7 +9,13 @@ import {
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import { GenreResponce, MovieDetails, MoviesResponce } from '@redux/appTypes';
+import {
+    AppFilters,
+    GenreResponce,
+    GetMoviesArgs,
+    MovieDetails,
+    MoviesResponce,
+} from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const headers = {
@@ -44,12 +50,24 @@ export const moviesAPI = createApi({
             },
             providesTags: ['GenreList'],
         }),
-        getMovies: builder.query<MoviesResponce, void>({
-            query: () => ({
-                url: ApiEndpoints.DISCOVER_MOVIES,
-                method: 'GET',
-                headers,
-            }),
+        getMovies: builder.query<MoviesResponce, GetMoviesArgs>({
+            query: (arg) => {
+                // const { genre_ids, year, from, to, sort, page } = arg;
+
+                console.log(arg);
+
+                return {
+                    url: ApiEndpoints.DISCOVER_MOVIES,
+                    method: 'GET',
+                    headers,
+                    params: arg,
+                    // params: {
+                    //     'vote_average.lte': arg.vote_average.lte,
+                    //     'vote_average.gte': arg.vote_average.gte,
+                    //     ...arg,
+                    // },
+                };
+            },
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
