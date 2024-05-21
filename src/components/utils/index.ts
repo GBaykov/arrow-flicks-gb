@@ -1,5 +1,5 @@
 import { SortTypes } from '@constants/enums';
-import { AppFilters, GetMoviesArgs } from '@redux/appTypes';
+import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
 
 export const getMoviesYears = () => {
     const FirstFilmYear = 1895;
@@ -38,4 +38,12 @@ export const moviesArgsConstructor = (filters?: AppFilters, page?: number, sort_
 
     console.log(args);
     return args;
+};
+
+export const getGenreIdsByLabels = (allGenres: GenreType[], names: string[]) => {
+    return allGenres.filter((genre) => names.includes(genre.name)).map((genre) => genre.id);
+};
+
+export const getGenreLabelsByIds = (allGenres: GenreType[], ids: number[]) => {
+    return allGenres.filter((genre) => ids.includes(genre.id)).map((genre) => genre.name);
 };

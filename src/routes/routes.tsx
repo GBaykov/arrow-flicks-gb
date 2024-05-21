@@ -3,7 +3,7 @@ import { ErrorPage } from '@pages/errorPage';
 import { MainPage } from '@pages/mainPage';
 import { MovieDetailPage } from '@pages/moviePage';
 import { RatedMoviesPage } from '@pages/ratedPage';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 export const routes = (
     <Routes>

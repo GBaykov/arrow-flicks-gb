@@ -104,7 +104,7 @@ export type StoragedItem = {
 };
 
 export type AppFilters = {
-    with_genres: string[];
+    with_genres: number[];
     primary_release_year: string;
     'vote_average.lte': number;
     'vote_average.gte': number;

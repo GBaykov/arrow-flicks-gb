@@ -1,4 +1,9 @@
-import { getMoviesYears, moviesArgsConstructor } from '@components/utils';
+import {
+    getGenreIdsByLabels,
+    getGenreLabelsByIds,
+    getMoviesYears,
+    moviesArgsConstructor,
+} from '@components/utils';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {
     TextInput,
@@ -20,6 +25,15 @@ import { genreList, moviesPage } from '@redux/reducers/moviesSlice';
 import { useGetMoviesQuery, useLazyGetMoviesQuery } from '@redux/services/moviesService';
 import { FC, useEffect } from 'react';
 
+export type FormFilters = {
+    genre_names: string[];
+    primary_release_year: string;
+    vote_average: {
+        lte: number;
+        gte: number;
+    };
+};
+
 export const MoviesForm: FC = () => {
     const dispatch = useAppDispatch();
     const page = useAppSelector(moviesPage);
@@ -27,72 +41,83 @@ export const MoviesForm: FC = () => {
     const sort_by = useAppSelector(appSortBy);
     const [getMovies] = useLazyGetMoviesQuery();
     const theme = useMantineTheme();
-    const genreListNames = useAppSelector(genreList).map((item) => item.name);
+    const genres = useAppSelector(genreList);
+    const genreListNames = genres.map((item) => item.name);
     const releaseYearsData = getMoviesYears();
-    const form: UseFormReturnType<AppFilters> = useForm({
+    const genreLabels = getGenreLabelsByIds(genres, filters.with_genres);
+
+    const form: UseFormReturnType<FormFilters> = useForm({
         mode: 'controlled',
         initialValues: {
-            with_genres: [],
-            primary_release_year: '',
-            'vote_average.lte': 0,
-            'vote_average.gte': 0,
+            genre_names: genreLabels,
+            primary_release_year: filters.primary_release_year,
+            vote_average: {
+                lte: filters['vote_average.lte'],
+                gte: filters['vote_average.gte'],
+            },
         },
 
-        onValuesChange: (values: AppFilters) => {
-            console.log(values);
+        onValuesChange: (values: FormFilters) => {
             form.validate();
-            dispatch(setAppFilters(values));
+            console.log(values);
+            const { genre_names, primary_release_year, vote_average } = values;
+
+            const with_genres = getGenreIdsByLabels(genres, genre_names);
+            const formFilters = {
+                with_genres,
+                primary_release_year,
+                'vote_average.lte': vote_average.lte,
+                'vote_average.gte': vote_average.gte,
+            };
+
+            dispatch(setAppFilters(formFilters));
+
+            if (Object.getOwnPropertyNames(form.errors).length === 0) {
+                const args = moviesArgsConstructor(formFilters, page, sort_by);
+                console.log(args);
+                getMovies(args);
+            } else console.log(form.errors);
         },
 
-        // validate: {
-        //     'vote_average.lte': (value) =>
-        //         Number(value) >= 1 && Number(value) <= Number(form.getValues()['vote_average.gte'])
-        //             ? null
-        //             : 'Сhoose correct year',
-
-        //     'vote_average.gte': (value) =>
-        //         Number(value) >= Number(form.getValues()['vote_average.lte']) && Number(value) <= 10
-        //             ? null
-        //             : 'Сhoose correct year',
-        // },
+        validate: {
+            vote_average: (value) =>
+                Number(value.lte) >= 0 &&
+                Number(value.lte) <= Number(value.gte) &&
+                Number(value.gte) <= 10
+                    ? null
+                    : 'Сhoose correct rate',
+        },
     });
 
-    const onFormChange = (values: AppFilters, event?: React.FormEvent<HTMLFormElement>) => {
-        console.log(event, values);
-        event?.preventDefault();
-        form.validate();
-        dispatch(setAppFilters(values));
-    };
+    // const onFormChange = (values: AppFilters, event?: React.FormEvent<HTMLFormElement>) => {
+    //     console.log(event, values);
+    //     event?.preventDefault();
+    //     form.validate();
+    //     dispatch(setAppFilters(values));
+    // };
+    // console.log(form.values);
 
-    useEffect(() => {
-        console.log(form.errors);
-        if (!form.errors) {
-            const args = moviesArgsConstructor(filters, page, sort_by);
-            getMovies(args);
-        }
-    }, [filters, sort_by]);
-
-    useEffect(() => {
-        console.log(form.errors);
-        if (!form.errors) {
-            const args = moviesArgsConstructor(filters, page, sort_by);
-            getMovies(args);
-        }
-    }, [filters]);
+    // useEffect(() => {
+    //     console.log(form.errors);
+    //     if (Object.getOwnPropertyNames(form.errors).length === 0) {
+    //         const args = moviesArgsConstructor(filters, page, sort_by);
+    //         getMovies(args);
+    //     }
+    // }, [filters, page, sort_by]);
 
     return (
         <form
-            onChange={form.onSubmit((values, event) => onFormChange(values, event))}
-            onSubmit={form.onSubmit((values, event) => onFormChange(values, event))}
-            // onSubmit={(e) => onFormChange(e)}
+        // onChange={form.onSubmit((values, event) => onFormChange(values, event))}
+        // onSubmit={form.onSubmit((values, event) => onFormChange(values, event))}
+        // onSubmit={(e) => onFormChange(e)}
         >
             <Flex>
                 <MultiSelect
                     label='Genres'
                     placeholder='Select genre'
                     data={genreListNames}
-                    key={form.key('with_genres')}
-                    {...form.getInputProps('with_genres')}
+                    key={form.key('genre_names')}
+                    // {...form.getInputProps('genre_names')}
                 />
                 <Select
                     label='Release year'
@@ -101,7 +126,7 @@ export const MoviesForm: FC = () => {
                     key={form.key('primary_release_year')}
                     {...form.getInputProps('primary_release_year')}
                 />
-                <Stack>
+                <Group>
                     <NumberInput
                         label='Ratings'
                         placeholder='From'
@@ -113,15 +138,11 @@ export const MoviesForm: FC = () => {
                         key={form.key('vote_average.gte')}
                         {...form.getInputProps('vote_average.gte')}
                     />
-                </Stack>
+                </Group>
                 <Button onClick={() => form.reset()} variant='transparent' c={theme.colors.gray[6]}>
                     Reset filters
                 </Button>
             </Flex>
-
-            <Group justify='flex-end' mt='md'>
-                <Button type='submit'>Submit</Button>
-            </Group>
         </form>
     );
 };

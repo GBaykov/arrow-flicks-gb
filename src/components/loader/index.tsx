@@ -8,6 +8,7 @@ export const AppLoader: FC<AppLoaderProps> = ({ visible }) => {
     return (
         <Box pos='relative' w={'100%'} h={'100%'} miw={320} mih={'100vh'} m={'0 auto'}>
             <LoadingOverlay
+                w={'100%'}
                 visible={visible}
                 zIndex={1000}
                 overlayProps={{ radius: 'xl', blur: 2 }}
