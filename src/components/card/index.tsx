@@ -1,9 +1,8 @@
-import { API_URL, ApiEndpoints, IMG_BASE_URL, PATHS } from '@constants/general';
+import { IMG_BASE_URL, PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {
     ActionIcon,
     Anchor,
-    Button,
     Card,
     Flex,
     Group,
@@ -26,8 +25,10 @@ export type FilmCardProps = {
 
 import noPosterImg from '../../assets/images/noPoster.png';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
+import { voteCountReduction } from '@components/utils';
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
+    console.log(movie_info);
     const genres = useAppSelector(genreList);
     const theme = useMantineTheme();
     const navigate = useNavigate();
@@ -44,7 +45,8 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
     const release_year = movie_info.release_date.split('-')[0];
-    const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
+    // const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
+    const displayedGenresIds = movie_info.genre_ids;
     const getGenreNameById = (id: number) => {
         const genre = genres.find((item) => item.id === id);
         return genre?.name;
@@ -62,7 +64,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
         setIsRated(Boolean(ratedMovie));
     }, [chosenMovie]);
     return (
-        <Card padding={'24px'} withBorder h={218}>
+        <Card padding={'24px'} withBorder mih={218}>
             <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>
                 {' '}
                 <img
@@ -123,7 +125,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                             </Text>
                             <Text fw='400' size='lg' c={theme.colors.gray[6]}>
                                 {'('}
-                                {movie_info.vote_count}
+                                {voteCountReduction(movie_info.vote_count)}
                                 {')'}
                             </Text>
                         </Group>

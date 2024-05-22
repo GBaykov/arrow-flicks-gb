@@ -2,14 +2,11 @@ import {
     AppShell,
     Box,
     Burger,
-    Button,
     Flex,
     Group,
-    Loader,
     NavLink,
     Stack,
     Text,
-    Title,
     useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -19,23 +16,25 @@ import { useGetGenreListQuery, useGetMoviesQuery } from '@redux/services/moviesS
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { appFilters, appIsLoading, appSortBy } from '@redux/reducers/appSlice';
 import { AppLoader } from '@components/loader';
-import { PATHS } from '@constants/general';
+import { PATHS, sortData } from '@constants/general';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './active.module.css';
 import { AppModal } from '@components/modal';
 import { moviesPage } from '@redux/reducers/moviesSlice';
+import { moviesArgsConstructor } from '@components/utils';
 export type AppLayutProps = {
     children: ReactNode;
 };
 
 export const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const [opened, { toggle }] = useDisclosure();
-    const { data: genres_data } = useGetGenreListQuery();
+    useGetGenreListQuery();
     const page = useAppSelector(moviesPage);
-    // const filters = useAppSelector(appFilters);
-    // const { from, to, year, genre_ids } = filters;
-    // const sort = useAppSelector(appSortBy);
-    const { data } = useGetMoviesQuery({ page, language: 'en-US' });
+    const filters = useAppSelector(appFilters);
+    const sortBy = useAppSelector(appSortBy);
+    const sort_by = sortData.find((item) => item.label === sortBy)?.name;
+    const args = moviesArgsConstructor(filters, page, sort_by);
+    useGetMoviesQuery(args);
     const theme = useMantineTheme();
     const isLoading = useAppSelector(appIsLoading);
     const location = useLocation();
@@ -43,7 +42,6 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
 
     const isMovieOrMovieDetails =
         location.pathname.includes(PATHS.MAIN) || location.pathname === PATHS.INITIAL;
-    // localStorage.clear();
 
     return (
         <Box pos='relative' m={'0 auto'} w={'100%'} bg={theme.colors.gray[1]}>
@@ -52,7 +50,6 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
             {!isLoading && (
                 <Flex justify={'center'}>
                     <AppShell
-                        // TO DO:  withBorder={false}
                         w={'100%'}
                         bg={theme.colors.gray[1]}
                         withBorder={false}

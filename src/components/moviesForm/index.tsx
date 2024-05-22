@@ -19,7 +19,13 @@ import {
 } from '@mantine/core';
 import { UseFormReturnType, isInRange, useForm } from '@mantine/form';
 
-import { appFilters, appSortBy, setAppFilters } from '@redux/reducers/appSlice';
+import {
+    appFilters,
+    appSortBy,
+    setAppFilters,
+    setAppSortBy,
+    setResetFilters,
+} from '@redux/reducers/appSlice';
 import { genreList, moviesPage } from '@redux/reducers/moviesSlice';
 import { useLazyGetMoviesQuery } from '@redux/services/moviesService';
 import { FC } from 'react';
@@ -35,7 +41,7 @@ export const MoviesForm: FC = () => {
     const dispatch = useAppDispatch();
     const page = useAppSelector(moviesPage);
     const filters = useAppSelector(appFilters);
-    const sort_by = useAppSelector(appSortBy);
+    const sortBy = useAppSelector(appSortBy);
     const [getMovies] = useLazyGetMoviesQuery();
     const theme = useMantineTheme();
     const genres = useAppSelector(genreList);
@@ -53,20 +59,10 @@ export const MoviesForm: FC = () => {
             vote_average_gte: filters['vote_average.gte'],
         },
 
-        validate: {
-            vote_average_lte: isInRange({ min: 1, max: 3 }, 'Value must be between 1 and 3'),
-
-            vote_average_gte: isInRange({ min: 4, max: 6 }, 'Value must be between 4 and 6'),
-        },
-
         onValuesChange: (values: FormFilters) => {
             form.validate();
-            console.log(form.validate);
-            form.isValid();
-            console.log(form.isValid());
             if (Object.getOwnPropertyNames(form.errors).length === 0) {
                 const { genre_names, primary_release_year } = values;
-
                 const with_genres = getGenreIdsByLabels(genres, genre_names);
                 const formFilters = {
                     with_genres,
@@ -74,6 +70,7 @@ export const MoviesForm: FC = () => {
                     'vote_average.lte': values['vote_average_lte'],
                     'vote_average.gte': values['vote_average_gte'],
                 };
+                const sort_by = sortData.find((item) => item.label === sortBy)?.name;
 
                 dispatch(setAppFilters(formFilters));
 
@@ -84,10 +81,34 @@ export const MoviesForm: FC = () => {
         },
     });
 
+    const onSortSelect = (value: string | null) => {
+        const { genre_names, primary_release_year } = form.values;
+        const with_genres = getGenreIdsByLabels(genres, genre_names);
+        const formFilters = {
+            with_genres,
+            primary_release_year,
+            'vote_average.lte': form.values['vote_average_lte'],
+            'vote_average.gte': form.values['vote_average_gte'],
+        };
+        console.log(value);
+        const sorValue = value as SortTypes;
+        const sort_by = sortData.find((item) => item.label === sorValue)?.name;
+
+        dispatch(setAppSortBy(sorValue));
+
+        const args = moviesArgsConstructor(formFilters, page, sort_by);
+        console.log(args);
+        getMovies(args);
+    };
+    const onResetClick = () => {
+        form.reset();
+        dispatch(setResetFilters());
+    };
+
     return (
         <Stack>
             <form>
-                <Flex>
+                <Flex gap={'md'} align={'flex-end'}>
                     <MultiSelect
                         label='Genres'
                         placeholder='Select genre'
@@ -102,7 +123,7 @@ export const MoviesForm: FC = () => {
                         key={form.key('primary_release_year')}
                         {...form.getInputProps('primary_release_year')}
                     />
-                    <Group>
+                    <Group gap={'xs'}>
                         <NumberInput
                             label='Ratings'
                             placeholder='From'
@@ -125,7 +146,7 @@ export const MoviesForm: FC = () => {
                         />
                     </Group>
                     <Button
-                        onClick={() => form.reset()}
+                        onClick={() => onResetClick()}
                         variant='transparent'
                         c={theme.colors.gray[6]}
                     >
@@ -133,11 +154,15 @@ export const MoviesForm: FC = () => {
                     </Button>
                 </Flex>
             </form>
-            <Select
-                label='Sort by'
-                data={sortData.map((item) => item.label)}
-                defaultValue={SortTypes.MostPopular}
-            />
+            <Flex justify={'flex-end'} w={'100%'}>
+                <Select
+                    onChange={(v) => onSortSelect(v)}
+                    maw={'284px'}
+                    label='Sort by'
+                    data={sortData.map((item) => item.label)}
+                    defaultValue={sortBy}
+                />
+            </Flex>
         </Stack>
     );
 };

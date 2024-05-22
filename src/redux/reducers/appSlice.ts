@@ -5,7 +5,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type AppState = {
     filters: AppFilters;
-    sort_by: SortTypes;
+    sort_by: string;
     isLoading: boolean;
     movieForModal: MovieItem | null;
 };
@@ -18,7 +18,7 @@ const intialFilters = {
 
 const initialState: AppState = {
     filters: intialFilters,
-    sort_by: SortTypes.MostPopular,
+    sort_by: 'Most Popular',
     isLoading: false,
     movieForModal: null,
 };
@@ -39,6 +39,9 @@ export const appSlice = createSlice({
         setAppFilters(state, { payload }: PayloadAction<AppFilters>) {
             state.filters = payload;
         },
+        setResetFilters(state) {
+            state.filters = intialFilters;
+        },
     },
 });
 
@@ -48,5 +51,6 @@ export const appFilters = (state: ApplicationState) => state.app.filters;
 export const appSortBy = (state: ApplicationState) => state.app.sort_by;
 export const appModal = (state: ApplicationState) => state.app.movieForModal;
 
-export const { setAppFilters, setAppLoading, setAppSortBy, setAppModal } = appSlice.actions;
+export const { setAppFilters, setAppLoading, setAppSortBy, setAppModal, setResetFilters } =
+    appSlice.actions;
 export default appSlice.reducer;
