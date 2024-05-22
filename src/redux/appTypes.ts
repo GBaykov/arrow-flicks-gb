@@ -106,8 +106,8 @@ export type StoragedItem = {
 export type AppFilters = {
     with_genres: number[];
     primary_release_year: string;
-    'vote_average.lte': number;
-    'vote_average.gte': number;
+    'vote_average.lte': number | null;
+    'vote_average.gte': number | null;
 };
 
 export type GetMoviesArgs = Partial<AppFilters> & {

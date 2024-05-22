@@ -10,10 +10,10 @@ export type AppState = {
     movieForModal: MovieItem | null;
 };
 const intialFilters = {
-    with_genres: [''],
+    with_genres: [],
     primary_release_year: '',
-    'vote_average.lte': 0,
-    'vote_average.gte': 0,
+    'vote_average.lte': null,
+    'vote_average.gte': null,
 };
 
 const initialState: AppState = {

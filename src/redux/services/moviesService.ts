@@ -52,20 +52,11 @@ export const moviesAPI = createApi({
         }),
         getMovies: builder.query<MoviesResponce, GetMoviesArgs>({
             query: (arg) => {
-                // const { genre_ids, year, from, to, sort, page } = arg;
-
-                console.log(arg);
-
                 return {
                     url: ApiEndpoints.DISCOVER_MOVIES,
                     method: 'GET',
                     headers,
                     params: arg,
-                    // params: {
-                    //     'vote_average.lte': arg.vote_average.lte,
-                    //     'vote_average.gte': arg.vote_average.gte,
-                    //     ...arg,
-                    // },
                 };
             },
 
