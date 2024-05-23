@@ -1,4 +1,6 @@
 import {
+    Button,
+    Pagination,
     VariantColorsResolver,
     createTheme,
     darken,
@@ -159,4 +161,18 @@ export const AppMantineTheme = createTheme({
         xl: '90em',
     },
     focusRing: 'never',
+    components: {
+        // Button: Button.extend({
+        //     classNames: {
+        //         root: 'pagination-root-class',
+        //         control: 'pagination-control-class',
+        //         dots: '.mantine-Pagination-dots',
+        //     },
+        //     styles: {
+        //         root: { backgroundColor: 'p' },
+        //         dots: { display: 'none' },
+        //         control: {},
+        //     },
+        // }),
+    },
 });

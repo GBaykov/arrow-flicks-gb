@@ -75,7 +75,7 @@ export const MoviesForm: FC = () => {
                 dispatch(setAppFilters(formFilters));
 
                 const args = moviesArgsConstructor(formFilters, page, sort_by);
-                console.log(args);
+
                 getMovies(args);
             } else console.log(form.errors);
         },
@@ -90,14 +90,14 @@ export const MoviesForm: FC = () => {
             'vote_average.lte': form.values['vote_average_lte'],
             'vote_average.gte': form.values['vote_average_gte'],
         };
-        console.log(value);
+
         const sorValue = value as SortTypes;
         const sort_by = sortData.find((item) => item.label === sorValue)?.name;
 
         dispatch(setAppSortBy(sorValue));
 
         const args = moviesArgsConstructor(formFilters, page, sort_by);
-        console.log(args);
+
         getMovies(args);
     };
     const onResetClick = () => {

@@ -28,7 +28,6 @@ import { appModal, setAppModal } from '@redux/reducers/appSlice';
 import { voteCountReduction } from '@components/utils';
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
-    console.log(movie_info);
     const genres = useAppSelector(genreList);
     const theme = useMantineTheme();
     const navigate = useNavigate();

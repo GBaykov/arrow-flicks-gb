@@ -36,7 +36,6 @@ export const moviesArgsConstructor = (filters?: AppFilters, page?: number, sort_
         args['vote_average.gte'] = filters['vote_average.gte'];
     }
 
-    console.log(args);
     return args;
 };
 

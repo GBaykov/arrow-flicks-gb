@@ -7,6 +7,8 @@ export const RESERVE_API_URL = 'https://exciting-analysis-production.up.railway.
 
 export const IMG_BASE_URL = 'http://image.tmdb.org/t/p/';
 
+export const MAX_PAGES_COUNT = 500;
+
 export enum ApiEndpoints {
     DISCOVER_MOVIES = 'discover/movie',
     GENRE_LIST = 'genre/movie/list',

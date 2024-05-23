@@ -51,6 +51,7 @@ export const moviesSlice = createSlice({
 
 export const moviesSelector = (state: ApplicationState) => state.movies;
 export const moviesPage = (state: ApplicationState) => state.movies.page;
+export const moviesTotalPages = (state: ApplicationState) => state.movies.total_pages;
 export const moviesList = (state: ApplicationState) => state.movies.movies_list;
 export const genreList = (state: ApplicationState) => state.movies.genre_list;
 
