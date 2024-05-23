@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { AppLayout } from '@pages/layout';
-import { appIsLoading, appModal, setAppModal } from '@redux/reducers/appSlice';
+import { appModal, setAppModal } from '@redux/reducers/appSlice';
 import { useGetMovieDetailsQuery } from '@redux/services/moviesService';
 import { MovieVideo, StoragedItem } from '@redux/appTypes';
 import { FC, useEffect, useState } from 'react';
@@ -10,46 +10,38 @@ import {
     Anchor,
     Breadcrumbs,
     Card,
+    Divider,
     Flex,
     Group,
     Image,
     Stack,
     Text,
+    Title,
     useMantineTheme,
 } from '@mantine/core';
 import { PATHS } from '@constants/general';
 import { getPoster, voteCountReduction } from '@components/utils';
-import { genreList, movieDetails, moviesList } from '@redux/reducers/moviesSlice';
+import { movieDetails, moviesList } from '@redux/reducers/moviesSlice';
 import yellowStar from '../../assets/icons/yellowStar.svg';
 import purpleStar from '../../assets/icons/purpleStar.svg';
 import star from '../../assets/icons/star.svg';
 import moment from 'moment';
-
-// const breadcrumbsCreate = (title: string) => {
-//     const items = [
-//         { title: 'Movies', href: PATHS.MAIN },
-//         { title: title, href: '#' },
-//     ].map((item, index) => (
-//         <Anchor href={item.href} key={index}>
-//             {item.title}
-//         </Anchor>
-//     ));
-// };
 
 export const MovieDetailPage: FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const theme = useMantineTheme();
-    const genres = useAppSelector(genreList);
+
     const movieID = Number(location.state);
     const { data } = useGetMovieDetailsQuery(movieID);
     const movie_info = useAppSelector(movieDetails);
-    console.log(movie_info);
+
     const chosenMovie = useAppSelector(appModal);
     const movies = useAppSelector(moviesList);
 
-    const videosArray: MovieVideo[] = movie_info?.videos?.results || [];
+    const movieTrailer: MovieVideo | null =
+        movie_info?.videos?.results.filter((item) => item.type === 'Trailer')[0] || null;
 
     const onMovieClick = () => {
         navigate(`${PATHS.MAIN}/${movieID}`, { state: movieID });
@@ -61,14 +53,7 @@ export const MovieDetailPage: FC = () => {
     const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
     const release_year = movie_info?.release_date.split('-')[0];
-    // const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
     const displayedGenresIds = movie_info?.genres;
-    console.log(displayedGenresIds);
-
-    const getGenreNameById = (id: number) => {
-        const genre = genres.find((item) => item.id === id);
-        return genre?.name;
-    };
 
     const onStarClick = () => {
         const movieForModal = movies.find((movie) => movie.id == movieID);
@@ -86,17 +71,15 @@ export const MovieDetailPage: FC = () => {
             const h = Math.floor(minutes / 60);
             const min = String(minutes - h * 60);
             const m = min.length === 2 ? min : `0${min}`;
-            console.log(h, m);
             return `${h}h${' '}${m}m`;
         }
     };
-    // const release = {moment(movie_info?.release_date).format('MMMM.D.YYYY')}
 
     return (
         <AppLayout>
             <Stack>
                 <Breadcrumbs>
-                    <Anchor href={PATHS.MAIN}>Movies</Anchor>
+                    <Anchor onClick={() => navigate(PATHS.MAIN)}>Movies</Anchor>
                     <Anchor>{movie_info?.original_title}</Anchor>
                 </Breadcrumbs>
                 <Card p={'xl'} radius={'lg'} mih={400}>
@@ -126,26 +109,13 @@ export const MovieDetailPage: FC = () => {
                                         fw='600'
                                         size={'xl'}
                                     >
-                                        {/* <Text
-                                    fw='600'
-                                    size={'xl'}
-                                    w={240}
-                                    style={{ wordWrap: 'break-word' }}
-                                > */}
                                         {movie_info?.original_title}
-                                        {/* </Text> */}
                                     </Anchor>
                                     <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>
-                                        <ActionIcon
-                                            // size={'24px'}
-                                            variant='transparent'
-                                            // color={isRated ? theme.colors.purple[5] : theme.colors.gray[3]}
-                                            onClick={onStarClick}
-                                        >
+                                        <ActionIcon variant='transparent' onClick={onStarClick}>
                                             <img
                                                 style={{ border: 'none' }}
                                                 src={isRated ? purpleStar : star}
-                                                // src={star}
                                             />
                                         </ActionIcon>
                                         {isRated && (
@@ -171,7 +141,7 @@ export const MovieDetailPage: FC = () => {
                                 </Group>
                             </Stack>
 
-                            <Group w={'100%'} maw={'320px'}>
+                            <Group w={'100%'} maw={'400px'}>
                                 <Stack>
                                     <Text size='lg' fw='400' c={theme.colors.gray[6]}>
                                         Duration
@@ -227,19 +197,52 @@ export const MovieDetailPage: FC = () => {
                         </Flex>
                     </Flex>
                 </Card>
-
-                {videosArray && (
-                    <div>
-                        <iframe
-                            width={500}
-                            height={281}
-                            className='video'
-                            title='Youtube player'
-                            sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
-                            src={`https://youtube.com/embed/${videosArray[0]?.key}?autoplay=0`}
-                        ></iframe>
-                    </div>
-                )}
+                <Card p={'xl'} radius={'lg'}>
+                    {movieTrailer && (
+                        <div>
+                            <Title order={4} pb={'md'}>
+                                Trailer
+                            </Title>
+                            <iframe
+                                width={500}
+                                height={281}
+                                className='video'
+                                title='Youtube player'
+                                sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
+                            ></iframe>
+                            <Divider my='xs' mb={'20px'} mt={'20px'} />
+                        </div>
+                    )}
+                    {movie_info?.overview && (
+                        <div>
+                            <Title order={4} pb={'md'}>
+                                Description
+                            </Title>
+                            <Title order={6}>{movie_info?.overview}</Title>
+                            <Divider my='xs' mb={'20px'} mt={'20px'} />
+                        </div>
+                    )}
+                    {movie_info?.production_companies && (
+                        <div>
+                            <Title order={4} mb={'md'}>
+                                Production
+                            </Title>
+                            <Stack gap={'sm'}>
+                                {movie_info?.production_companies.map((item) => (
+                                    <Group>
+                                        <img
+                                            width={'40px'}
+                                            src={getPoster(item.logo_path, 'w45', 'Icon')}
+                                            alt='Production companie'
+                                        />
+                                        <Title order={5}>{item.name}</Title>
+                                    </Group>
+                                ))}
+                            </Stack>
+                        </div>
+                    )}
+                </Card>
             </Stack>
         </AppLayout>
     );
