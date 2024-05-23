@@ -20,7 +20,7 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
     const sortBy = useAppSelector(appSortBy);
     const moviePage = useAppSelector(moviesPage);
     const [getMovies] = useLazyGetMoviesQuery();
-    const totalPages = pages <= MAX_PAGES_COUNT ? pages : MAX_PAGES_COUNT;
+    const totalPages = 9;
 
     const getProps = (page: number) => {
         const result: Record<string, string> = {
@@ -29,14 +29,7 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
         return result;
     };
 
-    const isFirstLastPagesOffset =
-        moviePage === 1 ||
-        moviePage === 2 ||
-        moviePage === 3 ||
-        moviePage === String(totalPages).length - 1 ||
-        moviePage === String(totalPages).length - 2 ||
-        moviePage === String(totalPages).length - 3;
-    console.log(isFirstLastPagesOffset, moviePage);
+    const isFirstPagesOffset = moviePage === 1 || moviePage === 2 || moviePage === 3;
 
     const onPageChange = (page: number) => {
         dispatch(setPage(page));
@@ -47,7 +40,7 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
 
     return (
         <div>
-            {isFirstLastPagesOffset && (
+            {isFirstPagesOffset && (
                 <Pagination.Root
                     onChange={(page) => onPageChange(page)}
                     value={moviePage}
@@ -60,8 +53,9 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
                     boundaries={0}
                     getItemProps={(page) => getProps(page)}
                     siblings={1}
+                    mt={'xl'}
                 >
-                    <Group gap={5} justify='center'>
+                    <Group gap={5} justify='flex-end'>
                         <Pagination.Previous />
                         <Pagination.Items />
 
@@ -69,7 +63,7 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
                     </Group>
                 </Pagination.Root>
             )}
-            {!isFirstLastPagesOffset && (
+            {!isFirstPagesOffset && (
                 <Pagination.Root
                     onChange={(page) => onPageChange(page)}
                     value={moviePage}
@@ -81,8 +75,9 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
                     boundaries={0}
                     getItemProps={(page) => getProps(page)}
                     siblings={1}
+                    mt={'xl'}
                 >
-                    <Group gap={5} justify='center'>
+                    <Group gap={5} justify='flex-end'>
                         <Pagination.Previous />
                         <Pagination.Items />
 
