@@ -1,13 +1,15 @@
-import { LoadingOverlay, Button, Group, Box, Text } from '@mantine/core';
+import { LoadingOverlay, Button, Group, Box, Text, useMantineTheme } from '@mantine/core';
 import { FC } from 'react';
 
 export type AppLoaderProps = {
     visible: boolean;
 };
 export const AppLoader: FC<AppLoaderProps> = ({ visible }) => {
+    const theme = useMantineTheme();
     return (
         <Box pos='relative' w={'100%'} h={'100%'} miw={320} mih={'100vh'} m={'0 auto'}>
             <LoadingOverlay
+                bg={theme.colors.gray[2]}
                 w={'100%'}
                 visible={visible}
                 zIndex={1000}

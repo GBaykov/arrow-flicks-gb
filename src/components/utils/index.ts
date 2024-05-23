@@ -1,5 +1,7 @@
 import { SortTypes } from '@constants/enums';
+import { IMG_BASE_URL } from '@constants/general';
 import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
+import noPosterImg from '../../assets/images/noPoster.png';
 
 export const getMoviesYears = () => {
     const FirstFilmYear = 1895;
@@ -47,17 +49,17 @@ export const getGenreLabelsByIds = (allGenres: GenreType[], ids: number[]) => {
     return allGenres.filter((genre) => ids.includes(genre.id)).map((genre) => genre.name);
 };
 
-export const voteCountReduction = (vote: number) => {
-    '2 799 9 = 2,7M';
-    '799 9 = 799K';
-    '99 9 = 99K';
-    '9 9 = 9K';
-    '9  = 0,9K';
+export const voteCountReduction = (v?: number) => {
+    const vote = v ? v : 0;
     if (String(vote).length === 5) {
         return `${(vote / 10000).toFixed(1)}M`;
     } else if (String(vote).length >= 2 && String(vote).length <= 4) {
         return `${Math.round(vote / 10)}K`;
     } else {
-        return '';
+        return `${vote}`;
     }
+};
+
+export const getPoster = (path?: string, poster_width?: string) => {
+    return path ? `${IMG_BASE_URL}${poster_width}${path}` : noPosterImg;
 };

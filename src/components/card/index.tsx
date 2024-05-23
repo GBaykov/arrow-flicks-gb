@@ -25,7 +25,7 @@ export type FilmCardProps = {
 
 import noPosterImg from '../../assets/images/noPoster.png';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
-import { voteCountReduction } from '@components/utils';
+import { getPoster, voteCountReduction } from '@components/utils';
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const genres = useAppSelector(genreList);
@@ -51,10 +51,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
         return genre?.name;
     };
 
-    const getPoster = (path: string, poster_width: string) => {
-        return path ? `${IMG_BASE_URL}${poster_width}${movie_info.poster_path}` : noPosterImg;
-    };
-
     const onStarClick = () => {
         dispatch(setAppModal(movie_info));
     };
@@ -63,7 +59,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
         setIsRated(Boolean(ratedMovie));
     }, [chosenMovie]);
     return (
-        <Card padding={'24px'} withBorder mih={218}>
+        <Card p={'lg'} withBorder mih={218}>
             <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>
                 {' '}
                 <img
@@ -91,7 +87,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                     w={240}
                                     style={{ wordWrap: 'break-word' }}
                                 > */}
-                                {movie_info.title}
+                                {movie_info.original_title}
                                 {/* </Text> */}
                             </Anchor>
                             <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>

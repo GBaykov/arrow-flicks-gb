@@ -3,6 +3,7 @@ import { MoviesForm } from '@components/moviesForm';
 import { AppPagination } from '@components/pagination/AppPagination';
 import { PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { Title } from '@mantine/core';
 import { AppLayout } from '@pages/layout';
 import { moviesList, moviesPage, moviesTotalPages } from '@redux/reducers/moviesSlice';
 import { FC } from 'react';
@@ -16,6 +17,9 @@ export const MainPage: FC = () => {
 
     return (
         <AppLayout>
+            <Title order={1} mt={'40x'}>
+                Movies
+            </Title>
             <MoviesForm />
             <CardField movies={movies} />
 

@@ -26,7 +26,7 @@ import {
     setAppSortBy,
     setResetFilters,
 } from '@redux/reducers/appSlice';
-import { genreList, moviesPage } from '@redux/reducers/moviesSlice';
+import { genreList, moviesPage, setPage } from '@redux/reducers/moviesSlice';
 import { useLazyGetMoviesQuery } from '@redux/services/moviesService';
 import { FC } from 'react';
 
@@ -71,6 +71,8 @@ export const MoviesForm: FC = () => {
                     'vote_average.gte': values['vote_average_gte'],
                 };
                 const sort_by = sortData.find((item) => item.label === sortBy)?.name;
+                const page = 1;
+                dispatch(setPage(page));
 
                 dispatch(setAppFilters(formFilters));
 
