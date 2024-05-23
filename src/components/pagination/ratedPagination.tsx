@@ -17,28 +17,23 @@ function chunk<T>(array: T[], size: number): T[][] {
     return [head, ...chunk(tail, size)];
 }
 
-export const RatedPagination: FC = () => {
+export type RatedPaginationProps = {
+    movieList: MovieItem[];
+    search: string;
+};
+
+export const RatedPagination: FC<RatedPaginationProps> = ({ movieList, search }) => {
     const chosenMovie = useAppSelector(appModal);
-    const storagedRated = localStorage.getItem('rated');
-    const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
-    const movieList: MovieItem[] = ratedMovies.map((item) => item.movie);
+    // const storagedRated = localStorage.getItem('rated');
+    // const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
+    // const movieList: MovieItem[] = ratedMovies.map((item) => item.movie);
 
-    const [isRatedList, seIsRatedList] = useState(Boolean(movieList.length > 0));
     const [activePage, setPage] = useState(1);
-    const ratedData = chunk(movieList, 4);
-
+    const ratedData = chunk(movieList, MAX_CARDS_PER_RATEDPAGE);
     const itemsONPage = ratedData[activePage - 1];
 
-    useEffect(() => {
-        const storagedRated = localStorage.getItem('rated');
-        const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
-        const movieList: MovieItem[] = ratedMovies.map((item) => item.movie);
-        const ratedData = chunk(movieList, MAX_CARDS_PER_RATEDPAGE);
-
-        const itemsPerPage = ratedData[activePage - 1];
-        seIsRatedList(Boolean(itemsPerPage.length > 0));
-    }, [chosenMovie]);
-
+    // const [isRatedOnPage, seIsRatedOnPage] = useState(Boolean(itemsONPage?.length > 0));
+    const isSearchedRated = movieList.length < 1;
     const getProps = (page: number) => {
         const result: Record<string, string> = {
             'data-pagination-page': String(page),
@@ -50,7 +45,7 @@ export const RatedPagination: FC = () => {
 
     return (
         <>
-            {isRatedList && (
+            {!isSearchedRated && (
                 <>
                     <CardField movies={itemsONPage} />{' '}
                     {movieList.length > MAX_CARDS_PER_RATEDPAGE && isFirstPagesOffset && (

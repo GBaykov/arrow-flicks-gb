@@ -48,6 +48,7 @@ button {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
+    color: var(--mantine-color-gray-0);
     /* background-color: #1a1a1a; */
     cursor: pointer;
 }
@@ -74,5 +75,6 @@ button:focus-visible {
     }
     button {
         background-color: var(--mantine-color-purple-5);
+        color: var(--mantine-color-gray-0);
     }
 }

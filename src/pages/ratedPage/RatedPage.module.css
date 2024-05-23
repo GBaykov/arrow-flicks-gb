@@ -1,0 +1,7 @@
+.section {
+    width: 100%;
+    max-width: max-content;
+}
+.input {
+    border: none;
+}
