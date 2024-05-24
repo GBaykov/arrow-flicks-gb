@@ -14,7 +14,6 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
     const onButtonClick = () => {
         navigate(PATHS.MAIN);
     };
-    console.log(info);
 
     return (
         <Flex w={'100%'} mih={'100%'} bg='transparent' justify={'center'} align={'center'}>

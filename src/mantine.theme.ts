@@ -1,14 +1,10 @@
 import {
     Button,
-    Pagination,
     VariantColorsResolver,
     createTheme,
-    darken,
     defaultVariantColorsResolver,
-    lighten,
     parseThemeColor,
     rem,
-    rgba,
     virtualColor,
 } from '@mantine/core';
 
@@ -19,7 +15,6 @@ const variantColorResolver: VariantColorsResolver = (input) => {
         theme: input.theme,
     });
 
-    // Override some properties for variant
     if (parsedColor.isThemeColor && parsedColor.color === 'purple' && input.variant === 'filled') {
         return {
             ...defaultResolvedColors,
@@ -50,7 +45,7 @@ const variantColorResolver: VariantColorsResolver = (input) => {
 export const AppMantineTheme = createTheme({
     primaryColor: 'purple',
     primaryShade: 5,
-    // variantColorResolver,
+    variantColorResolver,
     colors: {
         primary: virtualColor({
             name: 'primary',

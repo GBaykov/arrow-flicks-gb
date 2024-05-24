@@ -34,7 +34,7 @@ export const MovieDetailPage: FC = () => {
     const theme = useMantineTheme();
 
     const movieID = Number(location.state);
-    const { data } = useGetMovieDetailsQuery(movieID);
+    useGetMovieDetailsQuery(movieID);
     const movie_info = useAppSelector(movieDetails);
 
     const chosenMovie = useAppSelector(appModal);
@@ -74,7 +74,7 @@ export const MovieDetailPage: FC = () => {
             return `${h}h${' '}${m}m`;
         }
     };
-    console.log(movie_info?.production_companies);
+
     return (
         <AppLayout>
             <Stack m={{ base: '40px 0px 0px', sm: '40px 45px 0px', lg: '0 90px 0px' }} gap={'20px'}>

@@ -19,7 +19,6 @@ export const AppModal: FC = () => {
     const [value, setValue] = useState(ratedMovie?.personalRate || 0);
 
     const isMobile = useMediaQuery(`(max-width: ${em(800)})`);
-    console.log(isMobile);
 
     const onSaveRating = () => {
         if (chosenMovie) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import ReactDOM, { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { HistoryRouter } from 'redux-first-history/rr6';
 
 import '@mantine/core/styles.css';
