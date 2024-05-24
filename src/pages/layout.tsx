@@ -2,16 +2,14 @@ import {
     AppShell,
     Box,
     Burger,
-    Button,
     Flex,
     Group,
     NavLink,
     Stack,
     Text,
-    em,
     useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { FC, ReactNode } from 'react';
 import appLogo from '../assets/icons/logo.svg';
 import { useGetGenreListQuery, useGetMoviesQuery } from '@redux/services/moviesService';
@@ -92,11 +90,8 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                                             label: navlink_classes.label,
                                         }}
                                         fz={'lg'}
-                                        // component='button'
                                         active={isMovieOrMovieDetails}
-                                        // label={<Button variant='subtle'>Movies</Button>}
                                         label='Movies'
-                                        // label={<Text fz={'lg'}>Movies</Text>}
                                         onClick={() => navigate(PATHS.MAIN)}
                                     />
                                     <NavLink
@@ -106,11 +101,8 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                                             label: navlink_classes.label,
                                         }}
                                         fz={'lg'}
-                                        // component='button'
                                         active={location.pathname === PATHS.RATED_MOVIES}
                                         label={'Rated movies'}
-                                        // label={<Button variant='subtle'>Rated movies</Button>}
-                                        // label={<Text fz={'lg'}>Rated movies</Text>}
                                         onClick={() => navigate(PATHS.RATED_MOVIES)}
                                     />
                                 </Stack>

@@ -3,12 +3,6 @@
     border-radius: 8px;
     background-color: transparent;
 
-    /* 
-    &[data-active='true'] {
-        color: var(--mantine-color-purple-5);
-        background-color: var(--mantine-color-purple-2);
-    } */
-
     &[data-activelink='true'] {
         color: var(--mantine-color-purple-5);
         background-color: var(--mantine-color-purple-2);

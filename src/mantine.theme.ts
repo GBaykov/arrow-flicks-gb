@@ -32,18 +32,6 @@ const variantColorResolver: VariantColorsResolver = (input) => {
             background: 'var(--mantine-color-purple-5)',
         };
     }
-
-    //
-
-    // Completely override variant
-    // if (input.variant === 'light') {
-    //     return {
-    //         background: rgba(parsedColor.value, 0.1),
-    //         hover: rgba(parsedColor.value, 0.15),
-    //         border: `${rem(1)} solid ${parsedColor.value}`,
-    //         color: darken(parsedColor.value, 0.1),
-    //     };
-    // }
     if (input.variant === 'filled') {
         return {
             background: 'var(--mantine-color-purple-5)',
@@ -56,27 +44,13 @@ const variantColorResolver: VariantColorsResolver = (input) => {
         };
     }
 
-    // if (input.variant === 'transparent') {
-    //     return {
-    //         background: 'transparent',
-    //         backgroundColor: 'transparent',
-    //         color: 'var(--mantine-color-purple-5)',
-    //         hoverColor: 'var(--mantine-color-white)',
-    //         hover: 'var(--mantine-color-purple-4)',
-    //         active: 'var(--mantine-color-purple-6)',
-    //         border: 'none',
-    //     };
-    // }
-
-    // Add new variants support
-
     return defaultResolvedColors;
 };
 
 export const AppMantineTheme = createTheme({
     primaryColor: 'purple',
     primaryShade: 5,
-    variantColorResolver,
+    // variantColorResolver,
     colors: {
         primary: virtualColor({
             name: 'primary',

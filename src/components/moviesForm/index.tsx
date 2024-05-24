@@ -7,17 +7,7 @@ import {
 import { SortTypes } from '@constants/enums';
 import { sortData } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import {
-    Button,
-    Group,
-    NumberInput,
-    MultiSelect,
-    Stack,
-    Select,
-    useMantineTheme,
-    Flex,
-    Title,
-} from '@mantine/core';
+import { Button, Group, NumberInput, MultiSelect, Stack, Select, Flex, Title } from '@mantine/core';
 import { UseFormReturnType, useForm } from '@mantine/form';
 
 import {
@@ -51,7 +41,6 @@ export const MoviesForm: FC = () => {
     const filters = useAppSelector(appFilters);
     const sortBy = useAppSelector(appSortBy);
     const [getMovies] = useLazyGetMoviesQuery();
-    const theme = useMantineTheme();
     const genres = useAppSelector(genreList);
     const genreListNames = genres.map((item) => item.name);
     const releaseYearsData = getMoviesYears();
@@ -133,7 +122,6 @@ export const MoviesForm: FC = () => {
                         withCheckIcon={false}
                         classNames={{
                             option: inputs_classes.selectOption,
-                            // input: inputs_classes.multiInput,
                             inputField: inputs_classes.selectInput,
                             section: inputs_classes.selectSection,
                             pill: inputs_classes.multiPill,
@@ -200,7 +188,6 @@ export const MoviesForm: FC = () => {
                         w={'100%'}
                         onClick={() => onResetClick()}
                         variant='transparent'
-                        // c={theme.colors.gray[6]}
                         disabled={!isFormToched}
                     >
                         Reset filters

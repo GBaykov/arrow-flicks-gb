@@ -3,7 +3,7 @@ import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { MoviesForm } from '@components/moviesForm';
 import { AppPagination } from '@components/pagination/AppPagination';
 import { EmptyData } from '@constants/empty';
-import { MAX_CARDS_PER_PAGE, MAX_PAGES_COUNT, PATHS } from '@constants/general';
+import { MAX_PAGES_COUNT, PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Flex, Title } from '@mantine/core';
 import { AppLayout } from '@pages/layout';

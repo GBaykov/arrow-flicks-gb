@@ -1,4 +1,4 @@
-import { IMG_BASE_URL, PATHS } from '@constants/general';
+import { PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {
     ActionIcon,
@@ -18,14 +18,12 @@ import yellowStar from '../../assets/icons/yellowStar.svg';
 import purpleStar from '../../assets/icons/purpleStar.svg';
 import star from '../../assets/icons/star.svg';
 import { genreList } from '@redux/reducers/moviesSlice';
+import { appModal, setAppModal } from '@redux/reducers/appSlice';
+import { getPoster, voteCountReduction } from '@components/utils';
 
 export type FilmCardProps = {
     movie_info: MovieItem;
 };
-
-import noPosterImg from '../../assets/images/noPoster.png';
-import { appModal, setAppModal } from '@redux/reducers/appSlice';
-import { getPoster, voteCountReduction } from '@components/utils';
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const genres = useAppSelector(genreList);
@@ -44,7 +42,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
     const release_year = movie_info.release_date.split('-')[0];
-    // const displayedGenresIds = movie_info.genre_ids.slice(0, 3);
     const displayedGenresIds = movie_info.genre_ids;
     const getGenreNameById = (id: number) => {
         const genre = genres.find((item) => item.id === id);
@@ -86,7 +83,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                 style={{ wordWrap: 'break-word', display: 'inline-block' }}
                                 fw='600'
                                 fz={{ base: 'md', xs: 'lg', md: 'xl' }}
-                                // size={'xl}
                             >
                                 {movie_info.original_title}
                             </Anchor>
@@ -95,7 +91,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                     <img
                                         style={{ border: 'none' }}
                                         src={isRated ? purpleStar : star}
-                                        // src={star}
                                     />
                                 </ActionIcon>
                                 {isRated && (

@@ -1,6 +1,6 @@
 import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { EmptyData } from '@constants/empty';
-import { AppLayout } from '@pages/layout';
+
 import { FC } from 'react';
 
 import { Group, Image, Text, useMantineTheme } from '@mantine/core';
@@ -12,7 +12,7 @@ export const ErrorPage: FC = () => {
         <div style={{ maxWidth: '670px', margin: '0 auto' }}>
             <Group style={{ position: 'absolute', top: 24, left: 24 }}>
                 <Image src={appLogo} />
-                {/* <img src={appLogo} style={} /> */}
+
                 <Text fw={600} size={'xxl'} c={theme.colors.purple[5]}>
                     ArrowFlicks
                 </Text>

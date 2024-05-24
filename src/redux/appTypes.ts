@@ -111,10 +111,6 @@ export type AppFilters = {
 };
 
 export type GetMoviesArgs = Partial<AppFilters> & {
-    // with_genres: string[];
-    // primary_release_year: string;
-    // 'vote_average.lte': number;
-    // 'vote_average.gte': number;
     sort_by?: string;
     page?: number;
     language: 'en-US';

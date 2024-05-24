@@ -47,9 +47,6 @@
     display: none;
 }
 
-.multiPillList {
-}
-
 .multiPill:not(:last-child)::after {
     content: ',';
 }

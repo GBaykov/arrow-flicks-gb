@@ -1,7 +1,6 @@
-//deployment for https://github.com/GBaykov/TMDB-api-proxy
-
 import { SortTypes } from './enums';
 
+//deployment for https://github.com/GBaykov/TMDB-api-proxy
 export const API_URL = 'https://tmdb-api-proxy.onrender.com';
 export const RESERVE_API_URL = 'https://exciting-analysis-production.up.railway.app';
 

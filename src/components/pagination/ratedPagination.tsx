@@ -1,9 +1,8 @@
-import { FC, useEffect, useState } from 'react';
-import { randomId } from '@mantine/hooks';
-import { Group, Pagination, Text } from '@mantine/core';
-import { useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { appModal } from '@redux/reducers/appSlice';
-import { MovieItem, StoragedItem } from '@redux/appTypes';
+import { FC } from 'react';
+
+import { Group, Pagination } from '@mantine/core';
+
+import { MovieItem } from '@redux/appTypes';
 import { CardField } from '@components/cardField';
 import { MAX_CARDS_PER_RATEDPAGE } from '@constants/general';
 import classes from './AppPagination.module.css';
@@ -26,16 +25,9 @@ export type RatedPaginationProps = {
 };
 
 export const RatedPagination: FC<RatedPaginationProps> = ({ movieList, setPage, activePage }) => {
-    const chosenMovie = useAppSelector(appModal);
-    // const storagedRated = localStorage.getItem('rated');
-    // const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
-    // const movieList: MovieItem[] = ratedMovies.map((item) => item.movie);
-
-    // const [activePage, setPage] = useState(1);
     const ratedData = chunk(movieList, MAX_CARDS_PER_RATEDPAGE);
     const itemsONPage = ratedData[activePage - 1];
 
-    // const [isRatedOnPage, seIsRatedOnPage] = useState(Boolean(itemsONPage?.length > 0));
     const isSearchedRated = movieList.length < 1;
     const getProps = (page: number) => {
         const result: Record<string, string> = {

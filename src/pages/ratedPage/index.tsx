@@ -1,16 +1,6 @@
-import { CardField } from '@components/cardField';
 import { RatedPagination } from '@components/pagination/ratedPagination';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
-import {
-    Button,
-    Center,
-    Flex,
-    Group,
-    Stack,
-    TextInput,
-    Title,
-    useMantineTheme,
-} from '@mantine/core';
+import { Button, Group, TextInput, Title, useMantineTheme } from '@mantine/core';
 import { AppLayout } from '@pages/layout';
 import { MovieItem, StoragedItem } from '@redux/appTypes';
 import { appModal } from '@redux/reducers/appSlice';
@@ -19,7 +9,6 @@ import searchIcon from '../../assets/icons/search.svg';
 import classes from './RatedPage.module.css';
 import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { EmptyData } from '@constants/empty';
-
 import button_classes from '../../modules.styles/Button.module.css';
 
 export const RatedMoviesPage: FC = () => {
@@ -53,12 +42,8 @@ export const RatedMoviesPage: FC = () => {
         const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
         const movieList: MovieItem[] = ratedMovies.map((item) => item.movie);
         const chosenMovies = movieList.filter((movie) => movie.original_title.includes(value));
-        // const result = movieList.filter((movie) => movie.original_title.includes(value));
-        // const ratedData = chunk(movies, MAX_CARDS_PER_RATEDPAGE);
         setRatedSearchedMovies(chosenMovies);
-        //  const itemsPerPage = ratedData[activePage - 1];
         seIsRatedList(Boolean(movieList.length > 0));
-        // seIsRatedList(Boolean(itemsPerPage.length > 0));
     }, [chosenMovie]);
 
     return (

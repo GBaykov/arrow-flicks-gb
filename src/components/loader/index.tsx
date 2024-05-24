@@ -1,4 +1,4 @@
-import { LoadingOverlay, Button, Group, Box, Text, useMantineTheme } from '@mantine/core';
+import { LoadingOverlay, Box, useMantineTheme } from '@mantine/core';
 import { FC } from 'react';
 
 export type AppLoaderProps = {
