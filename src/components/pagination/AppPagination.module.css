@@ -1,0 +1,9 @@
+.dots {
+    display: none;
+}
+
+.control {
+    &[data-pagination-page='4'] {
+        display: none;
+    }
+}

@@ -1,0 +1,6 @@
+.navbar-navlink {
+    border: none;
+}
+.navbar-navlin:hover {
+    background-color: var(--mantine-color-purple-9);
+}

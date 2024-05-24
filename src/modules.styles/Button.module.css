@@ -1,0 +1,33 @@
+.filledRoot {
+    background-color: var(--mantine-color-purple-5);
+    color: white;
+}
+
+.filledRoot:hover {
+    background-color: var(--mantine-color-purple-4);
+}
+
+.filledRoot:active {
+    background-color: var(--mantine-color-purple-6);
+}
+
+.transparentRoot {
+    color: var(--mantine-color-purple-5);
+    background-color: transparent;
+}
+
+.transparentRoot:hover {
+    color: var(--mantine-color-purple-4);
+    background-color: transparent;
+}
+
+.transparentRoot:active {
+    color: var(--mantine-color-purple-6);
+    background-color: transparent;
+}
+
+.transparentRoot:disabled {
+    color: var(--mantine-color-gray-6);
+    background-color: transparent;
+    cursor: not-allowed;
+}

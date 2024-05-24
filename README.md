@@ -1,30 +1,37 @@
-# React + TypeScript + Vite
+## ArrowFlicks-GB приложение для получения информации о фильмах в соответствии с дизайном (https://www.figma.com/design/VkLZt5T4dZQQ3cEhWcnhyG/Movie-Search-App?node-id=18006-4373&t=mar5GdrxXCJO7Dkd-0)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Прокси сервер для приложения
+deployment for https://github.com/GBaykov/TMDB-api-proxy
+'https://tmdb-api-proxy.onrender.com'; (используется в проекте)
+'https://exciting-analysis-production.up.railway.app'; (запасной деплой на случай проблем с основным)
 
-Currently, two official plugins are available:
+## Страница “Поиск фильмов”
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Пользователь видит список доступных фильмов, а также фильтры для сужения поиска.
 
-## Expanding the ESLint configuration
+1. Пользователь может нажать на фильм и попасть на страницу `“[Фильм](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”` для получения детальной информации о нем.
+1. Пользователь может оценить фильм, нажав на звездочку, и тем самым сохранить его в оцененные фильмы.
+1. Пользователь может удалить фильм из оцененного, нажав еще раз на звездочку и подтвердив действие в модальном окне.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Страница “Оцененное”
 
-- Configure the top-level `parserOptions` property like this:
+1. Пользователь видит список оцененных фильмов и соответствующие им оценки.
+2. Пользователь может изменить оценку фильма.
+3. Пользователь может искать оцененные фильмы по их названию.
+4. Пользователь может удалить фильм из оцененного, нажав еще раз на звездочку и подтвердив действие в модальном окне.
+5. Пользователь может нажать на фильм и попасть на страницу `“[Фильм](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”` для получения детальной информации о нем.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Страница “Фильм”
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Пользователь видит детали фильма в соответствии с дизайном.
+
+# **Дополнительная функциональность**
+
+-   Отображать loader ([пример](https://mantine.dev/core/loader/)) во время ожидания ответа сервера.
+-   Показывать empty state, если список фильмов пуст на страницах `“[Поиск фильмов](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”` и `“[Оцененное](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”.`
+-   Реализовать постраничную пагинацию.
+-   Проксировать все запросы к TMDB API.
+-   Валидировать значения фильтров как на клиенте, так и на сервере (прокси).
+-   Минимальная ширина страницы, при которой она отображается корректно – 320рх.
+    Дизайна для мобильной версии нет, делай на свое усмотрение.
+    Все указанные в задании элементы присутствуют как на десктопной, так и на мобильной версии.
