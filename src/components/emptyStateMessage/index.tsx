@@ -1,6 +1,6 @@
 import { EmptyDataItem } from '@constants/empty';
 import { PATHS } from '@constants/general';
-import { Box, Button, Center, Image, Stack, Title } from '@mantine/core';
+import { Box, Button, Center, Flex, Image, Stack, Title } from '@mantine/core';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,8 +15,9 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
         navigate(PATHS.MAIN);
     };
     console.log(info);
+    // h={'100%'}
     return (
-        <Center w={'100%'} h={'100%'} bg='transparent'>
+        <Flex w={'100%'} mih={'100%'} bg='transparent' justify={'center'} align={'center'}>
             <Stack align='center'>
                 <img width={'100%'} src={info.img} />
                 {/* <Image w={'100%'} maw='653px' src={info.img} /> */}
@@ -33,6 +34,6 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
                     </Button>
                 )}
             </Stack>
-        </Center>
+        </Flex>
     );
 };

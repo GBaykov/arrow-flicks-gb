@@ -5,7 +5,7 @@ import { AppPagination } from '@components/pagination/AppPagination';
 import { EmptyData } from '@constants/empty';
 import { MAX_CARDS_PER_PAGE, MAX_PAGES_COUNT, PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { Title } from '@mantine/core';
+import { Flex, Title } from '@mantine/core';
 import { AppLayout } from '@pages/layout';
 import { moviesList, moviesTotalPages } from '@redux/reducers/moviesSlice';
 import { FC } from 'react';
@@ -17,14 +17,28 @@ export const MainPage: FC = () => {
     const movies = useAppSelector(moviesList);
     const total_pages = useAppSelector(moviesTotalPages);
     const displayed_pages = total_pages < MAX_PAGES_COUNT ? total_pages : MAX_PAGES_COUNT;
-
+    console.log(displayed_pages);
     return (
         <AppLayout>
-            <Title order={1} mt={'40x'}>
+            <Title order={1} mb={{ base: 20, sm: 40 }}>
                 Movies
             </Title>
+
             <MoviesForm />
-            {!displayed_pages && <EmptyStateMessage info={EmptyData.data_not_found} />}
+            {!movies.length && (
+                <Flex justify={'center'}>
+                    <div
+                        style={{
+                            maxWidth: '254px',
+                            boxSizing: 'border-box',
+                            paddingTop: '56px',
+                        }}
+                    >
+                        {' '}
+                        <EmptyStateMessage info={EmptyData.data_not_found} />
+                    </div>
+                </Flex>
+            )}
             {displayed_pages && (
                 <>
                     <CardField movies={movies} />

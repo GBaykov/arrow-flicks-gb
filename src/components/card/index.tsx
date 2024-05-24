@@ -60,7 +60,12 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     }, [chosenMovie]);
     return (
         <Card p={'lg'} mih={218} radius={'lg'}>
-            <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>
+            <Flex
+                gap='md'
+                justify='flex-start'
+                align={{ base: 'center', sm: 'flex-start' }}
+                direction={{ base: 'column', sm: 'row' }}
+            >
                 {' '}
                 <img
                     src={getPoster(movie_info.poster_path, 'w154')}
@@ -69,9 +74,10 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                     alt='Film poster'
                 />
                 <Flex justify='space-between' direction={'column'} w={'100%'} h={'100%'}>
-                    <Stack>
+                    <Stack gap={'xs'}>
                         <Group justify='space-between' wrap='nowrap'>
                             <Anchor
+                                lh={'sm'}
                                 underline='never'
                                 p={0}
                                 onClick={onMovieClick}
@@ -79,24 +85,13 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                 bg={'transparent'}
                                 style={{ wordWrap: 'break-word', display: 'inline-block' }}
                                 fw='600'
-                                size={'xl'}
+                                fz={{ base: 'md', xs: 'lg', md: 'xl' }}
+                                // size={'xl}
                             >
-                                {/* <Text
-                                    fw='600'
-                                    size={'xl'}
-                                    w={240}
-                                    style={{ wordWrap: 'break-word' }}
-                                > */}
                                 {movie_info.original_title}
-                                {/* </Text> */}
                             </Anchor>
                             <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>
-                                <ActionIcon
-                                    // size={'24px'}
-                                    variant='transparent'
-                                    // color={isRated ? theme.colors.purple[5] : theme.colors.gray[3]}
-                                    onClick={onStarClick}
-                                >
+                                <ActionIcon variant='transparent' onClick={onStarClick}>
                                     <img
                                         style={{ border: 'none' }}
                                         src={isRated ? purpleStar : star}
@@ -104,21 +99,21 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                     />
                                 </ActionIcon>
                                 {isRated && (
-                                    <Text fw={600} fz={'lg'} lh={'sm'}>
+                                    <Text lh={'sm'} fw={600} fz={'lg'}>
                                         {ratedMovie?.personalRate}
                                     </Text>
                                 )}
                             </Flex>
                         </Group>
-                        <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                        <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                             {release_year}
                         </Text>
                         <Group>
-                            <Image w={'24px'} src={yellowStar} />
-                            <Text fw='600' size='lg' c={theme.colors.gray[9]}>
+                            <Image lh={'sm'} w={'24px'} src={yellowStar} />
+                            <Text lh={'sm'} fw='600' size='lg' c={theme.colors.gray[9]}>
                                 {movie_info.vote_average.toFixed(1)}
                             </Text>
-                            <Text fw='400' size='lg' c={theme.colors.gray[6]}>
+                            <Text lh={'sm'} fw='400' size='lg' c={theme.colors.gray[6]}>
                                 {'('}
                                 {voteCountReduction(movie_info.vote_count)}
                                 {')'}
@@ -126,7 +121,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                         </Group>
                     </Stack>
                     <Group gap={'xs'}>
-                        <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                        <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                             Genres
                         </Text>
 

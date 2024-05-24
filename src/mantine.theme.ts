@@ -156,12 +156,15 @@ export const AppMantineTheme = createTheme({
     spacing: { xs: rem(8), sm: rem(12), md: rem(16), lg: rem(18), xl: rem(24) },
     cursorType: 'pointer',
     breakpoints: {
-        xs: '20em', //320
-        sm: '36em', //
-        md: '62em', //928
-        lg: '75em', //1184
-        xl: '90em',
+        //base 320
+        xs: '30em', //480
+        sm: '50em', //800
+        md: '60em', //960
+        lg: '75em', //1200
+        xl: '88em',
+        xxl: '92em',
     },
+
     focusRing: 'never',
     components: {
         Button: Button.extend({

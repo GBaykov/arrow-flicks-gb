@@ -16,6 +16,7 @@ import {
     Select,
     useMantineTheme,
     Flex,
+    Title,
 } from '@mantine/core';
 import { UseFormReturnType, isInRange, useForm } from '@mantine/form';
 
@@ -113,26 +114,31 @@ export const MoviesForm: FC = () => {
         dispatch(setResetFilters());
     };
     return (
-        <Stack>
+        <Stack mb={{ base: 'xs', xs: 'sm', sm: 'md' }} gap={'xl'}>
             <form>
-                <Flex gap={'md'} align={'flex-end'}>
+                <Flex gap={'md'} align={'flex-end'} wrap={{ base: 'wrap', sm: 'nowrap' }}>
                     <MultiSelect
-                        label='Genres'
+                        maw={'284px'}
+                        w={{ base: '', sm: '100%' }}
+                        label={<Title order={5}>Genres</Title>}
                         placeholder='Select genre'
                         data={genreListNames}
                         key={form.key('genre_names')}
                         {...form.getInputProps('genre_names')}
                     />
                     <Select
-                        label='Release year'
+                        maw={'300px'}
+                        w={{ base: '', sm: '100%' }}
+                        label={<Title order={5}>Release year</Title>}
                         placeholder='Select release year'
                         data={releaseYearsData}
                         key={form.key('primary_release_year')}
                         {...form.getInputProps('primary_release_year')}
                     />
-                    <Group gap={'xs'}>
+                    <Group gap={'xs'} maw={'284px'} w={'100%'} wrap='nowrap'>
+                        {' '}
                         <NumberInput
-                            label='Ratings'
+                            label={<Title order={5}>Ratings</Title>}
                             placeholder='From'
                             min={1}
                             max={form.values.vote_average_lte || 10}
@@ -153,6 +159,9 @@ export const MoviesForm: FC = () => {
                         />
                     </Group>
                     <Button
+                        p={0}
+                        maw={'82px'}
+                        w={'100%'}
                         onClick={() => onResetClick()}
                         variant='transparent'
                         c={theme.colors.gray[6]}
@@ -162,11 +171,11 @@ export const MoviesForm: FC = () => {
                     </Button>
                 </Flex>
             </form>
-            <Flex justify={'flex-end'} w={'100%'}>
+            <Flex justify={{ base: 'flex-start', sm: 'flex-end' }} w={'100%'}>
                 <Select
                     onChange={(v) => onSortSelect(v)}
                     maw={'284px'}
-                    label='Sort by'
+                    label={<Title order={5}>Sort by</Title>}
                     data={sortData.map((item) => item.label)}
                     defaultValue={sortBy}
                 />

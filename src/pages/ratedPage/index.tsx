@@ -60,7 +60,9 @@ export const RatedMoviesPage: FC = () => {
                     {' '}
                     <Group justify={'space-between'}>
                         {' '}
-                        <Title order={1}>Rated movies</Title>
+                        <Title order={1} mb={{ base: 20, sm: 40 }}>
+                            Rated movies
+                        </Title>
                         <TextInput
                             onSubmit={submitHandler}
                             value={value}
