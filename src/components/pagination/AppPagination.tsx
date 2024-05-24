@@ -1,7 +1,6 @@
-import { MAX_PAGES_COUNT, sortData } from '@constants/general';
+import { sortData } from '@constants/general';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Group, Pagination } from '@mantine/core';
-import { usePagination } from '@mantine/hooks';
 import { moviesPage, setPage } from '@redux/reducers/moviesSlice';
 import { FC } from 'react';
 import classes from './AppPagination.module.css';
@@ -20,7 +19,7 @@ export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
     const sortBy = useAppSelector(appSortBy);
     const moviePage = useAppSelector(moviesPage);
     const [getMovies] = useLazyGetMoviesQuery();
-    const totalPages = 9;
+    const totalPages = pages;
 
     const getProps = (page: number) => {
         const result: Record<string, string> = {

@@ -3,7 +3,7 @@ import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { MoviesForm } from '@components/moviesForm';
 import { AppPagination } from '@components/pagination/AppPagination';
 import { EmptyData } from '@constants/empty';
-import { PATHS } from '@constants/general';
+import { MAX_CARDS_PER_PAGE, MAX_PAGES_COUNT, PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Title } from '@mantine/core';
 import { AppLayout } from '@pages/layout';
@@ -16,6 +16,7 @@ export const MainPage: FC = () => {
     dispatch(push(PATHS.MAIN));
     const movies = useAppSelector(moviesList);
     const total_pages = useAppSelector(moviesTotalPages);
+    const displayed_pages = total_pages < MAX_PAGES_COUNT ? total_pages : MAX_PAGES_COUNT;
 
     return (
         <AppLayout>
@@ -23,12 +24,12 @@ export const MainPage: FC = () => {
                 Movies
             </Title>
             <MoviesForm />
-            {!movies.length && <EmptyStateMessage info={EmptyData.data_not_found} />}
-            {movies.length && (
+            {!displayed_pages && <EmptyStateMessage info={EmptyData.data_not_found} />}
+            {displayed_pages && (
                 <>
                     <CardField movies={movies} />
 
-                    <AppPagination pages={total_pages} />
+                    {displayed_pages > 1 && <AppPagination pages={total_pages} />}
                 </>
             )}
         </AppLayout>

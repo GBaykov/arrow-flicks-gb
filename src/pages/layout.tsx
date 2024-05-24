@@ -100,7 +100,7 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                                 </Stack>
                             </Group>
                         </AppShell.Navbar>
-                        <AppShell.Main h={'100%'} w={'100%'} p={'40px 90px 82px 370px'}>
+                        <AppShell.Main h={'100%'} w={'100%'} p={{ base: '40px 90px 82px 370px' }}>
                             {children}
                         </AppShell.Main>
                     </AppShell>
