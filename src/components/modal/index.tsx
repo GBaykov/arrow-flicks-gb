@@ -49,25 +49,6 @@ export const AppModal: FC = () => {
     const theme = useMantineTheme();
 
     return (
-        // <Modal
-        //     zIndex={200}
-        //     opened={Boolean(chosenMovie)}
-        //     onClose={() => dispatch(setAppModal(null))}
-        //     title={<Title order={6}>Your rating</Title>}
-        //     size={'sm'}
-        // >
-        //     <Text size={'md'}>{chosenMovie?.title}</Text>
-        //     <Rating count={10} value={value} onChange={setValue} />
-        //     <Group>
-        //         <Button variant='filled' onClick={onSaveRating}>
-        //             Save
-        //         </Button>{' '}
-        //         <Button variant='transparent' onClick={onRemoveRating}>
-        //             Remove rating
-        //         </Button>
-        //     </Group>
-        // </Modal>
-
         <Modal.Root
             withinPortal={false}
             centered

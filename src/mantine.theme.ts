@@ -56,17 +56,17 @@ const variantColorResolver: VariantColorsResolver = (input) => {
         };
     }
 
-    if (input.variant === 'transparent') {
-        return {
-            background: 'transparent',
-            backgroundColor: 'transparent',
-            color: 'var(--mantine-color-white)',
-            hoverColor: 'var(--mantine-color-white)',
-            hover: 'transparent',
-            // active: 'var(--mantine-color-purple-6)',
-            border: 'none',
-        };
-    }
+    // if (input.variant === 'transparent') {
+    //     return {
+    //         background: 'transparent',
+    //         backgroundColor: 'transparent',
+    //         color: 'var(--mantine-color-purple-5)',
+    //         hoverColor: 'var(--mantine-color-white)',
+    //         hover: 'var(--mantine-color-purple-4)',
+    //         active: 'var(--mantine-color-purple-6)',
+    //         border: 'none',
+    //     };
+    // }
 
     // Add new variants support
 

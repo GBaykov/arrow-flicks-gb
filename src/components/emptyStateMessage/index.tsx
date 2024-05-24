@@ -16,7 +16,7 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
     };
     console.log(info);
     return (
-        <Center w={'100%'} h={'100vh'} bg='transparent'>
+        <Center w={'100%'} h={'100%'} bg='transparent'>
             <Stack align='center'>
                 <img width={'100%'} src={info.img} />
                 {/* <Image w={'100%'} maw='653px' src={info.img} /> */}
