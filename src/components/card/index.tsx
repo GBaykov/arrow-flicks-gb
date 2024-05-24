@@ -59,7 +59,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
         setIsRated(Boolean(ratedMovie));
     }, [chosenMovie]);
     return (
-        <Card p={'lg'} withBorder mih={218}>
+        <Card p={'lg'} mih={218} radius={'lg'}>
             <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>
                 {' '}
                 <img

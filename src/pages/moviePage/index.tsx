@@ -14,6 +14,7 @@ import {
     Flex,
     Group,
     Image,
+    NumberFormatter,
     Stack,
     Text,
     Title,

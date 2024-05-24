@@ -7,6 +7,8 @@ import { MovieItem, StoragedItem } from '@redux/appTypes';
 import { CardField } from '@components/cardField';
 import { MAX_CARDS_PER_RATEDPAGE } from '@constants/general';
 import classes from './AppPagination.module.css';
+import { EmptyStateMessage } from '@components/emptyStateMessage';
+import { EmptyData } from '@constants/empty';
 
 function chunk<T>(array: T[], size: number): T[][] {
     if (!array.length) {
@@ -19,10 +21,9 @@ function chunk<T>(array: T[], size: number): T[][] {
 
 export type RatedPaginationProps = {
     movieList: MovieItem[];
-    search: string;
 };
 
-export const RatedPagination: FC<RatedPaginationProps> = ({ movieList, search }) => {
+export const RatedPagination: FC<RatedPaginationProps> = ({ movieList }) => {
     const chosenMovie = useAppSelector(appModal);
     // const storagedRated = localStorage.getItem('rated');
     // const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
@@ -45,6 +46,7 @@ export const RatedPagination: FC<RatedPaginationProps> = ({ movieList, search })
 
     return (
         <>
+            {isSearchedRated && <EmptyStateMessage info={EmptyData.data_not_found} />}
             {!isSearchedRated && (
                 <>
                     <CardField movies={itemsONPage} />{' '}
