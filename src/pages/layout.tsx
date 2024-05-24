@@ -2,6 +2,7 @@ import {
     AppShell,
     Box,
     Burger,
+    Button,
     Flex,
     Group,
     NavLink,
@@ -23,6 +24,8 @@ import './active.module.css';
 import { AppModal } from '@components/modal';
 import { moviesPage } from '@redux/reducers/moviesSlice';
 import { moviesArgsConstructor } from '@components/utils';
+import navlink_classes from '../modules.styles/Navlink.module.css';
+
 export type AppLayutProps = {
     children: ReactNode;
 };
@@ -69,7 +72,7 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                                 />
                             </Group>
                         </AppShell.Header>
-                        <AppShell.Navbar bg={theme.colors.purple[2]} p='xl'>
+                        <AppShell.Navbar bg={theme.colors.purple[1]} p='xl'>
                             <Group gap={'sm'}>
                                 <Burger
                                     opened={opened}
@@ -83,19 +86,31 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                                 </Text>
                                 <Stack mt={80} gap={'md'} w={'100%'}>
                                     <NavLink
+                                        data-activelink={isMovieOrMovieDetails}
+                                        classNames={{
+                                            root: navlink_classes.root,
+                                            label: navlink_classes.label,
+                                        }}
                                         fz={'lg'}
-                                        component='button'
+                                        // component='button'
                                         active={isMovieOrMovieDetails}
-                                        // label={'Movies'}
-                                        label={<Text fz={'lg'}>Movies</Text>}
+                                        // label={<Button variant='subtle'>Movies</Button>}
+                                        label='Movies'
+                                        // label={<Text fz={'lg'}>Movies</Text>}
                                         onClick={() => navigate(PATHS.MAIN)}
                                     />
                                     <NavLink
+                                        data-activelink={location.pathname === PATHS.RATED_MOVIES}
+                                        classNames={{
+                                            root: navlink_classes.root,
+                                            label: navlink_classes.label,
+                                        }}
                                         fz={'lg'}
-                                        component='button'
+                                        // component='button'
                                         active={location.pathname === PATHS.RATED_MOVIES}
-                                        // label={'Rated movies'}
-                                        label={<Text fz={'lg'}>Rated movies</Text>}
+                                        label={'Rated movies'}
+                                        // label={<Button variant='subtle'>Rated movies</Button>}
+                                        // label={<Text fz={'lg'}>Rated movies</Text>}
                                         onClick={() => navigate(PATHS.RATED_MOVIES)}
                                     />
                                 </Stack>

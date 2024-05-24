@@ -31,15 +31,6 @@ body {
     width: 100%;
 }
 
-a {
-    font-weight: 500;
-    color: var(--mantine-color-purple-5);
-}
-a:hover {
-    color: var(--mantine-color-gray-4);
-    background-color: var(--mantine-color-purple-4);
-}
-
 h1 {
     font-size: 3.2em;
     line-height: 1.1;

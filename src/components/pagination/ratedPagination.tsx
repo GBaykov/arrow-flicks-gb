@@ -21,15 +21,17 @@ function chunk<T>(array: T[], size: number): T[][] {
 
 export type RatedPaginationProps = {
     movieList: MovieItem[];
+    setPage: (page: number) => void;
+    activePage: number;
 };
 
-export const RatedPagination: FC<RatedPaginationProps> = ({ movieList }) => {
+export const RatedPagination: FC<RatedPaginationProps> = ({ movieList, setPage, activePage }) => {
     const chosenMovie = useAppSelector(appModal);
     // const storagedRated = localStorage.getItem('rated');
     // const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
     // const movieList: MovieItem[] = ratedMovies.map((item) => item.movie);
 
-    const [activePage, setPage] = useState(1);
+    // const [activePage, setPage] = useState(1);
     const ratedData = chunk(movieList, MAX_CARDS_PER_RATEDPAGE);
     const itemsONPage = ratedData[activePage - 1];
 

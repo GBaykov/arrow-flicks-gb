@@ -1,21 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import {
-    Button,
-    Divider,
-    Flex,
-    Group,
-    Modal,
-    Rating,
-    Text,
-    Title,
-    em,
-    useMantineTheme,
-} from '@mantine/core';
+import { Button, Divider, Group, Modal, Rating, Title, em, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { MovieItem, StoragedItem } from '@redux/appTypes';
+import { StoragedItem } from '@redux/appTypes';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
 
 import { FC, useState } from 'react';
+
+import button_classes from '../../modules.styles/Button.module.css';
 
 export const AppModal: FC = () => {
     const chosenMovie = useAppSelector(appModal);
@@ -25,9 +16,8 @@ export const AppModal: FC = () => {
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
     const ratedMovie = ratedMovies.find((item) => item?.movie?.id === chosenMovie?.id);
 
-    // const [isOpen, setIsOpen] = useState(isModalOpen);
     const [value, setValue] = useState(ratedMovie?.personalRate || 0);
-    // const isModalOpen = useAppSelector(appModal);
+
     const isMobile = useMediaQuery(`(max-width: ${em(800)})`);
     console.log(isMobile);
 
@@ -103,6 +93,12 @@ export const AppModal: FC = () => {
                     )}
                     <Group>
                         <Button
+                            classNames={{
+                                root: button_classes.filledRoot,
+                                section: button_classes.filledSection,
+                                inner: button_classes.filledInner,
+                                label: button_classes.filledLabel,
+                            }}
                             p={'10px 20px'}
                             c={theme.colors.gray[0]}
                             variant='filled'
@@ -114,6 +110,9 @@ export const AppModal: FC = () => {
                             Save
                         </Button>{' '}
                         <Button
+                            classNames={{
+                                root: button_classes.transparentRoot,
+                            }}
                             p={0}
                             fz={'14px'}
                             fw={600}

@@ -20,6 +20,8 @@ import classes from './RatedPage.module.css';
 import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { EmptyData } from '@constants/empty';
 
+import button_classes from '../../modules.styles/Button.module.css';
+
 export const RatedMoviesPage: FC = () => {
     const theme = useMantineTheme();
     const [value, setValue] = useState('');
@@ -32,11 +34,18 @@ export const RatedMoviesPage: FC = () => {
     const [isRatedList, seIsRatedList] = useState(Boolean(movieList?.length > 0));
     const [ratedSearchedMovies, setRatedSearchedMovies] = useState(movieList);
 
+    const [activePage, setActivePage] = useState(1);
+
+    const setPage = (page: number) => {
+        setActivePage(page);
+    };
+
     const submitHandler = () => {
         const result = movieList.filter((movie) =>
             movie.original_title.toLowerCase().includes(value.toLowerCase()),
         );
         setRatedSearchedMovies(result);
+        setActivePage(1);
     };
 
     useEffect(() => {
@@ -58,19 +67,21 @@ export const RatedMoviesPage: FC = () => {
             {isRatedList && (
                 <>
                     {' '}
-                    <Group justify={'space-between'}>
+                    <Group justify={'space-between'} mb={{ base: 20, sm: 40 }} align={'baseline'}>
                         {' '}
-                        <Title order={1} mb={{ base: 20, sm: 40 }}>
-                            Rated movies
-                        </Title>
+                        <Title order={1}>Rated movies</Title>
                         <TextInput
                             onSubmit={submitHandler}
                             value={value}
                             onChange={(event) => setValue(event.currentTarget.value)}
-                            classNames={{ section: classes.section, input: classes.input }}
+                            classNames={{
+                                wrapper: classes.wrapper,
+                                section: classes.section,
+                                input: classes.input,
+                            }}
                             bg={theme.colors.gray[0]}
                             radius={'sm'}
-                            // style={{backgroundColor: theme.colors.gray[0]}}
+                            style={{ backgroundColor: theme.colors.gray[0], borderRadius: '8px' }}
                             m={'0px'}
                             w={'100%'}
                             h={'48px'}
@@ -81,6 +92,12 @@ export const RatedMoviesPage: FC = () => {
                             rightSectionPointerEvents={'auto'}
                             rightSection={
                                 <Button
+                                    classNames={{
+                                        root: button_classes.filledRoot,
+                                        section: button_classes.filledSection,
+                                        inner: button_classes.filledInner,
+                                        label: button_classes.filledLabel,
+                                    }}
                                     onClick={submitHandler}
                                     w={'88px'}
                                     p={'6px 20px'}
@@ -93,7 +110,11 @@ export const RatedMoviesPage: FC = () => {
                             placeholder='Search movie title'
                         />
                     </Group>
-                    <RatedPagination movieList={ratedSearchedMovies} />
+                    <RatedPagination
+                        movieList={ratedSearchedMovies}
+                        setPage={setPage}
+                        activePage={activePage}
+                    />
                 </>
             )}
         </AppLayout>

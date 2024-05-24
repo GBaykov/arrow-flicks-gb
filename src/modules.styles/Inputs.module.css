@@ -1,0 +1,73 @@
+.selectOption {
+    color: black;
+    font-size: 14px;
+    line-height: 143%;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+.selectOption:hover {
+    background-color: var(--mantine-color-purple-1);
+}
+
+.selectOption {
+    &[data-checked='true'] {
+        color: var(--mantine-color-gray-0);
+        background-color: var(--mantine-color-purple-5);
+    }
+}
+
+.selectInput:hover {
+    border-color: var(--mantine-color-purple-5);
+}
+.selectInput:focus {
+    border-color: var(--mantine-color-purple-5);
+}
+
+.selectInput:focus + .selectSection {
+    transform: rotate(180deg);
+}
+
+.selectSection:focus {
+    border-color: var(--mantine-color-purple-5);
+    transform: rotate(180deg);
+}
+
+.selectSection:hover {
+    border-color: var(--mantine-color-purple-5);
+}
+
+.multiPill {
+    background-color: transparent;
+    color: black;
+    font-size: 14px;
+    line-height: 143%;
+}
+.multiPill button {
+    display: none;
+}
+
+.multiPillList {
+}
+
+.multiPill:not(:last-child)::after {
+    content: ',';
+}
+
+.multiPill:last-child::after {
+    content: '';
+}
+
+.numberInput:hover {
+    border-color: var(--mantine-color-purple-5);
+}
+.numberInput:focus {
+    border-color: var(--mantine-color-purple-5);
+}
+
+.numberWrapper:hover {
+    border-color: var(--mantine-color-purple-5);
+}
+.numberWrapper:focus {
+    border-color: var(--mantine-color-purple-5);
+}

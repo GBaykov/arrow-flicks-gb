@@ -75,7 +75,7 @@ export const MovieDetailPage: FC = () => {
             return `${h}h${' '}${m}m`;
         }
     };
-
+    console.log(movie_info?.production_companies);
     return (
         <AppLayout>
             <Stack m={{ base: '40px 0px 0px', sm: '40px 45px 0px', lg: '0 90px 0px' }} gap={'20px'}>
@@ -204,58 +204,62 @@ export const MovieDetailPage: FC = () => {
                         </Flex>
                     </Flex>
                 </Card>
-                <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
-                    {movieTrailer && (
-                        <div>
-                            <Title order={4} pb={'md'}>
-                                Trailer
-                            </Title>
+                {movieTrailer &&
+                    movie_info?.overview &&
+                    movie_info?.production_companies.length && (
+                        <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
+                            {movieTrailer && (
+                                <div>
+                                    <Title order={4} pb={'md'}>
+                                        Trailer
+                                    </Title>
 
-                            <Group
-                                h={{ base: '151px', sm: '281px' }}
-                                w={{ base: '270px', sm: '500px' }}
-                            >
-                                {' '}
-                                <iframe
-                                    width={'100%'}
-                                    height={'100%'}
-                                    title='Youtube player'
-                                    sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
-                                    src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
-                                ></iframe>
-                            </Group>
-                            <Divider my='xs' mb={'20px'} mt={'20px'} />
-                        </div>
-                    )}
-                    {movie_info?.overview && (
-                        <div>
-                            <Title order={4} pb={'md'}>
-                                Description
-                            </Title>
-                            <Title order={6}>{movie_info?.overview}</Title>
-                            <Divider my='xs' mb={'20px'} mt={'20px'} />
-                        </div>
-                    )}
-                    {movie_info?.production_companies && (
-                        <div>
-                            <Title order={4} mb={'md'}>
-                                Production
-                            </Title>
-                            <Stack gap={'sm'}>
-                                {movie_info?.production_companies.map((item) => (
-                                    <Group>
-                                        <img
-                                            width={'40px'}
-                                            src={getPoster(item.logo_path, 'w45', 'Icon')}
-                                            alt='Production companie'
-                                        />
-                                        <Title order={5}>{item.name}</Title>
+                                    <Group
+                                        h={{ base: '151px', sm: '281px' }}
+                                        w={{ base: '270px', sm: '500px' }}
+                                    >
+                                        {' '}
+                                        <iframe
+                                            width={'100%'}
+                                            height={'100%'}
+                                            title='Youtube player'
+                                            sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                            src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
+                                        ></iframe>
                                     </Group>
-                                ))}
-                            </Stack>
-                        </div>
+                                    <Divider my='xs' mb={'20px'} mt={'20px'} />
+                                </div>
+                            )}
+                            {movie_info?.overview && (
+                                <div>
+                                    <Title order={4} pb={'md'}>
+                                        Description
+                                    </Title>
+                                    <Title order={6}>{movie_info?.overview}</Title>
+                                    <Divider my='xs' mb={'20px'} mt={'20px'} />
+                                </div>
+                            )}
+                            {!!movie_info?.production_companies.length && (
+                                <div>
+                                    <Title order={4} mb={'md'}>
+                                        Production
+                                    </Title>
+                                    <Stack gap={'sm'}>
+                                        {movie_info?.production_companies.map((item) => (
+                                            <Group>
+                                                <img
+                                                    width={'40px'}
+                                                    src={getPoster(item.logo_path, 'w45', 'Icon')}
+                                                    alt='Production companie'
+                                                />
+                                                <Title order={5}>{item.name}</Title>
+                                            </Group>
+                                        ))}
+                                    </Stack>
+                                </div>
+                            )}
+                        </Card>
                     )}
-                </Card>
             </Stack>
         </AppLayout>
     );

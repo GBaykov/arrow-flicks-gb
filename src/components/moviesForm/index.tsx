@@ -18,13 +18,12 @@ import {
     Flex,
     Title,
 } from '@mantine/core';
-import { UseFormReturnType, isInRange, useForm } from '@mantine/form';
+import { UseFormReturnType, useForm } from '@mantine/form';
 
 import {
-    FormToched,
+    formToched,
     appFilters,
     appSortBy,
-    intialFilters,
     setAppFilters,
     setAppSortBy,
     setFormToched,
@@ -32,7 +31,12 @@ import {
 } from '@redux/reducers/appSlice';
 import { genreList, moviesPage, setPage } from '@redux/reducers/moviesSlice';
 import { useLazyGetMoviesQuery } from '@redux/services/moviesService';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import button_classes from '../../modules.styles/Button.module.css';
+import inputs_classes from '../../modules.styles/Inputs.module.css';
+
+import UpDown from '../../assets/icons/UpDown.svg';
+import downIcon from '../../assets/icons/down.svg';
 
 export type FormFilters = {
     genre_names: string[];
@@ -52,7 +56,7 @@ export const MoviesForm: FC = () => {
     const genreListNames = genres.map((item) => item.name);
     const releaseYearsData = getMoviesYears();
     const genreLabels = getGenreLabelsByIds(genres, filters.with_genres);
-    const isFormToched = useAppSelector(FormToched);
+    const isFormToched = useAppSelector(formToched);
 
     const form: UseFormReturnType<FormFilters> = useForm({
         mode: 'uncontrolled',
@@ -109,9 +113,9 @@ export const MoviesForm: FC = () => {
         getMovies(args);
     };
     const onResetClick = () => {
-        dispatch(setFormToched(false));
         form.reset();
         dispatch(setResetFilters());
+        dispatch(setFormToched(false));
     };
     return (
         <Stack mb={{ base: 'xs', xs: 'sm', sm: 'md' }} gap={'xl'}>
@@ -125,6 +129,16 @@ export const MoviesForm: FC = () => {
                         data={genreListNames}
                         key={form.key('genre_names')}
                         {...form.getInputProps('genre_names')}
+                        rightSection={<img src={downIcon} />}
+                        withCheckIcon={false}
+                        classNames={{
+                            option: inputs_classes.selectOption,
+                            // input: inputs_classes.multiInput,
+                            inputField: inputs_classes.selectInput,
+                            section: inputs_classes.selectSection,
+                            pill: inputs_classes.multiPill,
+                            pillsList: inputs_classes.multiPillList,
+                        }}
                     />
                     <Select
                         maw={'300px'}
@@ -134,6 +148,13 @@ export const MoviesForm: FC = () => {
                         data={releaseYearsData}
                         key={form.key('primary_release_year')}
                         {...form.getInputProps('primary_release_year')}
+                        rightSection={<img src={downIcon} />}
+                        withCheckIcon={false}
+                        classNames={{
+                            option: inputs_classes.selectOption,
+                            input: inputs_classes.selectInput,
+                            section: inputs_classes.selectSection,
+                        }}
                     />
                     <Group gap={'xs'} maw={'284px'} w={'100%'} wrap='nowrap'>
                         {' '}
@@ -146,6 +167,12 @@ export const MoviesForm: FC = () => {
                             clampBehavior='strict'
                             key={form.key('vote_average_gte')}
                             {...form.getInputProps('vote_average_gte')}
+                            classNames={{
+                                input: button_classes.numberInput,
+                                wrapper: button_classes.numberWrapper,
+                                controls: button_classes.numberControl,
+                            }}
+                            rightSection={<img src={UpDown} />}
                         />
                         <NumberInput
                             label=' '
@@ -156,15 +183,24 @@ export const MoviesForm: FC = () => {
                             clampBehavior='strict'
                             key={form.key('vote_average_lte')}
                             {...form.getInputProps('vote_average_lte')}
+                            classNames={{
+                                root: button_classes.transparentRoot,
+                                wrapper: button_classes.numberWrapper,
+                                control: button_classes.numberControl,
+                            }}
+                            rightSection={<img src={UpDown} />}
                         />
                     </Group>
                     <Button
+                        classNames={{
+                            root: button_classes.transparentRoot,
+                        }}
                         p={0}
                         maw={'82px'}
                         w={'100%'}
                         onClick={() => onResetClick()}
                         variant='transparent'
-                        c={theme.colors.gray[6]}
+                        // c={theme.colors.gray[6]}
                         disabled={!isFormToched}
                     >
                         Reset filters
@@ -178,6 +214,13 @@ export const MoviesForm: FC = () => {
                     label={<Title order={5}>Sort by</Title>}
                     data={sortData.map((item) => item.label)}
                     defaultValue={sortBy}
+                    rightSection={<img src={downIcon} />}
+                    withCheckIcon={false}
+                    classNames={{
+                        option: inputs_classes.selectOption,
+                        input: inputs_classes.selectInput,
+                        section: inputs_classes.selectSection,
+                    }}
                 />
             </Flex>
         </Stack>

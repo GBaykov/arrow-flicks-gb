@@ -55,7 +55,7 @@ export const appIsLoading = (state: ApplicationState) => state.app.isLoading;
 export const appFilters = (state: ApplicationState) => state.app.filters;
 export const appSortBy = (state: ApplicationState) => state.app.sort_by;
 export const appModal = (state: ApplicationState) => state.app.movieForModal;
-export const FormToched = (state: ApplicationState) => state.app.isFormToched;
+export const formToched = (state: ApplicationState) => state.app.isFormToched;
 
 export const {
     setAppFilters,
