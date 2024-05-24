@@ -1,5 +1,17 @@
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { Button, Flex, Group, Modal, Rating, Text, Title, useMantineTheme } from '@mantine/core';
+import {
+    Button,
+    Divider,
+    Flex,
+    Group,
+    Modal,
+    Rating,
+    Text,
+    Title,
+    em,
+    useMantineTheme,
+} from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { MovieItem, StoragedItem } from '@redux/appTypes';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
 
@@ -16,6 +28,8 @@ export const AppModal: FC = () => {
     // const [isOpen, setIsOpen] = useState(isModalOpen);
     const [value, setValue] = useState(ratedMovie?.personalRate || 0);
     // const isModalOpen = useAppSelector(appModal);
+    const isMobile = useMediaQuery(`(max-width: ${em(800)})`);
+    console.log(isMobile);
 
     const onSaveRating = () => {
         if (chosenMovie) {
@@ -50,26 +64,63 @@ export const AppModal: FC = () => {
 
     return (
         <Modal.Root
+            radius={'xs'}
             withinPortal={false}
             centered
             size='sm'
             opened={Boolean(chosenMovie)}
             onClose={() => dispatch(setAppModal(null))}
+            p={0}
         >
             <Modal.Overlay />
             <Modal.Content>
-                <Modal.Header>
-                    <Modal.Title>Your rating</Modal.Title>
-                    <Modal.CloseButton />
+                <Modal.Header p={'16px'}>
+                    <Modal.Title fz={'h6'}>Your rating</Modal.Title>
+                    <Modal.CloseButton c={theme.colors.gray[5]} size={'sm'} />
                 </Modal.Header>
-                <Modal.Body>
-                    <Text size={'md'}>{chosenMovie?.title}</Text>
-                    <Rating count={10} value={value} onChange={setValue} />
+                <Divider m={0} style={{ margin: 0 }} />
+                <Modal.Body p={'16px'}>
+                    <Title order={5} mb={'16px'}>
+                        {chosenMovie?.title}
+                    </Title>
+                    {isMobile && (
+                        <Rating
+                            count={10}
+                            value={value}
+                            onChange={setValue}
+                            mb={'16px'}
+                            size={'sm'}
+                        />
+                    )}
+                    {!isMobile && (
+                        <Rating
+                            count={10}
+                            value={value}
+                            onChange={setValue}
+                            mb={'16px'}
+                            size='xl'
+                        />
+                    )}
                     <Group>
-                        <Button c={theme.colors.gray[0]} variant='filled' onClick={onSaveRating}>
+                        <Button
+                            p={'10px 20px'}
+                            c={theme.colors.gray[0]}
+                            variant='filled'
+                            onClick={onSaveRating}
+                            fz={'14px'}
+                            lh={'140%'}
+                            fw={700}
+                        >
                             Save
                         </Button>{' '}
-                        <Button variant='transparent' onClick={onRemoveRating}>
+                        <Button
+                            p={0}
+                            fz={'14px'}
+                            fw={600}
+                            lh={'140%'}
+                            variant='transparent'
+                            onClick={onRemoveRating}
+                        >
                             Remove rating
                         </Button>
                     </Group>

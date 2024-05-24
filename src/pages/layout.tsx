@@ -105,11 +105,11 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                             h={'100%'}
                             w={'100%'}
                             p={{
-                                base: '30px 16px 46px 16px',
-                                xs: '30px 24px 46px 24px',
-                                sm: '30px 30px 56px 30px',
-                                md: '35px 35px 62px 35px',
-                                lg: '40px 50px 82px 330px',
+                                base: '30px 16px 30px ',
+                                xs: '30px 24px 26px ',
+                                sm: '30px 30px 46px ',
+                                md: '35px 35px 62px ',
+                                lg: '40px 50px 72px 330px',
                                 xl: '40px 90px 82px 370px',
                             }}
                         >

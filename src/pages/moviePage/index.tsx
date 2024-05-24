@@ -78,13 +78,18 @@ export const MovieDetailPage: FC = () => {
 
     return (
         <AppLayout>
-            <Stack>
+            <Stack m={{ base: '40px 0px 0px', sm: '40px 45px 0px', lg: '0 90px 0px' }} gap={'20px'}>
                 <Breadcrumbs>
                     <Anchor onClick={() => navigate(PATHS.MAIN)}>Movies</Anchor>
                     <Anchor>{movie_info?.original_title}</Anchor>
                 </Breadcrumbs>
-                <Card p={'xl'} radius={'lg'} mih={400}>
-                    <Flex gap='md' justify='flex-start' align='flex-start' direction='row'>
+                <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'} mih={400}>
+                    <Flex
+                        gap='md'
+                        justify='flex-start'
+                        align={{ base: 'center', sm: 'flex-start' }}
+                        direction={{ base: 'column', sm: 'row' }}
+                    >
                         <img
                             src={getPoster(movie_info?.poster_path, 'w300')}
                             width={250}
@@ -98,7 +103,7 @@ export const MovieDetailPage: FC = () => {
                             h={'100%'}
                             mih={'352px'}
                         >
-                            <Stack>
+                            <Stack gap={'xs'}>
                                 <Group justify='space-between' wrap='nowrap'>
                                     <Anchor
                                         underline='never'
@@ -109,6 +114,7 @@ export const MovieDetailPage: FC = () => {
                                         style={{ wordWrap: 'break-word', display: 'inline-block' }}
                                         fw='600'
                                         size={'xl'}
+                                        lh={'100%'}
                                     >
                                         {movie_info?.original_title}
                                     </Anchor>
@@ -142,26 +148,26 @@ export const MovieDetailPage: FC = () => {
                                 </Group>
                             </Stack>
 
-                            <Group w={'100%'} maw={'400px'}>
+                            <Group w={'100%'} maw={'400px'} justify={'space-between'}>
                                 <Stack>
-                                    <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                                    <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                                         Duration
                                     </Text>{' '}
-                                    <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                                    <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                                         Premiere
                                     </Text>
-                                    <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                                    <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                                         Budget
                                     </Text>
-                                    <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                                    <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                                         Gross worldwide
                                     </Text>
-                                    <Text size='lg' fw='400' c={theme.colors.gray[6]}>
+                                    <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
                                         Genres
                                     </Text>
                                 </Stack>
 
-                                <Stack>
+                                <Stack justify={'space-between'}>
                                     {' '}
                                     <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[9]}>
                                         {filmDuration(movie_info?.runtime)}
@@ -198,20 +204,26 @@ export const MovieDetailPage: FC = () => {
                         </Flex>
                     </Flex>
                 </Card>
-                <Card p={'xl'} radius={'lg'}>
+                <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
                     {movieTrailer && (
                         <div>
                             <Title order={4} pb={'md'}>
                                 Trailer
                             </Title>
-                            <iframe
-                                width={500}
-                                height={281}
-                                className='video'
-                                title='Youtube player'
-                                sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
-                                src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
-                            ></iframe>
+
+                            <Group
+                                h={{ base: '151px', sm: '281px' }}
+                                w={{ base: '270px', sm: '500px' }}
+                            >
+                                {' '}
+                                <iframe
+                                    width={'100%'}
+                                    height={'100%'}
+                                    title='Youtube player'
+                                    sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                    src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
+                                ></iframe>
+                            </Group>
                             <Divider my='xs' mb={'20px'} mt={'20px'} />
                         </div>
                     )}
