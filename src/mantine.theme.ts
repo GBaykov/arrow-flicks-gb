@@ -5,6 +5,7 @@ import {
     createTheme,
     darken,
     defaultVariantColorsResolver,
+    lighten,
     parseThemeColor,
     rem,
     rgba,
@@ -19,54 +20,55 @@ const variantColorResolver: VariantColorsResolver = (input) => {
     });
 
     // Override some properties for variant
-    if (parsedColor.isThemeColor && parsedColor.color === 'purple') {
+    if (parsedColor.isThemeColor && parsedColor.color === 'purple' && input.variant === 'filled') {
         return {
             ...defaultResolvedColors,
-            color: 'var(--mantine-color-purple-5)',
-            hoverColor: 'var(--mantine-color-purple-4)',
-            activeColor: 'var(--mantine-color-purple-6)',
-        };
-    }
-    if (input.color === 'purple') {
-        return {
-            background: rgba(parsedColor.value, 0.1),
+            color: 'var(--mantine-color-white)',
+            hoverColor: 'var(--mantine-color-white)',
             hover: 'var(--mantine-color-purple-4)',
             active: 'var(--mantine-color-purple-6)',
-            color: 'var(--mantine-color-purple-5)',
             border: 'none',
+            focus: 'var(--mantine-color-purple-6)',
+            background: 'var(--mantine-color-purple-5)',
         };
     }
 
-    // return {
-    //     background: rgba(parsedColor.value, 0.1),
-    //     hover: 'var(--mantine-color-purple-4)',
-    //     active: 'var(--mantine-color-purple-6)',
-    //     color: 'var(--mantine-color-purple-5)',
-    //     border: 'none',
-    // };
+    //
 
     // Completely override variant
-    if (input.variant === 'light') {
+    // if (input.variant === 'light') {
+    //     return {
+    //         background: rgba(parsedColor.value, 0.1),
+    //         hover: rgba(parsedColor.value, 0.15),
+    //         border: `${rem(1)} solid ${parsedColor.value}`,
+    //         color: darken(parsedColor.value, 0.1),
+    //     };
+    // }
+    if (input.variant === 'filled') {
         return {
-            background: rgba(parsedColor.value, 0.1),
-            hover: rgba(parsedColor.value, 0.15),
-
+            background: 'var(--mantine-color-purple-5)',
+            color: 'var(--mantine-color-white)',
+            hoverColor: 'var(--mantine-color-white)',
+            hover: 'var(--mantine-color-purple-4)',
             active: 'var(--mantine-color-purple-6)',
-            border: `${rem(1)} solid ${parsedColor.value}`,
-            color: darken(parsedColor.value, 0.1),
+            border: 'none',
+            focus: 'var(--mantine-color-purple-6)',
+        };
+    }
+
+    if (input.variant === 'transparent') {
+        return {
+            background: 'transparent',
+            backgroundColor: 'transparent',
+            color: 'var(--mantine-color-white)',
+            hoverColor: 'var(--mantine-color-white)',
+            hover: 'transparent',
+            // active: 'var(--mantine-color-purple-6)',
+            border: 'none',
         };
     }
 
     // Add new variants support
-    if (input.variant === 'filled') {
-        return {
-            background: 'var(--mantine-color-purple-5)',
-            hover: 'var(--mantine-color-purple-4)',
-            active: 'var(--mantine-color-purple-6)',
-            color: 'var(--mantine-color-white)',
-            border: 'none',
-        };
-    }
 
     return defaultResolvedColors;
 };
@@ -162,17 +164,27 @@ export const AppMantineTheme = createTheme({
     },
     focusRing: 'never',
     components: {
-        // Button: Button.extend({
-        //     classNames: {
-        //         root: 'pagination-root-class',
-        //         control: 'pagination-control-class',
-        //         dots: '.mantine-Pagination-dots',
-        //     },
-        //     styles: {
-        //         root: { backgroundColor: 'p' },
-        //         dots: { display: 'none' },
-        //         control: {},
-        //     },
-        // }),
+        Button: Button.extend({
+            // classNames: {
+            //     root: 'pagination-root-class',
+            //     control: 'pagination-control-class',
+            //     dots: '.mantine-Pagination-dots',
+            // },
+            styles: {
+                root: {
+                    // backgroundColor: 'var(--mantine-color-purple-5)',
+                    // hover: {
+                    //     backgroundColor: 'var(--mantine-color-purple-4)',
+                    // },
+                    // active: {
+                    //     backgroundColor: 'var(--mantine-color-purple-6)',
+                    // },
+                },
+                loader: {},
+                inner: {},
+                section: {},
+                label: {},
+            },
+        }),
     },
 });

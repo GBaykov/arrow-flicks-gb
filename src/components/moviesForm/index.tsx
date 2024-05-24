@@ -20,15 +20,18 @@ import {
 import { UseFormReturnType, isInRange, useForm } from '@mantine/form';
 
 import {
+    FormToched,
     appFilters,
     appSortBy,
+    intialFilters,
     setAppFilters,
     setAppSortBy,
+    setFormToched,
     setResetFilters,
 } from '@redux/reducers/appSlice';
 import { genreList, moviesPage, setPage } from '@redux/reducers/moviesSlice';
 import { useLazyGetMoviesQuery } from '@redux/services/moviesService';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 export type FormFilters = {
     genre_names: string[];
@@ -48,6 +51,7 @@ export const MoviesForm: FC = () => {
     const genreListNames = genres.map((item) => item.name);
     const releaseYearsData = getMoviesYears();
     const genreLabels = getGenreLabelsByIds(genres, filters.with_genres);
+    const isFormToched = useAppSelector(FormToched);
 
     const form: UseFormReturnType<FormFilters> = useForm({
         mode: 'uncontrolled',
@@ -60,6 +64,7 @@ export const MoviesForm: FC = () => {
         },
 
         onValuesChange: (values: FormFilters) => {
+            dispatch(setFormToched(true));
             form.validate();
             if (Object.getOwnPropertyNames(form.errors).length === 0) {
                 const { genre_names, primary_release_year } = values;
@@ -103,10 +108,10 @@ export const MoviesForm: FC = () => {
         getMovies(args);
     };
     const onResetClick = () => {
+        dispatch(setFormToched(false));
         form.reset();
         dispatch(setResetFilters());
     };
-
     return (
         <Stack>
             <form>
@@ -151,6 +156,7 @@ export const MoviesForm: FC = () => {
                         onClick={() => onResetClick()}
                         variant='transparent'
                         c={theme.colors.gray[6]}
+                        disabled={!isFormToched}
                     >
                         Reset filters
                     </Button>

@@ -26,7 +26,7 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
                         radius={'sm'}
                         p={'10px 20px'}
                         onClick={onButtonClick}
-                        variant='fill'
+                        variant='filled'
                         size='md'
                     >
                         {info.btn_text}

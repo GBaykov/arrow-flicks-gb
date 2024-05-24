@@ -8,8 +8,9 @@ export type AppState = {
     sort_by: string;
     isLoading: boolean;
     movieForModal: MovieItem | null;
+    isFormToched: boolean;
 };
-const intialFilters = {
+export const intialFilters = {
     with_genres: [],
     primary_release_year: '',
     'vote_average.lte': null,
@@ -21,6 +22,7 @@ const initialState: AppState = {
     sort_by: 'Most Popular',
     isLoading: false,
     movieForModal: null,
+    isFormToched: false,
 };
 
 export const appSlice = createSlice({
@@ -42,6 +44,9 @@ export const appSlice = createSlice({
         setResetFilters(state) {
             state.filters = intialFilters;
         },
+        setFormToched(state, { payload: isFormToched }: PayloadAction<boolean>) {
+            state.isFormToched = isFormToched;
+        },
     },
 });
 
@@ -50,7 +55,14 @@ export const appIsLoading = (state: ApplicationState) => state.app.isLoading;
 export const appFilters = (state: ApplicationState) => state.app.filters;
 export const appSortBy = (state: ApplicationState) => state.app.sort_by;
 export const appModal = (state: ApplicationState) => state.app.movieForModal;
+export const FormToched = (state: ApplicationState) => state.app.isFormToched;
 
-export const { setAppFilters, setAppLoading, setAppSortBy, setAppModal, setResetFilters } =
-    appSlice.actions;
+export const {
+    setAppFilters,
+    setAppLoading,
+    setAppSortBy,
+    setAppModal,
+    setResetFilters,
+    setFormToched,
+} = appSlice.actions;
 export default appSlice.reducer;

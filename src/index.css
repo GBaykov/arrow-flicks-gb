@@ -53,7 +53,7 @@ button {
     font-weight: 500;
     font-family: inherit;
     color: var(--mantine-color-gray-0);
-    /* background-color: #1a1a1a; */
+    background-color: var(--mantine-color-purple-5);
     cursor: pointer;
 }
 button:hover {
@@ -64,10 +64,16 @@ button:active {
     /* border-color: #646cff; */
     background-color: var(--mantine-color-purple-6);
 }
-button:focus,
-button:focus-visible {
-    /* outline: 4px auto -webkit-focus-ring-color; */
+
+button:pressed {
+    /* border-color: #646cff; */
+    background-color: var(--mantine-color-purple-6);
 }
+
+/* button:focus,
+button:focus-visible {
+    background-color: var(--mantine-color-purple-6);
+} */
 
 @media (prefers-color-scheme: light) {
     :root {
