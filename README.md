@@ -1,5 +1,7 @@
 ## ArrowFlicks-GB приложение для получения информации о фильмах в соответствии с дизайном (https://www.figma.com/design/VkLZt5T4dZQQ3cEhWcnhyG/Movie-Search-App?node-id=18006-4373&t=mar5GdrxXCJO7Dkd-0)
 
+you should use a VPN to make the app work properly
+
 Прокси сервер для приложения
 deployment for https://github.com/GBaykov/TMDB-api-proxy
 'https://tmdb-api-proxy.onrender.com'; (используется в проекте)

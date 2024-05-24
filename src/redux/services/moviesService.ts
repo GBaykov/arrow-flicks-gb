@@ -9,13 +9,7 @@ import {
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import {
-    AppFilters,
-    GenreResponce,
-    GetMoviesArgs,
-    MovieDetails,
-    MoviesResponce,
-} from '@redux/appTypes';
+import { GenreResponce, GetMoviesArgs, MovieDetails, MoviesResponce } from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const headers = {

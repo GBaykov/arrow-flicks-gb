@@ -72,11 +72,8 @@ export const MoviesForm: FC = () => {
                 const sort_by = sortData.find((item) => item.label === sortBy)?.name;
                 const page = 1;
                 dispatch(setPage(page));
-
                 dispatch(setAppFilters(formFilters));
-
                 const args = moviesArgsConstructor(formFilters, page, sort_by);
-
                 getMovies(args);
             } else console.log(form.errors);
         },
