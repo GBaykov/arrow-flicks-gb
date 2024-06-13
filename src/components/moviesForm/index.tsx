@@ -103,6 +103,7 @@ export const MoviesForm: FC = () => {
         dispatch(setResetFilters());
         dispatch(setFormToched(false));
     };
+    console.log(form.values.genre_names);
     return (
         <Stack mb={{ base: 'xs', xs: 'sm', sm: 'md' }} gap={'xl'}>
             <form>
@@ -111,7 +112,8 @@ export const MoviesForm: FC = () => {
                         maw={'284px'}
                         w={{ base: '', sm: '100%' }}
                         label={<Title order={5}>Genres</Title>}
-                        placeholder='Select genre'
+                        // placeholder='Select genre'
+                        placeholder={!form.values.genre_names.length ? 'Select genre' : ''}
                         data={genreListNames}
                         key={form.key('genre_names')}
                         {...form.getInputProps('genre_names')}

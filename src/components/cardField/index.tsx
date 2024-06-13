@@ -9,7 +9,7 @@ export type CardField = {
 
 export const CardField: FC<CardField> = ({ movies }) => {
     return (
-        <SimpleGrid cols={{ base: 1, xs: 2, xxl: 3 }}>
+        <SimpleGrid cols={2}>
             {movies &&
                 movies.map((item) => {
                     return <FilmCard key={item?.id} movie_info={item} />;
