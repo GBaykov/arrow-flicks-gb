@@ -5,7 +5,7 @@
 }
 
 .filterWrapper {
-    font-size: rem(14px);
+    font-size: 14px;
 }
 
 /* .filterLabel {
@@ -17,13 +17,17 @@
 .inputRoot {
     overflow: hidden;
     display: flex;
-
     min-height: 42px;
-
-    font-size: rem(14px);
-
-    border-color: var(--mantine-color-grey-3);
+    font-size: 14px;
+    /* border-color: var(--mantine-color-gray-3); */
     caret-color: var(--mantine-color-purple-5);
+}
+
+.inputRoot:hover {
+    border-color: var(--mantine-color-purple-5);
+}
+.inputRoot:focus {
+    border-color: var(--mantine-color-purple-5);
 }
 
 .selectDropdown {
@@ -33,13 +37,14 @@
 }
 
 .selectOption {
-    padding: var(--mantine-spacing-xxs) var(--mantine-spacing-sm);
-    font-size: rem(14px);
-    font-weight: 400;
-    line-height: 20px;
+    /* padding: var(--mantine-spacing-xxs) var(--mantine-spacing-sm); */
+    font-size: 14px;
+    line-height: 143%;
+    background-color: transparent;
+    border-radius: 8px;
 
     &[data-checked='true'] {
-        color: var(--mantine-color-white);
+        color: var(--mantine-color-gray-0);
         background-color: var(--mantine-color-purple-5);
     }
 
@@ -55,23 +60,28 @@
 }
 
 .resetButton {
-    flex: 0 0 auto;
-
+    background-color: transparent;
+    /* flex: 0 0 auto; */
     height: 42px;
+    width: 100%;
+    max-width: 82px;
     padding: 0;
-
     font-size: 14px;
     font-weight: 500;
     font-style: normal;
     line-height: 20px;
     color: var(--mantine-color-purple-5);
-
     &:disabled,
     &[data-disabled] {
-        color: var(--mantine-color-grey-6);
+        color: var(--mantine-color-gray-6);
+        background-color: transparent;
+        cursor: not-allowed;
     }
-
     &:active:not(:disabled) {
+        color: var(--mantine-color-purple-6);
+        background-color: transparent;
+    }
+    &:not(:disabled):active {
         color: var(--mantine-color-purple-6);
         background-color: transparent;
     }
@@ -79,6 +89,11 @@
     @media screen and (hover: hover) {
         &:hover:not(:disabled) {
             color: var(--mantine-color-purple-4);
+            background-color: transparent;
+        }
+        &:active:not(:disabled) {
+            color: var(--mantine-color-purple-6);
+            background-color: transparent;
         }
     }
 }

@@ -1,7 +1,6 @@
 import { API_URL, ApiEndpoints } from '@constants/general';
 import { setAppLoading } from '@redux/reducers/appSlice';
 import {
-    setGenreList,
     setMovieDetails,
     setMovieList,
     setMoviesResponce,
@@ -29,7 +28,7 @@ export const moviesAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
     }),
-    tagTypes: ['Movies', 'GenreList'],
+    tagTypes: ['Movies'],
 
     endpoints: (builder) => ({
         getGenreList: builder.query<Genres, void>({

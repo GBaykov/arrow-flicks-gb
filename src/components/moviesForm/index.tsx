@@ -20,7 +20,7 @@ import {
     setResetFilters,
 } from '@redux/reducers/appSlice';
 import { genreList, moviesPage, setPage } from '@redux/reducers/moviesSlice';
-import { useLazyGetMoviesQuery } from '@redux/services/moviesService';
+import { useGetGenreListQuery, useLazyGetMoviesQuery } from '@redux/services/moviesService';
 import { FC } from 'react';
 import button_classes from '../../modules.styles/Button.module.css';
 import inputs_classes from '../../modules.styles/Inputs.module.css';
@@ -36,6 +36,8 @@ export type FormFilters = {
 };
 
 export const MoviesForm: FC = () => {
+    const { data, isLoading } = useGetGenreListQuery();
+    console.log(data, isLoading);
     const dispatch = useAppDispatch();
     const page = useAppSelector(moviesPage);
     const filters = useAppSelector(appFilters);
@@ -69,7 +71,7 @@ export const MoviesForm: FC = () => {
                     'vote_average.lte': values['vote_average_lte'],
                     'vote_average.gte': values['vote_average_gte'],
                 };
-                const sort_by = sortData.find((item) => item.label === sortBy)?.name;
+                const sort_by = sortData.find((item) => item.label === sortBy)?.label;
                 const page = 1;
                 dispatch(setPage(page));
                 dispatch(setAppFilters(formFilters));
@@ -90,7 +92,7 @@ export const MoviesForm: FC = () => {
         };
 
         const sorValue = value as SortTypes;
-        const sort_by = sortData.find((item) => item.label === sorValue)?.name;
+        const sort_by = sortData.find((item) => item.label === sorValue)?.label;
 
         dispatch(setAppSortBy(sorValue));
 
@@ -110,7 +112,7 @@ export const MoviesForm: FC = () => {
                 <Flex gap={'md'} align={'flex-end'} wrap={{ base: 'wrap', sm: 'nowrap' }}>
                     <MultiSelect
                         maw={'284px'}
-                        w={{ base: '', sm: '100%' }}
+                        w={'100%'}
                         label={<Title order={5}>Genres</Title>}
                         // placeholder='Select genre'
                         placeholder={!form.values.genre_names.length ? 'Select genre' : ''}

@@ -1,5 +1,6 @@
 import { CardField } from '@components/cardField';
 import { EmptyStateMessage } from '@components/emptyStateMessage';
+import { MoviesFilters } from '@components/filters';
 import { MoviesForm } from '@components/moviesForm';
 import { AppPagination } from '@components/pagination/AppPagination';
 import { EmptyData } from '@constants/empty';
@@ -23,7 +24,8 @@ export const MainPage: FC = () => {
                 Movies
             </Title>
 
-            <MoviesForm />
+            {/* <MoviesForm /> */}
+            <MoviesFilters />
             {!movies.length && (
                 <Flex justify={'center'}>
                     <div

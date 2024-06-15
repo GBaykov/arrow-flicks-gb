@@ -12,7 +12,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { FC, ReactNode } from 'react';
 import appLogo from '../assets/icons/logo.svg';
-import { useGetGenreListQuery, useGetMoviesQuery } from '@redux/services/moviesService';
+import { useGetMoviesQuery } from '@redux/services/moviesService';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { appFilters, appIsLoading, appSortBy } from '@redux/reducers/appSlice';
 import { AppLoader } from '@components/loader';
@@ -43,6 +43,8 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
 
     const isMovieOrMovieDetails =
         location.pathname.includes(PATHS.MAIN) || location.pathname === PATHS.INITIAL;
+
+    console.log(isLoading);
 
     return (
         <Box pos='relative' m={'0 auto'} w={'100%'} h={'100%'} bg={theme.colors.gray[1]}>

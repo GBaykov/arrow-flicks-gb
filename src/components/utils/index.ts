@@ -1,4 +1,3 @@
-import { SortTypes } from '@constants/enums';
 import { IMG_BASE_URL, sortData } from '@constants/general';
 import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
 import noPosterImg from '../../assets/images/noPoster.png';
@@ -55,14 +54,14 @@ export const getGenreLabelsByIds = (allGenres: GenreType[], ids: number[]) => {
 };
 
 export const voteCountReduction = (v?: number) => {
-    const vote = v ? v : 0;
-    if (String(vote).length === 5) {
-        return `${(vote / 10000).toFixed(1)}M`;
-    } else if (String(vote).length >= 2 && String(vote).length <= 4) {
-        return `${Math.round(vote / 10)}K`;
-    } else {
-        return `${vote}`;
+    const num = v ? v : 0;
+    if (num > 100000) {
+        return `${(num / 1000000).toFixed(1)}M`;
     }
+    if (num > 1000) {
+        return `${(num / 1000).toFixed(1)}K`;
+    }
+    return String(num);
 };
 
 export const getPoster = (path?: string, poster_width?: string, type?: 'Image' | 'Icon') => {
