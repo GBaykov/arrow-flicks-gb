@@ -8,14 +8,14 @@ import { MAX_PAGES_COUNT, PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Flex, Title } from '@mantine/core';
 import { AppLayout } from '@pages/layout';
-import { moviesList, moviesTotalPages } from '@redux/reducers/moviesSlice';
+import { moviesTotalPages } from '@redux/reducers/moviesSlice';
 import { FC } from 'react';
 import { push } from 'redux-first-history';
 
 export const MainPage: FC = () => {
     const dispatch = useAppDispatch();
     dispatch(push(PATHS.MAIN));
-    const movies = useAppSelector(moviesList);
+
     const total_pages = useAppSelector(moviesTotalPages);
     const displayed_pages = total_pages < MAX_PAGES_COUNT ? total_pages : MAX_PAGES_COUNT;
     return (
@@ -26,7 +26,7 @@ export const MainPage: FC = () => {
 
             {/* <MoviesForm /> */}
             <MoviesFilters />
-            {!movies.length && (
+            {/* {!movies.length && (
                 <Flex justify={'center'}>
                     <div
                         style={{
@@ -39,10 +39,10 @@ export const MainPage: FC = () => {
                         <EmptyStateMessage info={EmptyData.data_not_found} />
                     </div>
                 </Flex>
-            )}
+            )} */}
             {displayed_pages && (
                 <>
-                    <CardField movies={movies} />
+                    <CardField />
 
                     {displayed_pages > 1 && <AppPagination pages={total_pages} />}
                 </>

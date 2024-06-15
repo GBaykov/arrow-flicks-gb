@@ -8,15 +8,10 @@ import {
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import {
-    GenreResponce,
-    GenreType,
-    Genres,
-    GetMoviesArgs,
-    MovieDetails,
-    MoviesResponce,
-} from '@redux/appTypes';
+import { GenreResponce, GenreType, Genres, MovieDetails, MoviesResponce } from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FiltersState } from '@redux/reducers/filtersSlice';
+import { paramsConstructor } from '@components/utils';
 
 export const headers = {
     accept: 'application/json',
@@ -43,13 +38,29 @@ export const moviesAPI = createApi({
                 return { genres };
             },
         }),
-        getMovies: builder.query<MoviesResponce, GetMoviesArgs>({
-            query: (arg) => {
+        getMovies: builder.query<MoviesResponce, FiltersState>({
+            query: ({
+                selectedGenres,
+                selectedYear,
+                ratingFrom,
+                ratingTo,
+                sortBy,
+                page = 1,
+            }: FiltersState) => {
+                const args = paramsConstructor({
+                    selectedGenres,
+                    selectedYear,
+                    ratingFrom,
+                    ratingTo,
+                    sortBy,
+                    page,
+                });
                 return {
                     url: ApiEndpoints.DISCOVER_MOVIES,
+
                     method: 'GET',
                     headers,
-                    params: arg,
+                    params: args,
                 };
             },
 

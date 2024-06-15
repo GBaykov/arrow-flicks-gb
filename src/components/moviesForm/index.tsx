@@ -37,7 +37,7 @@ export type FormFilters = {
 
 export const MoviesForm: FC = () => {
     const { data, isLoading } = useGetGenreListQuery();
-    console.log(data, isLoading);
+
     const dispatch = useAppDispatch();
     const page = useAppSelector(moviesPage);
     const filters = useAppSelector(appFilters);

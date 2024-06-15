@@ -17,16 +17,16 @@ import { useNavigate } from 'react-router-dom';
 import yellowStar from '../../assets/icons/yellowStar.svg';
 import purpleStar from '../../assets/icons/purpleStar.svg';
 import star from '../../assets/icons/star.svg';
-import { genreList } from '@redux/reducers/moviesSlice';
+
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
 import { getPoster, voteCountReduction } from '@components/utils';
+import GenresList from './GenresList/GenresList';
 
 export type FilmCardProps = {
     movie_info: MovieItem;
 };
 
 export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
-    const genres = useAppSelector(genreList);
     const theme = useMantineTheme();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -43,10 +43,6 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
     const release_year = movie_info.release_date.split('-')[0];
     const displayedGenresIds = movie_info.genre_ids;
-    const getGenreNameById = (id: number) => {
-        const genre = genres.find((item) => item.id === id);
-        return genre?.name;
-    };
 
     const onStarClick = () => {
         dispatch(setAppModal(movie_info));
@@ -115,28 +111,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                             </Text>
                         </Group>
                     </Stack>
-                    <Group gap={'xs'}>
-                        <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
-                            Genres
-                        </Text>
-
-                        {displayedGenresIds.map((id, index) => {
-                            return (
-                                <Text
-                                    lh={'sm'}
-                                    display={'inline-block'}
-                                    key={id}
-                                    size='lg'
-                                    fw='400'
-                                    c={theme.colors.gray[9]}
-                                >
-                                    {getGenreNameById(id)}
-                                    {index !== displayedGenresIds.length - 1 && `,`}
-                                    {<br />}
-                                </Text>
-                            );
-                        })}
-                    </Group>
+                    <GenresList genreIds={displayedGenresIds} />
                 </Flex>
             </Flex>
         </Card>

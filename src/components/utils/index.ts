@@ -2,6 +2,7 @@ import { IMG_BASE_URL, sortData } from '@constants/general';
 import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
 import noPosterImg from '../../assets/images/noPoster.png';
 import noIcon from '../../assets/icons/noCompanyIcon.svg';
+import { FiltersState } from '@redux/reducers/filtersSlice';
 
 export const getMoviesYears = () => {
     const FirstFilmYear = 1895;
@@ -43,6 +44,24 @@ export const moviesArgsConstructor = (
     }
 
     return args;
+};
+export const paramsConstructor = ({
+    selectedGenres,
+    selectedYear,
+    ratingFrom,
+    ratingTo,
+    sortBy,
+    page = 1,
+}: FiltersState) => {
+    const params = new URLSearchParams();
+    params.append('page', String(page));
+    selectedGenres.forEach((genre) => params.append('with_genres', genre));
+    selectedYear && params.append('primary_release_year', selectedYear);
+    ratingFrom !== undefined && params.append('vote_average.gte', ratingFrom.toString());
+    ratingTo !== undefined && params.append('vote_average.lte', ratingTo.toString());
+
+    params.append('sort_by', sortBy);
+    return params;
 };
 
 export const getGenreIdsByLabels = (allGenres: GenreType[], names: string[]) => {

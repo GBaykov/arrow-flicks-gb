@@ -12,7 +12,6 @@ export const GenresFilter = () => {
     const dispatch = useAppDispatch();
 
     const { data, isLoading } = useGetGenreListQuery();
-    console.log(data, isLoading);
 
     return (
         <MultiSelect

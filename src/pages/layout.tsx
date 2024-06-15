@@ -21,7 +21,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './active.module.css';
 import { AppModal } from '@components/modal';
 import { moviesPage } from '@redux/reducers/moviesSlice';
-import { moviesArgsConstructor } from '@components/utils';
+
 import navlink_classes from '../modules.styles/Navlink.module.css';
 
 export type AppLayutProps = {
@@ -30,12 +30,7 @@ export type AppLayutProps = {
 
 export const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const [opened, { toggle }] = useDisclosure();
-    const page = useAppSelector(moviesPage);
-    const filters = useAppSelector(appFilters);
-    const sortBy = useAppSelector(appSortBy);
-    const sort_by = sortData.find((item) => item.label === sortBy)?.label;
-    const args = moviesArgsConstructor(filters, page, sort_by);
-    useGetMoviesQuery(args);
+
     const theme = useMantineTheme();
     const isLoading = useAppSelector(appIsLoading);
     const location = useLocation();
@@ -43,8 +38,6 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
 
     const isMovieOrMovieDetails =
         location.pathname.includes(PATHS.MAIN) || location.pathname === PATHS.INITIAL;
-
-    console.log(isLoading);
 
     return (
         <Box pos='relative' m={'0 auto'} w={'100%'} h={'100%'} bg={theme.colors.gray[1]}>

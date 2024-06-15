@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import { Accordion, Button, Flex, Stack } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Button, Flex, Stack } from '@mantine/core';
+
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { filtersSelector, resetFilters } from '@redux/reducers/filtersSlice';
 import { GenresFilter } from './GenresFilter';
