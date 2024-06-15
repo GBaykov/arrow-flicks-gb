@@ -115,3 +115,12 @@ export type GetMoviesArgs = Partial<AppFilters> & {
     page?: number;
     language: 'en-US';
 };
+
+export interface Genre {
+    value: string;
+    label: string;
+}
+
+export interface Genres {
+    genres: Array<Genre>;
+}

@@ -1,0 +1,21 @@
+.pill {
+  height: 20px;
+  padding: 0;
+  font-size: var(--mantine-font-size-xs);
+  background: none;
+
+  &:not(:last-of-type) {
+    &::after {
+      content: ', ';
+      margin-right: 3px;
+    }
+  }
+
+  & button {
+    display: none;
+  }
+}
+
+.pillsList {
+  gap: 0;
+}

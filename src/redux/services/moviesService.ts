@@ -9,7 +9,14 @@ import {
     setTotalPages,
     setTotalResults,
 } from '@redux/reducers/moviesSlice';
-import { GenreResponce, GetMoviesArgs, MovieDetails, MoviesResponce } from '@redux/appTypes';
+import {
+    GenreResponce,
+    GenreType,
+    Genres,
+    GetMoviesArgs,
+    MovieDetails,
+    MoviesResponce,
+} from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const headers = {
@@ -25,24 +32,17 @@ export const moviesAPI = createApi({
     tagTypes: ['Movies', 'GenreList'],
 
     endpoints: (builder) => ({
-        getGenreList: builder.query<GenreResponce, void>({
-            query: () => ({
-                url: ApiEndpoints.GENRE_LIST,
-                method: 'GET',
-                headers,
-            }),
+        getGenreList: builder.query<Genres, void>({
+            query: () => ApiEndpoints.GENRE_LIST,
+            transformResponse: (response: GenreResponce) => {
+                const genres =
+                    response.genres?.map(({ id, name }: GenreType) => ({
+                        value: id.toString(),
+                        label: name,
+                    })) || [];
 
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setAppLoading(true));
-                    const { data } = await queryFulfilled;
-                    dispatch(setGenreList(data.genres));
-                    dispatch(setAppLoading(false));
-                } catch {
-                    dispatch(setAppLoading(false));
-                }
+                return { genres };
             },
-            providesTags: ['GenreList'],
         }),
         getMovies: builder.query<MoviesResponce, GetMoviesArgs>({
             query: (arg) => {

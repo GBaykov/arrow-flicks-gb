@@ -30,11 +30,10 @@ export type AppLayutProps = {
 
 export const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const [opened, { toggle }] = useDisclosure();
-    useGetGenreListQuery();
     const page = useAppSelector(moviesPage);
     const filters = useAppSelector(appFilters);
     const sortBy = useAppSelector(appSortBy);
-    const sort_by = sortData.find((item) => item.label === sortBy)?.name;
+    const sort_by = sortData.find((item) => item.label === sortBy)?.label;
     const args = moviesArgsConstructor(filters, page, sort_by);
     useGetMoviesQuery(args);
     const theme = useMantineTheme();

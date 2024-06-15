@@ -1,5 +1,5 @@
 import { SortTypes } from '@constants/enums';
-import { IMG_BASE_URL } from '@constants/general';
+import { IMG_BASE_URL, sortData } from '@constants/general';
 import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
 import noPosterImg from '../../assets/images/noPoster.png';
 import noIcon from '../../assets/icons/noCompanyIcon.svg';
@@ -14,7 +14,11 @@ export const getMoviesYears = () => {
     return result;
 };
 
-export const moviesArgsConstructor = (filters?: AppFilters, page?: number, sort_by?: SortTypes) => {
+export const moviesArgsConstructor = (
+    filters?: AppFilters,
+    page?: number,
+    sort_by?: (typeof sortData)[number]['label'],
+) => {
     let args: GetMoviesArgs = { language: 'en-US' };
 
     if (page) {
