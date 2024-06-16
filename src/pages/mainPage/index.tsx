@@ -16,8 +16,8 @@ export const MainPage: FC = () => {
     const dispatch = useAppDispatch();
     dispatch(push(PATHS.MAIN));
 
-    const total_pages = useAppSelector(moviesTotalPages);
-    const displayed_pages = total_pages < MAX_PAGES_COUNT ? total_pages : MAX_PAGES_COUNT;
+    // const total_pages = useAppSelector(moviesTotalPages);
+    // const displayed_pages = total_pages < MAX_PAGES_COUNT ? total_pages : MAX_PAGES_COUNT;
     return (
         <AppLayout>
             <Title order={1} mb={{ base: 20, sm: 40 }}>
@@ -40,13 +40,13 @@ export const MainPage: FC = () => {
                     </div>
                 </Flex>
             )} */}
-            {displayed_pages && (
-                <>
-                    <CardField />
+            {/* {
+                <> */}
+            <CardField />
 
-                    {displayed_pages > 1 && <AppPagination pages={total_pages} />}
-                </>
-            )}
+            {/* {displayed_pages > 1 && <AppPagination pages={total_pages} />} */}
+            {/* </>
+            } */}
         </AppLayout>
     );
 };

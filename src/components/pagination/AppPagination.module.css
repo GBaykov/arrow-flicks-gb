@@ -1,9 +1,23 @@
+.root {
+    display: flex;
+}
+
 .dots {
     display: none;
 }
 
 .control {
-    &[data-pagination-page='4'] {
-        display: none;
+    font-size: var(--mantine-font-size-lg);
+
+    &:first-child:not(:disabled),
+    &:last-child:not(:disabled) {
+        color: var(--mantine-color-gray-6);
+    }
+
+    &:first-child:disabled,
+    &:last-child:disabled {
+        color: var(--mantine-color-gray-3);
+        opacity: 1;
+        border-color: var(--mantine-color-gray-3);
     }
 }

@@ -1,4 +1,5 @@
 import { FilmCard } from '@components/card';
+import { AppPagination } from '@components/pagination/AppPagination';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { SimpleGrid } from '@mantine/core';
 import { MoviesList } from '@redux/appTypes';
@@ -20,7 +21,7 @@ export const CardField: FC = () => {
         dispatch(setPage(currentPage));
     };
 
-    const { data: movies } = useGetMoviesQuery({
+    const { data: movies, isFetching } = useGetMoviesQuery({
         selectedGenres,
         selectedYear,
         ratingFrom,
@@ -31,11 +32,20 @@ export const CardField: FC = () => {
     console.log(selectedGenres, selectedYear, ratingFrom, ratingTo, sortBy, page);
 
     return (
-        <SimpleGrid cols={{ base: 1, xs: 2 }}>
-            {movies &&
-                movies.results.map((item) => {
-                    return <FilmCard key={item?.id} movie_info={item} />;
-                })}
-        </SimpleGrid>
+        <>
+            <SimpleGrid cols={{ base: 1, xs: 2 }}>
+                {movies &&
+                    movies.results.map((item) => {
+                        return <FilmCard key={item?.id} movie_info={item} />;
+                    })}
+            </SimpleGrid>{' '}
+            <AppPagination
+                page={page}
+                setPage={setCurrentPage}
+                align='right'
+                totalPages={Math.min(movies?.total_pages || 1, 500)}
+                isLoading={isFetching}
+            />
+        </>
     );
 };
