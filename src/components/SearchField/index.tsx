@@ -1,5 +1,6 @@
 import SearchIcon from '@components/icons/SearchIcon';
 import { Button, TextInput } from '@mantine/core';
+import button_classes from '../../modules.styles/Button.module.css';
 
 interface SearchFieldProps {
     value: string;
@@ -9,6 +10,7 @@ interface SearchFieldProps {
 
 export const SearchField = ({ value, setValue, onSearchSubmit }: SearchFieldProps) => (
     <TextInput
+        onSubmit={onSearchSubmit}
         value={value}
         onChange={(e) => setValue(e.currentTarget.value)}
         onKeyDown={(e) => e.key === 'Enter' && onSearchSubmit()}
@@ -20,7 +22,17 @@ export const SearchField = ({ value, setValue, onSearchSubmit }: SearchFieldProp
         styles={{ input: { fontSize: '14px' } }}
         leftSection={<SearchIcon />}
         rightSection={
-            <Button h={32} px='md' onClick={onSearchSubmit}>
+            <Button
+                h={32}
+                px='md'
+                onClick={onSearchSubmit}
+                classNames={{
+                    root: button_classes.filledRoot,
+                    section: button_classes.filledSection,
+                    inner: button_classes.filledInner,
+                    label: button_classes.filledLabel,
+                }}
+            >
                 Search
             </Button>
         }

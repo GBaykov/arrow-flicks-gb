@@ -13,6 +13,7 @@ import button_classes from '../../modules.styles/Button.module.css';
 import { FilmCard } from '@components/card';
 import { AppPagination } from '@components/pagination/AppPagination';
 import { MAX_CARDS_PER_RATEDPAGE } from '@constants/general';
+import { SearchField } from '@components/SearchField';
 
 function chunk<T>(array: T[], size: number): T[][] {
     if (!array.length) {
@@ -26,7 +27,7 @@ function chunk<T>(array: T[], size: number): T[][] {
 export const RatedMoviesPage: FC = () => {
     const theme = useMantineTheme();
     const [value, setValue] = useState('');
-    const chosenMovie = useAppSelector(appModal);
+    // const chosenMovie = useAppSelector(appModal);
 
     const storagedRated = localStorage.getItem('rated');
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
@@ -55,10 +56,12 @@ export const RatedMoviesPage: FC = () => {
     };
 
     useEffect(() => {
-        const chosenMovies = movieList.filter((movie) => movie?.original_title.includes(value));
+        const chosenMovies = movieList.filter((movie) =>
+            movie?.original_title.toLowerCase().includes(value.toLowerCase()),
+        );
         setRatedSearchedMovies(chosenMovies);
         seIsRatedList(Boolean(movieList.length > 0));
-    }, [movieList.length, chosenMovie]);
+    }, [movieList.length]);
 
     useEffect(() => {
         if (activePage > totalPages) {
@@ -75,7 +78,12 @@ export const RatedMoviesPage: FC = () => {
                     <Group justify={'space-between'} mb={{ base: 20, sm: 40 }} align={'baseline'}>
                         {' '}
                         <Title order={1}>Rated movies</Title>
-                        <TextInput
+                        <SearchField
+                            value={value}
+                            setValue={setValue}
+                            onSearchSubmit={submitHandler}
+                        />
+                        {/* <TextInput
                             onSubmit={submitHandler}
                             value={value}
                             onChange={(event) => setValue(event.currentTarget.value)}
@@ -113,7 +121,7 @@ export const RatedMoviesPage: FC = () => {
                                 </Button>
                             }
                             placeholder='Search movie title'
-                        />
+                        /> */}
                     </Group>
                     {!ratedSearchedMovies.length ? (
                         <EmptyStateMessage info={EmptyData.data_not_found} />
