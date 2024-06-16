@@ -1,5 +1,5 @@
 import { SortTypes } from '@constants/enums';
-import { AppFilters, MovieItem } from '@redux/appTypes';
+import { AppFilters, MovieForModal, MovieItem } from '@redux/appTypes';
 import { ApplicationState } from '@redux/configure-store';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
@@ -7,7 +7,7 @@ export type AppState = {
     filters: AppFilters;
     sort_by: string;
     isLoading: boolean;
-    movieForModal: MovieItem | null;
+    movieForModal: MovieForModal | null;
     isFormToched: boolean;
 };
 export const intialFilters = {
@@ -32,7 +32,7 @@ export const appSlice = createSlice({
         setAppLoading(state, { payload: isLoading }: PayloadAction<boolean>) {
             state.isLoading = isLoading;
         },
-        setAppModal(state, { payload: movieForModal }: PayloadAction<MovieItem | null>) {
+        setAppModal(state, { payload: movieForModal }: PayloadAction<MovieForModal | null>) {
             state.movieForModal = movieForModal;
         },
         setAppSortBy(state, { payload: sort_by }: PayloadAction<SortTypes>) {

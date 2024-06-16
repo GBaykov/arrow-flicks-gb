@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { StoragedItem } from '@redux/appTypes';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import button_classes from '../../modules.styles/Button.module.css';
 
@@ -14,15 +14,25 @@ export const AppModal: FC = () => {
 
     const storagedRated = localStorage.getItem('rated');
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
-    const ratedMovie = ratedMovies.find((item) => item?.movie?.id === chosenMovie?.id);
+    const ratedMovie = ratedMovies.find((item) => item?.movie?.id === chosenMovie?.movie_info?.id);
 
-    const [value, setValue] = useState(ratedMovie?.personalRate || 0);
+    const [value, setValue] = useState(0);
+    console.log(chosenMovie, ratedMovie);
+
+    useEffect(() => {
+        if (chosenMovie?.persnal_rate) {
+            setValue(chosenMovie?.persnal_rate);
+        } else setValue(0);
+    }, [chosenMovie]);
 
     const isMobile = useMediaQuery(`(max-width: ${em(800)})`);
 
     const onSaveRating = () => {
         if (chosenMovie) {
-            const storagedMovie: StoragedItem = { movie: chosenMovie, personalRate: value };
+            const storagedMovie: StoragedItem = {
+                movie: chosenMovie.movie_info,
+                personalRate: value,
+            };
 
             localStorage.removeItem('rated');
             if (!ratedMovie) {
@@ -30,7 +40,7 @@ export const AppModal: FC = () => {
                 localStorage.setItem('rated', JSON.stringify(ratedMovies));
             } else {
                 const newRatedArr: StoragedItem[] = ratedMovies.filter(
-                    (item) => item.movie?.id !== chosenMovie?.id,
+                    (item) => item.movie?.id !== chosenMovie?.movie_info?.id,
                 );
                 newRatedArr.push(storagedMovie);
 
@@ -43,7 +53,7 @@ export const AppModal: FC = () => {
 
     const onRemoveRating = () => {
         const newRatedArr: StoragedItem[] = ratedMovies.filter(
-            (item) => item?.movie?.id !== chosenMovie?.id,
+            (item) => item?.movie?.id !== chosenMovie?.movie_info?.id,
         );
         localStorage.removeItem('rated');
         localStorage.setItem('rated', JSON.stringify(newRatedArr));
@@ -70,7 +80,7 @@ export const AppModal: FC = () => {
                 <Divider m={0} style={{ margin: 0 }} />
                 <Modal.Body p={'16px'}>
                     <Title order={5} mb={'16px'}>
-                        {chosenMovie?.title}
+                        {chosenMovie?.movie_info?.title}
                     </Title>
                     {isMobile && (
                         <Rating

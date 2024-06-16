@@ -14,6 +14,11 @@ export type MovieItem = {
     vote_average: number;
     vote_count: number;
 };
+
+export type MovieForModal = {
+    movie_info?: MovieItem;
+    persnal_rate: number;
+};
 export type MoviesList = MovieItem[];
 export type MoviesResponce = {
     page: number;
@@ -99,7 +104,7 @@ export type MovieDetails = {
 };
 
 export type StoragedItem = {
-    movie: MovieItem;
+    movie?: MovieItem;
     personalRate: number;
 };
 

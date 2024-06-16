@@ -45,7 +45,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const displayedGenresIds = movie_info.genre_ids;
 
     const onStarClick = () => {
-        dispatch(setAppModal(movie_info));
+        dispatch(setAppModal({ movie_info, persnal_rate: ratedMovie?.personalRate || 0 }));
     };
 
     useEffect(() => {
