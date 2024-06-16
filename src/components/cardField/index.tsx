@@ -1,5 +1,7 @@
 import { FilmCard } from '@components/card';
+import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { AppPagination } from '@components/pagination/AppPagination';
+import { EmptyData } from '@constants/empty';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { SimpleGrid } from '@mantine/core';
 import { MoviesList } from '@redux/appTypes';
@@ -29,7 +31,10 @@ export const CardField: FC = () => {
         sortBy,
         page,
     });
-    console.log(selectedGenres, selectedYear, ratingFrom, ratingTo, sortBy, page);
+
+    if (!movies?.results.length && !isFetching) {
+        return <EmptyStateMessage info={EmptyData.data_not_found} />;
+    }
 
     return (
         <>

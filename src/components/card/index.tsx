@@ -39,13 +39,13 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const storagedRated = localStorage.getItem('rated');
 
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
-    const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
+    const ratedMovie = ratedMovies.find((item) => item?.movie_info?.id === movie_info?.id);
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
     const release_year = movie_info.release_date.split('-')[0];
     const displayedGenresIds = movie_info.genre_ids;
 
     const onStarClick = () => {
-        dispatch(setAppModal({ movie_info, persnal_rate: ratedMovie?.personalRate || 0 }));
+        dispatch(setAppModal({ movie_info, persnal_rate: ratedMovie?.persnal_rate || 0 }));
     };
 
     useEffect(() => {
@@ -91,7 +91,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                 </ActionIcon>
                                 {isRated && (
                                     <Text lh={'sm'} fw={600} fz={'lg'}>
-                                        {ratedMovie?.personalRate}
+                                        {ratedMovie?.persnal_rate}
                                     </Text>
                                 )}
                             </Flex>

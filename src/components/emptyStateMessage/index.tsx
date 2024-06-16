@@ -16,7 +16,7 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
     };
 
     return (
-        <Flex w={'100%'} mih={'100%'} bg='transparent' justify={'center'} align={'center'}>
+        <Flex mt={'87px'} w={'100%'} bg='transparent' justify={'center'} align={'center'}>
             <Stack align='center'>
                 <img width={'100%'} src={info.img} />
 

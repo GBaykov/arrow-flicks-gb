@@ -15,10 +15,28 @@ export type MovieItem = {
     vote_count: number;
 };
 
-export type MovieForModal = {
-    movie_info?: MovieItem;
+export type StoragedMovie = {
+    genre_ids: number[];
+    id: number;
+    original_title: string;
+    poster_path: string;
+    release_date: string;
+    vote_average: number;
+    vote_count: number;
+};
+
+// MovieForModal
+
+export type StoragedItem = {
+    movie_info?: StoragedMovie;
     persnal_rate: number;
 };
+
+// export type StoragedItem = {
+//     movie?: StoragedMovie;
+//     personalRate: number;
+// };
+
 export type MoviesList = MovieItem[];
 export type MoviesResponce = {
     page: number;
@@ -101,11 +119,6 @@ export type MovieDetails = {
     };
     vote_average: number;
     vote_count: number;
-};
-
-export type StoragedItem = {
-    movie?: MovieItem;
-    personalRate: number;
 };
 
 export type AppFilters = {

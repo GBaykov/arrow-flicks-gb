@@ -1,10 +1,14 @@
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { AppLayout } from '@pages/layout';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
-import { useGetMovieDetailsQuery } from '@redux/services/moviesService';
-import { MovieVideo, StoragedItem } from '@redux/appTypes';
+import {
+    useGetMovieDetailsQuery,
+    useGetMoviesQuery,
+    useLazyGetMovieDetailsQuery,
+} from '@redux/services/moviesService';
+import { MovieVideo, StoragedItem, StoragedMovie } from '@redux/appTypes';
 import { FC, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
     ActionIcon,
     Anchor,
@@ -28,20 +32,25 @@ import star from '../../assets/icons/star.svg';
 import moment from 'moment';
 
 export const MovieDetailPage: FC = () => {
-    const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const theme = useMantineTheme();
 
-    const movieID = Number(location.state);
-    useGetMovieDetailsQuery(movieID);
-    const movie_info = useAppSelector(movieDetails);
+    const movieID = Number(useParams().movieId);
 
-    const chosenMovie = useAppSelector(appModal);
-    const movies = useAppSelector(moviesList);
+    const { data: movie_details } = useGetMovieDetailsQuery(movieID);
+
+    // const movie_details = useAppSelector(movieDetails);
+    // console.log(movieID, data);
+
+    // const movies = useAppSelector(moviesList);
+
+    // useEffect(() => {
+    //     fethDetails(movieID);
+    // }, []);
 
     const movieTrailer: MovieVideo | null =
-        movie_info?.videos?.results.filter((item) => item.type === 'Trailer')[0] || null;
+        movie_details?.videos?.results.filter((item) => item.type === 'Trailer')[0] || null;
 
     const onMovieClick = () => {
         navigate(`${PATHS.MAIN}/${movieID}`, { state: movieID });
@@ -50,21 +59,52 @@ export const MovieDetailPage: FC = () => {
     const storagedRated = localStorage.getItem('rated');
 
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
-    const ratedMovie = ratedMovies.find((item) => item?.movie?.id === movie_info?.id);
-    const [isRated, setIsRated] = useState(Boolean(ratedMovie));
-    const release_year = movie_info?.release_date.split('-')[0];
-    const displayedGenresIds = movie_info?.genres;
-
-    const onStarClick = () => {
-        const movieForModal = movies.find((movie) => movie.id == movieID);
-        if (movieForModal) {
-            dispatch(setAppModal(movieForModal));
-        }
-    };
+    const ratedMovie = ratedMovies.find((item) => item?.movie_info?.id === movie_details?.id);
+    const release_year = movie_details?.release_date.split('-')[0];
+    const displayedGenresIds = movie_details?.genres;
+    const chosenMovie = useAppSelector(appModal);
 
     useEffect(() => {
-        setIsRated(Boolean(ratedMovie));
+        if (!chosenMovie) {
+            localStorage.getItem('rated');
+        }
     }, [chosenMovie]);
+
+    const onStarClick = () => {
+        if (movie_details) {
+            const {
+                id,
+                original_title,
+                poster_path,
+                release_date,
+                vote_average,
+                vote_count,
+                genres,
+            } = movie_details;
+            const genre_ids = genres.map((item) => item.id);
+            const movie_info: StoragedMovie = {
+                id,
+                original_title,
+                poster_path,
+                release_date,
+                vote_average,
+                vote_count,
+                genre_ids,
+            };
+            dispatch(
+                setAppModal({
+                    movie_info,
+                    persnal_rate: ratedMovie?.persnal_rate || 0,
+                }),
+            );
+        }
+
+        // const movieForModal =
+    };
+    // useEffect(() => {
+    //     console.log(ratedMovies);
+    //     console.log(ratedMovie?.persnal_rate);
+    // }, [ratedMovies]);
 
     const filmDuration = (minutes?: number) => {
         if (minutes) {
@@ -80,7 +120,7 @@ export const MovieDetailPage: FC = () => {
             <Stack m={{ base: '40px 0px 0px', sm: '40px 45px 0px', lg: '0 90px 0px' }} gap={'20px'}>
                 <Breadcrumbs>
                     <Anchor onClick={() => navigate(PATHS.MAIN)}>Movies</Anchor>
-                    <Anchor>{movie_info?.original_title}</Anchor>
+                    <Anchor>{movie_details?.original_title}</Anchor>
                 </Breadcrumbs>
                 <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'} mih={400}>
                     <Flex
@@ -90,7 +130,7 @@ export const MovieDetailPage: FC = () => {
                         direction={{ base: 'column', sm: 'row' }}
                     >
                         <img
-                            src={getPoster(movie_info?.poster_path, 'w300')}
+                            src={getPoster(movie_details?.poster_path, 'w300')}
                             width={250}
                             height={352}
                             alt='Film poster'
@@ -115,18 +155,18 @@ export const MovieDetailPage: FC = () => {
                                         size={'xl'}
                                         lh={'100%'}
                                     >
-                                        {movie_info?.original_title}
+                                        {movie_details?.original_title}
                                     </Anchor>
                                     <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>
                                         <ActionIcon variant='transparent' onClick={onStarClick}>
                                             <img
                                                 style={{ border: 'none' }}
-                                                src={isRated ? purpleStar : star}
+                                                src={ratedMovie?.persnal_rate ? purpleStar : star}
                                             />
                                         </ActionIcon>
-                                        {isRated && (
+                                        {ratedMovie?.persnal_rate && (
                                             <Text fw={600} fz={'lg'} lh={'sm'}>
-                                                {ratedMovie?.personalRate}
+                                                {ratedMovie?.persnal_rate}
                                             </Text>
                                         )}
                                     </Flex>
@@ -137,11 +177,11 @@ export const MovieDetailPage: FC = () => {
                                 <Group>
                                     <Image w={'24px'} src={yellowStar} />
                                     <Text fw='600' size='lg' c={theme.colors.gray[9]}>
-                                        {movie_info?.vote_average.toFixed(1)}
+                                        {movie_details?.vote_average.toFixed(1)}
                                     </Text>
                                     <Text fw='400' size='lg' c={theme.colors.gray[6]}>
                                         {'('}
-                                        {voteCountReduction(movie_info?.vote_count)}
+                                        {voteCountReduction(movie_details?.vote_count)}
                                         {')'}
                                     </Text>
                                 </Group>
@@ -169,16 +209,16 @@ export const MovieDetailPage: FC = () => {
                                 <Stack justify={'space-between'}>
                                     {' '}
                                     <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[9]}>
-                                        {filmDuration(movie_info?.runtime)}
+                                        {filmDuration(movie_details?.runtime)}
                                     </Text>{' '}
                                     <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[9]}>
-                                        {moment(movie_info?.release_date).format('MMMM D,YYYY')}
+                                        {moment(movie_details?.release_date).format('MMMM D,YYYY')}
                                     </Text>{' '}
                                     <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[9]}>
-                                        {`$${movie_info?.budget.toLocaleString('en-US')}`}
+                                        {`$${movie_details?.budget.toLocaleString('en-US')}`}
                                     </Text>{' '}
                                     <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[9]}>
-                                        {`$${movie_info?.revenue.toLocaleString('en-US')}`}
+                                        {`$${movie_details?.revenue.toLocaleString('en-US')}`}
                                     </Text>{' '}
                                     <Group gap={'xs'}>
                                         {displayedGenresIds?.map((genre, index) => {
@@ -204,8 +244,8 @@ export const MovieDetailPage: FC = () => {
                     </Flex>
                 </Card>
                 {movieTrailer &&
-                    movie_info?.overview &&
-                    movie_info?.production_companies.length && (
+                    movie_details?.overview &&
+                    movie_details?.production_companies.length && (
                         <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
                             {movieTrailer && (
                                 <div>
@@ -229,22 +269,22 @@ export const MovieDetailPage: FC = () => {
                                     <Divider my='xs' mb={'20px'} mt={'20px'} />
                                 </div>
                             )}
-                            {movie_info?.overview && (
+                            {movie_details?.overview && (
                                 <div>
                                     <Title order={4} pb={'md'}>
                                         Description
                                     </Title>
-                                    <Title order={6}>{movie_info?.overview}</Title>
+                                    <Title order={6}>{movie_details?.overview}</Title>
                                     <Divider my='xs' mb={'20px'} mt={'20px'} />
                                 </div>
                             )}
-                            {!!movie_info?.production_companies.length && (
+                            {!!movie_details?.production_companies.length && (
                                 <div>
                                     <Title order={4} mb={'md'}>
                                         Production
                                     </Title>
                                     <Stack gap={'sm'}>
-                                        {movie_info?.production_companies.map((item) => (
+                                        {movie_details?.production_companies.map((item) => (
                                             <Group>
                                                 <img
                                                     width={'40px'}
