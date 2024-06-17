@@ -98,13 +98,7 @@ export const MovieDetailPage: FC = () => {
                 }),
             );
         }
-
-        // const movieForModal =
     };
-    // useEffect(() => {
-    //     console.log(ratedMovies);
-    //     console.log(ratedMovie?.persnal_rate);
-    // }, [ratedMovies]);
 
     const filmDuration = (minutes?: number) => {
         if (minutes) {
@@ -147,7 +141,7 @@ export const MovieDetailPage: FC = () => {
                                     <Anchor
                                         underline='never'
                                         p={0}
-                                        onClick={onMovieClick}
+                                        // onClick={onMovieClick}
                                         variant='subtle'
                                         bg={'transparent'}
                                         style={{ wordWrap: 'break-word', display: 'inline-block' }}
@@ -243,62 +237,60 @@ export const MovieDetailPage: FC = () => {
                         </Flex>
                     </Flex>
                 </Card>
-                {movieTrailer &&
-                    movie_details?.overview &&
-                    movie_details?.production_companies.length && (
-                        <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
-                            {movieTrailer && (
-                                <div>
-                                    <Title order={4} pb={'md'}>
-                                        Trailer
-                                    </Title>
+                {
+                    <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
+                        {movieTrailer && (
+                            <div>
+                                <Title order={4} pb={'md'}>
+                                    Trailer
+                                </Title>
 
-                                    <Group
-                                        h={{ base: '151px', sm: '281px' }}
-                                        w={{ base: '270px', sm: '500px' }}
-                                    >
-                                        {' '}
-                                        <iframe
-                                            width={'100%'}
-                                            height={'100%'}
-                                            title='Youtube player'
-                                            sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
-                                            src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
-                                        ></iframe>
-                                    </Group>
-                                    <Divider my='xs' mb={'20px'} mt={'20px'} />
-                                </div>
-                            )}
-                            {movie_details?.overview && (
-                                <div>
-                                    <Title order={4} pb={'md'}>
-                                        Description
-                                    </Title>
-                                    <Title order={6}>{movie_details?.overview}</Title>
-                                    <Divider my='xs' mb={'20px'} mt={'20px'} />
-                                </div>
-                            )}
-                            {!!movie_details?.production_companies.length && (
-                                <div>
-                                    <Title order={4} mb={'md'}>
-                                        Production
-                                    </Title>
-                                    <Stack gap={'sm'}>
-                                        {movie_details?.production_companies.map((item) => (
-                                            <Group>
-                                                <img
-                                                    width={'40px'}
-                                                    src={getPoster(item.logo_path, 'w45', 'Icon')}
-                                                    alt='Production companie'
-                                                />
-                                                <Title order={5}>{item.name}</Title>
-                                            </Group>
-                                        ))}
-                                    </Stack>
-                                </div>
-                            )}
-                        </Card>
-                    )}
+                                <Group
+                                    h={{ base: '151px', sm: '281px' }}
+                                    w={{ base: '270px', sm: '500px' }}
+                                >
+                                    {' '}
+                                    <iframe
+                                        width={'100%'}
+                                        height={'100%'}
+                                        title='Youtube player'
+                                        sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                        src={`https://youtube.com/embed/${movieTrailer?.key}?autoplay=0`}
+                                    ></iframe>
+                                </Group>
+                                <Divider my='xs' mb={'20px'} mt={'20px'} />
+                            </div>
+                        )}
+                        {movie_details?.overview && (
+                            <div>
+                                <Title order={4} pb={'md'}>
+                                    Description
+                                </Title>
+                                <Title order={6}>{movie_details?.overview}</Title>
+                                <Divider my='xs' mb={'20px'} mt={'20px'} />
+                            </div>
+                        )}
+                        {!!movie_details?.production_companies.length && (
+                            <div>
+                                <Title order={4} mb={'md'}>
+                                    Production
+                                </Title>
+                                <Stack gap={'sm'}>
+                                    {movie_details?.production_companies.map((item) => (
+                                        <Group>
+                                            <img
+                                                width={'40px'}
+                                                src={getPoster(item.logo_path, 'w45', 'Icon')}
+                                                alt='Production companie'
+                                            />
+                                            <Title order={5}>{item.name}</Title>
+                                        </Group>
+                                    ))}
+                                </Stack>
+                            </div>
+                        )}
+                    </Card>
+                }
             </Stack>
         </AppLayout>
     );

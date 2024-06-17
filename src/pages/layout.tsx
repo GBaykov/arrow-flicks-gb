@@ -12,15 +12,14 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { FC, ReactNode } from 'react';
 import appLogo from '../assets/icons/logo.svg';
-import { useGetMoviesQuery } from '@redux/services/moviesService';
+
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { appFilters, appIsLoading, appSortBy } from '@redux/reducers/appSlice';
+import { appIsLoading } from '@redux/reducers/appSlice';
 import { AppLoader } from '@components/loader';
-import { PATHS, sortData } from '@constants/general';
+import { PATHS } from '@constants/general';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './active.module.css';
 import { AppModal } from '@components/modal';
-import { moviesPage } from '@redux/reducers/moviesSlice';
 
 import navlink_classes from '../modules.styles/Navlink.module.css';
 
