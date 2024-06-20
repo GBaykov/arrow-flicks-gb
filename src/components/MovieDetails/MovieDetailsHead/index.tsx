@@ -4,6 +4,8 @@ import { FC } from 'react';
 import { MovieTitleWithRate } from './MovieTitlewithRate';
 import { MovieDetailsVotes } from './MovieDetailsVotes';
 import { MoviePoster } from './MoviePoster';
+import { MovieDuration } from './MovieDuration';
+import { MoviePrimiere } from './MoviePremiere';
 
 type MovieDetailsHeadProps = {
     movie_details: MovieDetails;
@@ -35,6 +37,12 @@ export const MovieDetailsHead: FC<MovieDetailsHeadProps> = ({ movie_details }) =
                         </Text>
                         <MovieDetailsVotes movie_details={movie_details} />
                     </Stack>
+                    {/* --------------------novoe */}
+                    <Stack w={'100%'} maw={'400px'}>
+                        <MovieDuration duration={movie_details?.runtime} />
+                        <MoviePrimiere release_date={movie_details?.release_date} />
+                    </Stack>
+                    {/* ----------- */}
 
                     <Group w={'100%'} maw={'400px'} justify={'space-between'}>
                         <Stack>
