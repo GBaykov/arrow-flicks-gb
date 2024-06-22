@@ -8,18 +8,12 @@
     font-size: 14px;
 }
 
-/* .filterLabel {
-  font-size: var(--mantine-font-size-sm);
-  font-weight: 700;
-  line-height: var(--mantine-line-hight-sm);
-} */
-
 .inputRoot {
     overflow: hidden;
     display: flex;
     min-height: 42px;
     font-size: 14px;
-    /* border-color: var(--mantine-color-gray-3); */
+
     caret-color: var(--mantine-color-purple-5);
 }
 
@@ -37,7 +31,6 @@
 }
 
 .selectOption {
-    /* padding: var(--mantine-spacing-xxs) var(--mantine-spacing-sm); */
     font-size: 14px;
     line-height: 143%;
     background-color: transparent;
@@ -61,7 +54,6 @@
 
 .resetButton {
     background-color: transparent;
-    /* flex: 0 0 auto; */
     height: 42px;
     width: 100%;
     max-width: 82px;

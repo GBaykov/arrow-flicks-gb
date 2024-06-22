@@ -1,5 +1,4 @@
 import { Select, Title } from '@mantine/core';
-
 import commonClasses from '../MoviesFilters.module.css';
 import { filtersSortBy, setSortBy } from '@redux/reducers/filtersSlice';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
@@ -17,7 +16,6 @@ export const SortBy = () => {
             }
             maw={{ base: '218px', sm: '284px' }}
             label={<Title order={5}>Sort by</Title>}
-            // data={sortData.map((item) => item.label)}
             data={sortData}
             defaultValue={DEFAULT_SORT_OPTION}
             rightSection={<ChevronIcon />}

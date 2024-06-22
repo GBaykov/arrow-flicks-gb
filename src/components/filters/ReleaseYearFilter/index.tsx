@@ -20,7 +20,6 @@ export const ReleaseYearFilter = () => {
 
     return (
         <Select
-            // flex='1 1 100%'
             placeholder='Select release year'
             data={yearOptions}
             maw={'300px'}

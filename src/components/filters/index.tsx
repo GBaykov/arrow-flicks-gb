@@ -1,9 +1,5 @@
-'use client';
-
 import { useEffect, useState } from 'react';
-
 import { Button, Flex, Stack } from '@mantine/core';
-
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { filtersSelector, resetFilters } from '@redux/reducers/filtersSlice';
 import { GenresFilter } from './GenresFilter';
@@ -37,7 +33,6 @@ export const MoviesFilters = () => {
                 <ReleaseYearFilter />
                 <RatingsFilter />
                 <Button
-                    // flex='1 0 auto'
                     variant='transparent'
                     className={classes.resetButton}
                     onClick={() => dispatch(resetFilters())}

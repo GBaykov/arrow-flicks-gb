@@ -1,13 +1,5 @@
 import { API_URL, ApiEndpoints } from '@constants/general';
-import { setAppLoading } from '@redux/reducers/appSlice';
-import {
-    setMovieDetails,
-    setMovieList,
-    setMoviesResponce,
-    setPage,
-    setTotalPages,
-    setTotalResults,
-} from '@redux/reducers/moviesSlice';
+import { setMovieDetails, setMovieList } from '@redux/reducers/moviesSlice';
 import { GenreResponce, GenreType, Genres, MovieDetails, MoviesResponce } from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { FiltersState } from '@redux/reducers/filtersSlice';
@@ -65,18 +57,9 @@ export const moviesAPI = createApi({
             },
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setAppLoading(true));
-                    const { data } = await queryFulfilled;
-                    dispatch(setMoviesResponce(data));
-                    dispatch(setMovieList(data.results));
-                    dispatch(setPage(data.page));
-                    dispatch(setTotalPages(data.total_pages));
-                    dispatch(setTotalResults(data.total_results));
-                    dispatch(setAppLoading(false));
-                } catch {
-                    dispatch(setAppLoading(false));
-                }
+                const { data } = await queryFulfilled;
+
+                dispatch(setMovieList(data.results));
             },
             providesTags: ['Movies'],
         }),
@@ -88,15 +71,9 @@ export const moviesAPI = createApi({
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setAppLoading(true));
-                    const { data } = await queryFulfilled;
+                const { data } = await queryFulfilled;
 
-                    dispatch(setMovieDetails(data));
-                    dispatch(setAppLoading(false));
-                } catch {
-                    dispatch(setAppLoading(false));
-                }
+                dispatch(setMovieDetails(data));
             },
             providesTags: ['Movies'],
         }),

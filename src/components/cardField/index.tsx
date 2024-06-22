@@ -3,7 +3,7 @@ import { EmptyStateMessage } from '@components/emptyStateMessage';
 import { AppPagination } from '@components/pagination/AppPagination';
 import { EmptyData } from '@constants/empty';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { SimpleGrid } from '@mantine/core';
+import { Loader, SimpleGrid, Stack } from '@mantine/core';
 import { MoviesList } from '@redux/appTypes';
 import { filtersSelector, setPage } from '@redux/reducers/filtersSlice';
 import { useGetMoviesQuery } from '@redux/services/moviesService';
@@ -34,6 +34,14 @@ export const CardField: FC = () => {
 
     if (!movies?.results.length && !isFetching) {
         return <EmptyStateMessage info={EmptyData.data_not_found} />;
+    }
+
+    if (isFetching) {
+        return (
+            <Stack gap='md' w='100%' align='center'>
+                <Loader size='xl' />
+            </Stack>
+        );
     }
 
     return (

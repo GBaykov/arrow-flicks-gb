@@ -1,5 +1,5 @@
-import { IMG_BASE_URL, sortData } from '@constants/general';
-import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
+import { IMG_BASE_URL } from '@constants/general';
+import { GenreType } from '@redux/appTypes';
 import noPosterImg from '../../assets/images/noPoster.png';
 import noIcon from '../../assets/icons/noCompanyIcon.svg';
 import { FiltersState } from '@redux/reducers/filtersSlice';
@@ -14,37 +14,6 @@ export const getMoviesYears = () => {
     return result;
 };
 
-export const moviesArgsConstructor = (
-    filters?: AppFilters,
-    page?: number,
-    sort_by?: (typeof sortData)[number]['label'],
-) => {
-    let args: GetMoviesArgs = { language: 'en-US' };
-
-    if (page) {
-        args.page = page;
-    }
-    if (sort_by) {
-        args.sort_by = sort_by;
-    }
-
-    if (filters?.primary_release_year) {
-        args.primary_release_year = filters.primary_release_year;
-    }
-
-    if (filters?.with_genres.length) {
-        args.with_genres = filters.with_genres;
-    }
-    if (filters?.['vote_average.lte']) {
-        args['vote_average.lte'] = filters['vote_average.lte'];
-    }
-
-    if (filters?.['vote_average.gte']) {
-        args['vote_average.gte'] = filters['vote_average.gte'];
-    }
-
-    return args;
-};
 export const paramsConstructor = ({
     selectedGenres,
     selectedYear,

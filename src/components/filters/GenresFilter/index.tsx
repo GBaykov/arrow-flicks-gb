@@ -17,9 +17,7 @@ export const GenresFilter = () => {
         <MultiSelect
             onChange={(genres: string[]) => dispatch(setGenres(genres))}
             maw={{ base: '218px', sm: '284px' }}
-            // miw={'184x'}
             flex='1 1 100%'
-            // w={{ base: '', sm: '100%' }}
             w={'100%'}
             label={<Title order={5}>Genres</Title>}
             placeholder={selectedGenres.length ? '' : 'Select genre'}

@@ -1,4 +1,4 @@
-import { Flex, Group } from '@mantine/core';
+import { Flex } from '@mantine/core';
 
 import RatingInput from './RatingInput';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';

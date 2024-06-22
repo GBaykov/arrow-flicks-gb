@@ -1,5 +1,3 @@
-import { SortTypes } from './enums';
-
 //deployment for https://github.com/GBaykov/TMDB-api-proxy
 export const API_URL = 'https://tmdb-api-proxy.onrender.com';
 export const RESERVE_API_URL = 'https://exciting-analysis-production.up.railway.app';
@@ -35,14 +33,3 @@ export const sortData = [
     { value: 'vote_count.asc', label: 'Least Voted' },
 ] as const;
 export const DEFAULT_SORT_OPTION = sortData[0].value;
-
-// export const API_SORT_OPTIONS = [
-//     { value: 'popularity.desc', label: 'Most Popular' },
-//     { value: 'popularity.asc', label: 'Least Popular' },
-//     { value: 'vote_average.desc', label: 'Most Rated' },
-//     { value: 'vote_average.asc', label: 'Least Rated' },
-//     { value: 'vote_count.desc', label: 'Most Voted' },
-//     { value: 'vote_count.asc', label: 'Least Voted' },
-// ] as const;
-
-//    export const DEFAULT_SORT_OPTION = API_SORT_OPTIONS[0].value;

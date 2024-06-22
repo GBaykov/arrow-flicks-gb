@@ -42,17 +42,6 @@
     padding: 0;
     font-size: var(--mantine-font-size-xs);
     background: none;
-    /* 
-    &:not(:last-of-type) {
-        &::after {
-            content: ', ';
-            margin-right: 3px;
-        }
-    }
-
-    & button {
-        display: none;
-    } */
 }
 .multiPill button {
     display: none;
@@ -62,10 +51,6 @@
     content: ', ';
     margin-right: 3px;
 }
-
-/* .multiPill:last-child::after {
-    content: '';
-}  */
 
 .numberInput:hover {
     border-color: var(--mantine-color-purple-5);

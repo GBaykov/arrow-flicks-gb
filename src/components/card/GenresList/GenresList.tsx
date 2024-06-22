@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { useGetGenreListQuery } from '@redux/services/moviesService';
-import { Genre } from '@redux/appTypes';
 
 type GenresListProps = {
     genreIds: number[];
