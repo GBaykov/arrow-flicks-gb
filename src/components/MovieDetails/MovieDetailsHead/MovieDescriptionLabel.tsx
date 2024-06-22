@@ -7,7 +7,14 @@ type MovieDescriptionLabelProps = {
 export const MovieDescriptionLabel: FC<MovieDescriptionLabelProps> = ({ text }) => {
     const theme = useMantineTheme();
     return (
-        <Text lh={'sm'} size='lg' fw='400' c={theme.colors.gray[6]}>
+        <Text
+            w={'100%'}
+            maw={{ base: 90, sm: 140 }}
+            lh={'sm'}
+            size='lg'
+            fw='400'
+            c={theme.colors.gray[6]}
+        >
             {text}
         </Text>
     );

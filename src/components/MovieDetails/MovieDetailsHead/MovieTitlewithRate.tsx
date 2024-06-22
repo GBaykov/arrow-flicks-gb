@@ -1,7 +1,7 @@
-import { ActionIcon, Anchor, Flex, Group, Text } from '@mantine/core';
+import { ActionIcon, Flex, Group, Text } from '@mantine/core';
 import { FC, useEffect } from 'react';
-import purpleStar from '../../assets/icons/purpleStar.svg';
-import star from '../../assets/icons/star.svg';
+import purpleStar from '../../../assets/icons/purpleStar.svg';
+import star from '../../../assets/icons/star.svg';
 import { MovieDetails, StoragedItem, StoragedMovie } from '@redux/appTypes';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { appModal, setAppModal } from '@redux/reducers/appSlice';
@@ -56,7 +56,6 @@ export const MovieTitleWithRate: FC<MovieTitleWithRateProps> = ({ movie_details 
     return (
         <Group justify='space-between' wrap='nowrap'>
             <Text
-                // underline='never'
                 p={0}
                 variant='subtle'
                 bg={'transparent'}
