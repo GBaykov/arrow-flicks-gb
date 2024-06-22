@@ -1,16 +1,9 @@
 import { API_URL, ApiEndpoints } from '@constants/general';
-import { setAppLoading } from '@redux/reducers/appSlice';
-import {
-    setGenreList,
-    setMovieDetails,
-    setMovieList,
-    setMoviesResponce,
-    setPage,
-    setTotalPages,
-    setTotalResults,
-} from '@redux/reducers/moviesSlice';
-import { GenreResponce, GetMoviesArgs, MovieDetails, MoviesResponce } from '@redux/appTypes';
+import { setMovieDetails, setMovieList } from '@redux/reducers/moviesSlice';
+import { GenreResponce, GenreType, Genres, MovieDetails, MoviesResponce } from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FiltersState } from '@redux/reducers/filtersSlice';
+import { paramsConstructor } from '@components/utils';
 
 export const headers = {
     accept: 'application/json',
@@ -22,51 +15,51 @@ export const moviesAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
     }),
-    tagTypes: ['Movies', 'GenreList'],
+    tagTypes: ['Movies'],
 
     endpoints: (builder) => ({
-        getGenreList: builder.query<GenreResponce, void>({
-            query: () => ({
-                url: ApiEndpoints.GENRE_LIST,
-                method: 'GET',
-                headers,
-            }),
+        getGenreList: builder.query<Genres, void>({
+            query: () => ApiEndpoints.GENRE_LIST,
+            transformResponse: (response: GenreResponce) => {
+                const genres =
+                    response.genres?.map(({ id, name }: GenreType) => ({
+                        value: id.toString(),
+                        label: name,
+                    })) || [];
 
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setAppLoading(true));
-                    const { data } = await queryFulfilled;
-                    dispatch(setGenreList(data.genres));
-                    dispatch(setAppLoading(false));
-                } catch {
-                    dispatch(setAppLoading(false));
-                }
+                return { genres };
             },
-            providesTags: ['GenreList'],
         }),
-        getMovies: builder.query<MoviesResponce, GetMoviesArgs>({
-            query: (arg) => {
+        getMovies: builder.query<MoviesResponce, FiltersState>({
+            query: ({
+                selectedGenres,
+                selectedYear,
+                ratingFrom,
+                ratingTo,
+                sortBy,
+                page = 1,
+            }: FiltersState) => {
+                const args = paramsConstructor({
+                    selectedGenres,
+                    selectedYear,
+                    ratingFrom,
+                    ratingTo,
+                    sortBy,
+                    page,
+                });
                 return {
                     url: ApiEndpoints.DISCOVER_MOVIES,
+
                     method: 'GET',
                     headers,
-                    params: arg,
+                    params: args,
                 };
             },
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setAppLoading(true));
-                    const { data } = await queryFulfilled;
-                    dispatch(setMoviesResponce(data));
-                    dispatch(setMovieList(data.results));
-                    dispatch(setPage(data.page));
-                    dispatch(setTotalPages(data.total_pages));
-                    dispatch(setTotalResults(data.total_results));
-                    dispatch(setAppLoading(false));
-                } catch {
-                    dispatch(setAppLoading(false));
-                }
+                const { data } = await queryFulfilled;
+
+                dispatch(setMovieList(data.results));
             },
             providesTags: ['Movies'],
         }),
@@ -78,15 +71,9 @@ export const moviesAPI = createApi({
             }),
 
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setAppLoading(true));
-                    const { data } = await queryFulfilled;
+                const { data } = await queryFulfilled;
 
-                    dispatch(setMovieDetails(data));
-                    dispatch(setAppLoading(false));
-                } catch {
-                    dispatch(setAppLoading(false));
-                }
+                dispatch(setMovieDetails(data));
             },
             providesTags: ['Movies'],
         }),

@@ -1,8 +1,8 @@
-import { SortTypes } from '@constants/enums';
 import { IMG_BASE_URL } from '@constants/general';
-import { AppFilters, GenreType, GetMoviesArgs } from '@redux/appTypes';
+import { GenreType } from '@redux/appTypes';
 import noPosterImg from '../../assets/images/noPoster.png';
 import noIcon from '../../assets/icons/noCompanyIcon.svg';
+import { FiltersState } from '@redux/reducers/filtersSlice';
 
 export const getMoviesYears = () => {
     const FirstFilmYear = 1895;
@@ -14,32 +14,25 @@ export const getMoviesYears = () => {
     return result;
 };
 
-export const moviesArgsConstructor = (filters?: AppFilters, page?: number, sort_by?: SortTypes) => {
-    let args: GetMoviesArgs = { language: 'en-US' };
+export const paramsConstructor = ({
+    selectedGenres,
+    selectedYear,
+    ratingFrom,
+    ratingTo,
+    sortBy,
+    page = 1,
+}: FiltersState) => {
+    const params = new URLSearchParams();
+    params.append('page', String(page));
+    params.append('language', 'en-US');
+    params.append('sort_by', sortBy);
 
-    if (page) {
-        args.page = page;
-    }
-    if (sort_by) {
-        args.sort_by = sort_by;
-    }
+    selectedGenres.forEach((genre) => params.append('with_genres', genre));
+    selectedYear && params.append('primary_release_year', selectedYear);
+    ratingFrom !== undefined && params.append('vote_average.gte', ratingFrom.toString());
+    ratingTo !== undefined && params.append('vote_average.lte', ratingTo.toString());
 
-    if (filters?.primary_release_year) {
-        args.primary_release_year = filters.primary_release_year;
-    }
-
-    if (filters?.with_genres.length) {
-        args.with_genres = filters.with_genres;
-    }
-    if (filters?.['vote_average.lte']) {
-        args['vote_average.lte'] = filters['vote_average.lte'];
-    }
-
-    if (filters?.['vote_average.gte']) {
-        args['vote_average.gte'] = filters['vote_average.gte'];
-    }
-
-    return args;
+    return params;
 };
 
 export const getGenreIdsByLabels = (allGenres: GenreType[], names: string[]) => {
@@ -51,14 +44,14 @@ export const getGenreLabelsByIds = (allGenres: GenreType[], ids: number[]) => {
 };
 
 export const voteCountReduction = (v?: number) => {
-    const vote = v ? v : 0;
-    if (String(vote).length === 5) {
-        return `${(vote / 10000).toFixed(1)}M`;
-    } else if (String(vote).length >= 2 && String(vote).length <= 4) {
-        return `${Math.round(vote / 10)}K`;
-    } else {
-        return `${vote}`;
+    const num = v ? v : 0;
+    if (num > 100000) {
+        return `${(num / 1000000).toFixed(1)}M`;
     }
+    if (num > 1000) {
+        return `${(num / 1000).toFixed(1)}K`;
+    }
+    return String(num);
 };
 
 export const getPoster = (path?: string, poster_width?: string, type?: 'Image' | 'Icon') => {

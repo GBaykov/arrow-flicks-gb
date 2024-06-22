@@ -14,6 +14,22 @@ export type MovieItem = {
     vote_average: number;
     vote_count: number;
 };
+
+export type StoragedMovie = {
+    genre_ids: number[];
+    id: number;
+    original_title: string;
+    poster_path: string;
+    release_date: string;
+    vote_average: number;
+    vote_count: number;
+};
+
+export type StoragedItem = {
+    movie_info?: StoragedMovie;
+    persnal_rate: number;
+};
+
 export type MoviesList = MovieItem[];
 export type MoviesResponce = {
     page: number;
@@ -98,20 +114,11 @@ export type MovieDetails = {
     vote_count: number;
 };
 
-export type StoragedItem = {
-    movie: MovieItem;
-    personalRate: number;
-};
+export interface Genre {
+    value: string;
+    label: string;
+}
 
-export type AppFilters = {
-    with_genres: number[];
-    primary_release_year: string;
-    'vote_average.lte': number | null;
-    'vote_average.gte': number | null;
-};
-
-export type GetMoviesArgs = Partial<AppFilters> & {
-    sort_by?: string;
-    page?: number;
-    language: 'en-US';
-};
+export interface Genres {
+    genres: Array<Genre>;
+}

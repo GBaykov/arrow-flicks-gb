@@ -1,89 +1,66 @@
-import { sortData } from '@constants/general';
-import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Group, Pagination } from '@mantine/core';
-import { moviesPage, setPage } from '@redux/reducers/moviesSlice';
+
 import { FC } from 'react';
 import classes from './AppPagination.module.css';
-import { useDispatch } from 'react-redux';
-import { appFilters, appSortBy } from '@redux/reducers/appSlice';
-import { moviesArgsConstructor } from '@components/utils';
-import { useLazyGetMoviesQuery } from '@redux/services/moviesService';
 
 export type AppPaginationProps = {
-    pages: number;
+    page: number;
+    setPage: (page: number) => void;
+    align: 'center' | 'right';
+    totalPages?: number;
+    isLoading?: boolean;
 };
 
-export const AppPagination: FC<AppPaginationProps> = ({ pages }) => {
-    const dispatch = useDispatch();
-    const filters = useAppSelector(appFilters);
-    const sortBy = useAppSelector(appSortBy);
-    const moviePage = useAppSelector(moviesPage);
-    const [getMovies] = useLazyGetMoviesQuery();
-    const totalPages = pages;
+export const AppPagination: FC<AppPaginationProps> = ({
+    page,
+    setPage,
+    align,
+    totalPages,
+    isLoading,
+}) => {
+    const getControlsVisibility = (pageNumber: number) => {
+        const leftCutoff = Math.max(1, page === totalPages ? page - 2 : page - 1);
+        const rightCutoff = Math.min(totalPages || 1, page === 1 ? 3 : page + 1);
 
-    const getProps = (page: number) => {
-        const result: Record<string, string> = {
-            'data-pagination-page': String(page),
-        };
-        return result;
-    };
-
-    const isFirstPagesOffset = moviePage === 1 || moviePage === 2 || moviePage === 3;
-
-    const onPageChange = (page: number) => {
-        dispatch(setPage(page));
-        const sort_by = sortData.find((item) => item.label === sortBy)?.name;
-        const args = moviesArgsConstructor(filters, page, sort_by);
-        getMovies(args);
+        if (pageNumber < leftCutoff || pageNumber > rightCutoff) {
+            return {
+                display: 'none',
+            };
+        }
+        return {};
     };
 
     return (
         <div>
-            {isFirstPagesOffset && (
+            {
                 <Pagination.Root
-                    onChange={(page) => onPageChange(page)}
-                    value={moviePage}
+                    onChange={setPage}
+                    value={page}
                     classNames={{
                         root: classes.root,
                         dots: classes.dots,
                         control: classes.control,
                     }}
-                    total={totalPages}
+                    total={Math.min(totalPages || 1, 500)}
                     boundaries={0}
-                    getItemProps={(page) => getProps(page)}
+                    getItemProps={(page) => getControlsVisibility(page)}
                     siblings={1}
                     mt={'xl'}
-                >
-                    <Group gap={5} justify='flex-end'>
-                        <Pagination.Previous />
-                        <Pagination.Items />
-
-                        <Pagination.Next />
-                    </Group>
-                </Pagination.Root>
-            )}
-            {!isFirstPagesOffset && (
-                <Pagination.Root
-                    onChange={(page) => onPageChange(page)}
-                    value={moviePage}
-                    classNames={{
-                        root: classes.root,
-                        dots: classes.dots,
+                    styles={{
+                        root: {
+                            justifyContent: align === 'center' ? 'center' : 'flex-end',
+                        },
                     }}
-                    total={totalPages}
-                    boundaries={0}
-                    getItemProps={(page) => getProps(page)}
-                    siblings={1}
-                    mt={'xl'}
+                    disabled={isLoading}
                 >
-                    <Group gap={5} justify='flex-end'>
+                    <Group gap={8} justify='flex-end'>
                         <Pagination.Previous />
                         <Pagination.Items />
 
                         <Pagination.Next />
                     </Group>
                 </Pagination.Root>
-            )}
+            }
         </div>
     );
 };

@@ -1,0 +1,37 @@
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: transparent;
+    width: 18px;
+    height: 18px;
+    padding: 1px;
+
+    color: var(--mantine-color-gray-5);
+
+    &:first-child {
+        transform: rotate(180deg);
+    }
+
+    &:disabled {
+        cursor: default;
+        color: var(--mantine-color-gray-3);
+    }
+
+    @media screen and (hover: hover) {
+        &:active:not(:disabled) {
+            color: var(--mantine-color-purple-5);
+            background-color: transparent;
+        }
+        &:focus {
+            cursor: default;
+            color: var(--mantine-color-gray-3);
+            background-color: transparent;
+        }
+        &:hover {
+            color: var(--mantine-color-gray-3);
+            background-color: transparent;
+        }
+    }
+}
