@@ -51,8 +51,6 @@ export const RatedMoviesPage: FC = () => {
         setActivePage(1);
     };
 
-    console.log(movieList.length);
-
     useEffect(() => {
         const chosenMovies = movieList.filter((movie) =>
             movie?.original_title.toLowerCase().includes(value.toLowerCase()),

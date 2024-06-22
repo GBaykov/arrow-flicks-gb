@@ -24,7 +24,7 @@ const GenresList = ({ genreIds }: GenresListProps) => {
                 Genres
             </Text>
 
-            {genreIds.map((id, index) => {
+            {genreIds?.map((id, index) => {
                 return (
                     <Text
                         lh={'sm'}

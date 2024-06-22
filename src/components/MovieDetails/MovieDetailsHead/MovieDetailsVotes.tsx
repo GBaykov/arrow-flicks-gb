@@ -15,7 +15,7 @@ export const MovieDetailsVotes: FC<MovieDetailsVotesProps> = ({ vote_average, vo
         <Group>
             <Image w={'24px'} src={yellowStar} />
             <Text fw='600' size='lg' c={theme.colors.gray[9]}>
-                {vote_average.toFixed(1)}
+                {vote_average?.toFixed(1)}
             </Text>
             <Text fw='400' size='lg' c={theme.colors.gray[6]}>
                 {'('}

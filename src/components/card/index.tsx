@@ -33,7 +33,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const chosenMovie = useAppSelector(appModal);
 
     const onMovieClick = () => {
-        navigate(`${PATHS.MAIN}/${movie_info.id}`, { state: movie_info.id });
+        navigate(`${PATHS.MAIN}/${movie_info?.id}`, { state: movie_info?.id });
     };
 
     const storagedRated = localStorage.getItem('rated');
@@ -41,8 +41,8 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
     const ratedMovie = ratedMovies.find((item) => item?.movie_info?.id === movie_info?.id);
     const [isRated, setIsRated] = useState(Boolean(ratedMovie));
-    const release_year = movie_info.release_date.split('-')[0];
-    const displayedGenresIds = movie_info.genre_ids;
+    const release_year = movie_info?.release_date?.split('-')[0];
+    const displayedGenresIds = movie_info?.genre_ids;
 
     const onStarClick = () => {
         dispatch(setAppModal({ movie_info, persnal_rate: ratedMovie?.persnal_rate || 0 }));
@@ -61,7 +61,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
             >
                 {' '}
                 <img
-                    src={getPoster(movie_info.poster_path, 'w154')}
+                    src={getPoster(movie_info?.poster_path, 'w154')}
                     width={120}
                     height={170}
                     alt='Film poster'
@@ -80,7 +80,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                 fw='600'
                                 fz={{ base: 'md', xs: 'lg', md: 'xl' }}
                             >
-                                {movie_info.original_title}
+                                {movie_info?.original_title}
                             </Anchor>
                             <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>
                                 <ActionIcon variant='transparent' onClick={onStarClick}>
@@ -102,11 +102,11 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                         <Group>
                             <Image lh={'sm'} w={'24px'} src={yellowStar} />
                             <Text lh={'sm'} fw='600' size='lg' c={theme.colors.gray[9]}>
-                                {movie_info.vote_average.toFixed(1)}
+                                {movie_info?.vote_average?.toFixed(1)}
                             </Text>
                             <Text lh={'sm'} fw='400' size='lg' c={theme.colors.gray[6]}>
                                 {'('}
-                                {voteCountReduction(movie_info.vote_count)}
+                                {voteCountReduction(movie_info?.vote_count)}
                                 {')'}
                             </Text>
                         </Group>
