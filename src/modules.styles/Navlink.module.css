@@ -3,15 +3,19 @@
     border-radius: 8px;
     background-color: transparent;
 
-    &[data-activelink='true'] {
+    /* &[data-activelink='true'] {
         color: var(--mantine-color-purple-5);
         background-color: var(--mantine-color-purple-2);
-    }
+    } */
 }
 
 .root:hover {
     background-color: transparent;
     color: var(--mantine-color-purple-4);
+}
+.active {
+    color: var(--mantine-color-purple-5);
+    background-color: var(--mantine-color-purple-2);
 }
 
 .root:active {

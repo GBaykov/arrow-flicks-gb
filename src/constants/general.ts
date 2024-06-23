@@ -11,18 +11,18 @@ export const MAX_CARDS_PER_RATEDPAGE = 4;
 export const MAX_RATING = 10;
 export const MIN_RATING = 0;
 
-export enum ApiEndpoints {
-    DISCOVER_MOVIES = 'discover/movie',
-    GENRE_LIST = 'genre/movie/list',
-    MOVIE_DEAILS = 'movie',
-}
+// export enum ApiEndpoints {
+//     DISCOVER_MOVIES = 'discover/movie',
+//     GENRE_LIST = 'genre/movie/list',
+//     MOVIE_DEAILS = 'movie',
+// }
 
-export const PATHS = {
-    INITIAL: '/',
-    MAIN: '/movie',
-    RATED_MOVIES: '/rated-movies',
-    MOVIE_DETAILS: '/movie/:movieId',
-};
+// export const PATHS = {
+//     INITIAL: '/',
+//     MAIN: '/movie',
+//     RATED_MOVIES: '/rated-movies',
+//     MOVIE_DETAILS: '/movie/:movieId',
+// };
 
 export const sortData = [
     { value: 'popularity.desc', label: 'Most Popular' },
