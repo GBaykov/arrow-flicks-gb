@@ -1,10 +1,14 @@
+'use client';
+
 import { AppShell, Box, Burger, Flex, Group, Stack, Text, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { FC, ReactNode } from 'react';
 import appLogo from '../assets/icons/logo.svg';
-import '../../modules.styles/Active.module.css';
-import { StyledLink } from '../../components/StyledLink';
-import { APP_ROUTES } from 'src/constants/app';
+// import '../../modules.styles/Active.module.css';
+// import { StyledLink } from '../../components/StyledLink';
+import { APP_ROUTES } from '@/constants/app';
+import { StyledLink } from '@/components/StyledLink';
+// import { APP_ROUTES } from 'src/constants/app';
 
 export type AppLayutProps = {
     children: ReactNode;

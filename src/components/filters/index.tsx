@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Button, Flex, Stack } from '@mantine/core';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';

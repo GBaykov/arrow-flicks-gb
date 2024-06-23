@@ -1,8 +1,8 @@
-import { IMG_BASE_URL } from '@constants/general';
-import { GenreType } from '@redux/appTypes';
 import noPosterImg from '../../assets/images/noPoster.png';
 import noIcon from '../../assets/icons/noCompanyIcon.svg';
-import { FiltersState } from '@redux/reducers/filtersSlice';
+import { FiltersState } from '@/redux/reducers/filtersSlice';
+import { GenreType } from '@/redux/appTypes';
+import { IMG_BASE_URL } from '@/constants/general';
 
 export const getMoviesYears = () => {
     const FirstFilmYear = 1895;
@@ -61,3 +61,12 @@ export const getPoster = (path?: string, poster_width?: string, type?: 'Image' |
         return path ? `${IMG_BASE_URL}${poster_width}${path}` : noPosterImg;
     }
 };
+
+export function chunk<T>(array: T[], size: number): T[][] {
+    if (!array.length) {
+        return [];
+    }
+    const head = array.slice(0, size);
+    const tail = array.slice(size);
+    return [head, ...chunk(tail, size)];
+}

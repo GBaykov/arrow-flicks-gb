@@ -1,3 +1,5 @@
+'use client';
+
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Button, Divider, Group, Modal, Rating, Title, em, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';

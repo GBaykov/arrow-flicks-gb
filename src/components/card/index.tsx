@@ -1,3 +1,5 @@
+'use client';
+
 import { PATHS } from '@constants/general';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {

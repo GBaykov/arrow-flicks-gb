@@ -2,7 +2,8 @@ import { MantineProvider } from '@mantine/core';
 import { Provider } from 'react-redux';
 import { AppMantineTheme } from '../mantine.theme';
 import { AppModal } from '../components/modal';
-import { store } from '../redux/configure-store';
+import StoreProvider from './StoreProvider';
+// import { store } from '../redux/configure-store';
 // import {  store } from '@redux/configure-store.ts';
 
 export const metadata = {
@@ -21,10 +22,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
         </head>
         <body>
             <MantineProvider theme={AppMantineTheme}>
-                <Provider store={store}>
+                <StoreProvider>
                     {children}
                     <AppModal />
-                </Provider>
+                </StoreProvider>
+                {/* <Provider store={store}>
+                    {children}
+                    <AppModal />
+                </Provider> */}
             </MantineProvider>
         </body>
     </html>

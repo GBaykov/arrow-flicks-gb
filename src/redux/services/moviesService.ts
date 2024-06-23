@@ -1,10 +1,7 @@
-import { API_URL, ApiEndpoints } from '@constants/general';
-import { setMovieDetails, setMovieList } from '@redux/reducers/moviesSlice';
-import { GenreResponce, GenreType, Genres, MovieDetails, MoviesResponce } from '@redux/appTypes';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FiltersState } from '@redux/reducers/filtersSlice';
-import { paramsConstructor } from '@components/utils';
 
+import { paramsConstructor } from '@/components/utils';
+import { Genres } from '../appTypes';
 export const headers = {
     accept: 'application/json',
     'Content-Type': 'application/json',
@@ -63,7 +60,7 @@ export const moviesAPI = createApi({
             },
             providesTags: ['Movies'],
         }),
-        getMovieDetails: builder.query<MovieDetails, number>({
+        getMovieDetails: builder.query<MovieDetails, string>({
             query: (id) => ({
                 url: `${ApiEndpoints.MOVIE_DEAILS}/${id}?append_to_response=videos`,
                 method: 'GET',

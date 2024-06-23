@@ -18,13 +18,14 @@ const rootReducer = combineReducers({
     [moviesAPI.reducerPath]: moviesAPI.reducer,
 });
 
-export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(routerMiddleware, moviesAPI.middleware),
-});
+export const makeStore = () =>
+    configureStore({
+        reducer: rootReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(routerMiddleware, moviesAPI.middleware),
+    });
 
-export const history = createReduxHistory(store);
+// export const history = createReduxHistory(store);
 
 export type ApplicationState = Readonly<{
     router: RouterState;
@@ -33,5 +34,9 @@ export type ApplicationState = Readonly<{
     [filtersSlice.name]: FiltersState;
 }>;
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type AppStore = ReturnType<typeof makeStore>;
+// export type RootState = ReturnType<typeof store.getState>;
+// export type AppDispatch = typeof store.dispatch;
+
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
