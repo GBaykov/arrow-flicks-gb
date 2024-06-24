@@ -8,14 +8,15 @@ import { chunk } from '@/components/utils';
 import { EmptyData } from '@/constants/empty';
 import { MAX_CARDS_PER_RATEDPAGE } from '@/constants/general';
 import { useAppSelector } from '@/hooks';
+
 import { MovieItem, StoragedItem } from '@/redux/appTypes';
 import { appModal } from '@/redux/reducers/appSlice';
 import { Group, SimpleGrid, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
-export const RatedPage = () => {
+const RatedPage = () => {
     const [value, setValue] = useState('');
-    const chosenMovie = useAppSelector(appModal);
+    const chosenMovie = useAppSelector((state) => state.app.movieForModal);
 
     const storagedRated = localStorage.getItem('rated');
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];

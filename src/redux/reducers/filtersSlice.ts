@@ -1,6 +1,6 @@
-import { DEFAULT_SORT_OPTION, MAX_RATING, sortData } from '@constants/general';
-import { ApplicationState } from '@redux/configure-store';
+import { DEFAULT_SORT_OPTION, MAX_RATING, sortData } from '@/constants/general';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ApplicationState } from '../configure-store';
 
 export type FiltersState = {
     selectedGenres: Array<string>;

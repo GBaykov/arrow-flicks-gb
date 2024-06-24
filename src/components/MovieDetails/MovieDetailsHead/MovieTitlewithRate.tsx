@@ -16,7 +16,7 @@ export const MovieTitleWithRate: FC<MovieTitleWithRateProps> = ({ movie_details 
     const ratedMovies: StoragedItem[] = storagedRated ? JSON.parse(storagedRated) : [];
     const ratedMovie = ratedMovies.find((item) => item?.movie_info?.id === movie_details?.id);
 
-    const chosenMovie = useAppSelector(appModal);
+    const chosenMovie = useAppSelector((state) => state.app.movieForModal);
 
     useEffect(() => {
         if (!chosenMovie) {

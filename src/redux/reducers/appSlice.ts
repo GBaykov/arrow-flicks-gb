@@ -1,6 +1,6 @@
-import { StoragedItem } from '@redux/appTypes';
-import { ApplicationState } from '@redux/configure-store';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { StoragedItem } from '../appTypes';
+import { ApplicationState } from '../configure-store';
 
 export type AppState = {
     movieForModal: StoragedItem | null;

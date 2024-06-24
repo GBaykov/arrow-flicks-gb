@@ -3,7 +3,7 @@
 import { AppShell, Box, Burger, Flex, Group, Stack, Text, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { FC, ReactNode } from 'react';
-import appLogo from '../assets/icons/logo.svg';
+import appLogo from '@/assets/icons/logo.svg';
 // import '../../modules.styles/Active.module.css';
 // import { StyledLink } from '../../components/StyledLink';
 import { APP_ROUTES } from '@/constants/app';
@@ -14,7 +14,7 @@ export type AppLayutProps = {
     children: ReactNode;
 };
 
-export const AppLayout: FC<AppLayutProps> = ({ children }) => {
+const AppLayout: FC<AppLayutProps> = ({ children }) => {
     const [opened, { toggle }] = useDisclosure();
     const theme = useMantineTheme();
 
@@ -40,7 +40,7 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
                     <AppShell.Navbar bg={theme.colors.purple[1]} p='xl'>
                         <Group gap={'sm'}>
                             <Burger opened={opened} onClick={toggle} hiddenFrom='lg' size='sm' />
-                            <img src={appLogo} />
+                            <img src={appLogo.src} />
                             <Text fw={600} size={'xxl'} c={theme.colors.purple[5]}>
                                 ArrowFlicks
                             </Text>
@@ -69,3 +69,5 @@ export const AppLayout: FC<AppLayutProps> = ({ children }) => {
         </Box>
     );
 };
+
+export default AppLayout;

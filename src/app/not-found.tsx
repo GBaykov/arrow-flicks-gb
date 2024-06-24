@@ -2,16 +2,16 @@
 
 import { FC } from 'react';
 import { Group, Image, Text, useMantineTheme } from '@mantine/core';
-import appLogo from '../../assets/icons/logo.svg';
+import appLogo from '@/assets/icons/logo.svg';
 import { EmptyStateMessage } from '@/components/emptyStateMessage';
 import { EmptyData } from '@/constants/empty';
 
-export const NotFound: FC = () => {
+const NotFound: FC = () => {
     const theme = useMantineTheme();
     return (
         <div style={{ maxWidth: '670px', margin: '0 auto' }}>
             <Group style={{ position: 'absolute', top: 24, left: 24 }}>
-                <Image src={appLogo} />
+                <Image src={appLogo.src} />
 
                 <Text fw={600} size={'xxl'} c={theme.colors.purple[5]}>
                     ArrowFlicks
@@ -21,3 +21,5 @@ export const NotFound: FC = () => {
         </div>
     );
 };
+
+export default NotFound;

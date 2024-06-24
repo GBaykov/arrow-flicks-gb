@@ -35,7 +35,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const theme = useMantineTheme();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const chosenMovie = useAppSelector(appModal);
+    const chosenMovie = useAppSelector((state) => state.app.movieForModal);
 
     // const onMovieClick = () => {
     //     navigate(`${PATHS.MAIN}/${movie_info?.id}`, { state: movie_info?.id });

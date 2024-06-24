@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { StoragedItem } from '@/redux/appTypes';
 
 export const AppModal: FC = () => {
-    const chosenMovie = useAppSelector(appModal);
+    const chosenMovie = useAppSelector((state) => state.app.movieForModal);
     const dispatch = useAppDispatch();
 
     const storagedRated = localStorage.getItem('rated');

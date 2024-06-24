@@ -11,7 +11,7 @@ const MoviePage = ({ params }: { params: { id: string } }) => {
 
     const { data: movie_details, isLoading } = useGetMovieDetailsQuery(params.id);
 
-    // const chosenMovie = useAppSelector(appModal);
+    //const chosenMovie = useAppSelector((state) => state.app.movieForModal);
 
     // useEffect(() => {
     //     if (!chosenMovie) {

@@ -5,13 +5,14 @@ import appReducer, { AppState, appSlice } from './reducers/appSlice';
 import moviesReducer, { MoviesState, moviesSlice } from './reducers/moviesSlice';
 import filtersReducer, { FiltersState, filtersSlice } from './reducers/filtersSlice';
 import { moviesAPI } from './services/moviesService';
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
-const { createReduxHistory, routerReducer, routerMiddleware } = createReduxHistoryContext({
-    history: createBrowserHistory(),
-});
+// const {  routerReducer, routerMiddleware } = createReduxHistoryContext({
+//     history: createBrowserHistory(),
+// });
 
 const rootReducer = combineReducers({
-    router: routerReducer,
+    // router: routerReducer,
     [appSlice.name]: appReducer,
     [moviesSlice.name]: moviesReducer,
     [filtersSlice.name]: filtersReducer,
@@ -22,7 +23,11 @@ export const makeStore = () =>
     configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(routerMiddleware, moviesAPI.middleware),
+            getDefaultMiddleware({
+                serializableCheck: {
+                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                },
+            }).concat(moviesAPI.middleware),
     });
 
 // export const history = createReduxHistory(store);
