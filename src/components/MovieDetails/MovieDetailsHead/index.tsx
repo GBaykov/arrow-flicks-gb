@@ -1,13 +1,15 @@
 import { Card, Flex, Stack, Text, useMantineTheme } from '@mantine/core';
-import { MovieDetails } from '@redux/appTypes';
+// import { MovieDetails } from '@redux/appTypes';
 import { FC } from 'react';
 import { MovieTitleWithRate } from './MovieTitlewithRate';
 import { MovieDetailsVotes } from './MovieDetailsVotes';
-import { MoviePoster } from './MoviePoster';
+// import { MoviePoster } from './MoviePoster';
 import { MovieDuration } from './MovieDuration';
 import { MoviePrimiere } from './MoviePremiere';
 import { MovieBudget } from './MovieBudget';
 import { MovieGenres } from './MovieGenres';
+import { MoviePoster } from '@/components/card/MoviePoster';
+import { MovieDetails } from '@/redux/appTypes';
 
 type MovieDetailsHeadProps = {
     movie_details: MovieDetails;
@@ -24,7 +26,11 @@ export const MovieDetailsHead: FC<MovieDetailsHeadProps> = ({ movie_details }) =
                 align={{ base: 'center', sm: 'flex-start' }}
                 direction={{ base: 'column', sm: 'row' }}
             >
-                <MoviePoster movie_details={movie_details} />
+                <MoviePoster
+                    title={movie_details.original_title}
+                    poster_path={movie_details.poster_path}
+                    size='lg'
+                />
                 <Flex
                     justify='space-between'
                     direction={'column'}

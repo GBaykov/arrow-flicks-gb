@@ -2,9 +2,9 @@ import { ActionIcon, Flex, Group, Text } from '@mantine/core';
 import { FC, useEffect } from 'react';
 import purpleStar from '../../../assets/icons/purpleStar.svg';
 import star from '../../../assets/icons/star.svg';
-import { MovieDetails, StoragedItem, StoragedMovie } from '@redux/appTypes';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { appModal, setAppModal } from '@redux/reducers/appSlice';
+import { MovieDetails, StoragedItem, StoragedMovie } from '@/redux/appTypes';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { appModal, setAppModal } from '@/redux/reducers/appSlice';
 
 type MovieTitleWithRateProps = {
     movie_details: MovieDetails;

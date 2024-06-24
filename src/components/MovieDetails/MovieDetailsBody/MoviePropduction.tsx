@@ -1,5 +1,8 @@
-import { getPoster } from '@components/utils';
-import { Group, Stack, Title } from '@mantine/core';
+import { API_BASE_URL, API_ROUTES } from '@/constants/app';
+
+import { Group, Image, Stack, Title } from '@mantine/core';
+
+import noIcon from '@/assets/icons/noCompanyIcon.svg';
 
 import { FC } from 'react';
 
@@ -23,10 +26,20 @@ export const MovieProduction: FC<MovieProductionProps> = ({ production_companies
             <Stack gap={'sm'}>
                 {production_companies.map((item) => (
                     <Group>
-                        <img
+                        {/* <img
                             width={'40px'}
                             src={getPoster(item.logo_path, 'w45', 'Icon')}
                             alt='Production companie'
+                        /> */}
+                        <Image
+                            w={40}
+                            mah={40}
+                            alt={item.name}
+                            src={
+                                item.logo_path
+                                    ? `${API_BASE_URL}${API_ROUTES.LOGOS}${item.logo_path}`
+                                    : noIcon.src
+                            }
                         />
                         <Title order={5}>{item.name}</Title>
                     </Group>

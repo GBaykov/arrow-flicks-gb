@@ -1,13 +1,14 @@
-import { FilmCard } from '@components/card';
-import { EmptyStateMessage } from '@components/emptyStateMessage';
-import { AppPagination } from '@components/pagination/AppPagination';
-import { EmptyData } from '@constants/empty';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { MoviesList } from '@/redux/appTypes';
+import { filtersSelector, setPage } from '@/redux/reducers/filtersSlice';
+import { useGetMoviesQuery } from '@/redux/services/moviesService';
 import { Loader, SimpleGrid, Stack } from '@mantine/core';
-import { MoviesList } from '@redux/appTypes';
-import { filtersSelector, setPage } from '@redux/reducers/filtersSlice';
-import { useGetMoviesQuery } from '@redux/services/moviesService';
+
 import { FC } from 'react';
+import { EmptyStateMessage } from '../emptyStateMessage';
+import { EmptyData } from '@/constants/empty';
+import { FilmCard } from '../card';
+import { AppPagination } from '../pagination/AppPagination';
 
 export type CardField = {
     movies: MoviesList;

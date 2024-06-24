@@ -1,7 +1,5 @@
 'use client';
 
-import { PATHS } from '@constants/general';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {
     ActionIcon,
     Anchor,
@@ -13,16 +11,21 @@ import {
     Text,
     useMantineTheme,
 } from '@mantine/core';
-import { MovieItem, StoragedItem } from '@redux/appTypes';
+
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import yellowStar from '../../assets/icons/yellowStar.svg';
 import purpleStar from '../../assets/icons/purpleStar.svg';
 import star from '../../assets/icons/star.svg';
 
-import { appModal, setAppModal } from '@redux/reducers/appSlice';
-import { getPoster, voteCountReduction } from '@components/utils';
 import GenresList from './GenresList/GenresList';
+import { MoviePoster } from './MoviePoster';
+import { MovieItem, StoragedItem } from '@/redux/appTypes';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { appModal, setAppModal } from '@/redux/reducers/appSlice';
+import Link from 'next/link';
+import { APP_ROUTES } from '@/constants/app';
+import { voteCountReduction } from '../utils';
 
 export type FilmCardProps = {
     movie_info: MovieItem;
@@ -34,9 +37,9 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     const dispatch = useAppDispatch();
     const chosenMovie = useAppSelector(appModal);
 
-    const onMovieClick = () => {
-        navigate(`${PATHS.MAIN}/${movie_info?.id}`, { state: movie_info?.id });
-    };
+    // const onMovieClick = () => {
+    //     navigate(`${PATHS.MAIN}/${movie_info?.id}`, { state: movie_info?.id });
+    // };
 
     const storagedRated = localStorage.getItem('rated');
 
@@ -53,6 +56,10 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
     useEffect(() => {
         setIsRated(Boolean(ratedMovie));
     }, [chosenMovie]);
+
+    if (!movie_info) {
+        return null;
+    }
     return (
         <Card p={'lg'} mih={218} radius={'lg'}>
             <Flex
@@ -62,12 +69,17 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                 direction={{ base: 'column', sm: 'row' }}
             >
                 {' '}
-                <img
+                <MoviePoster
+                    size='lg'
+                    poster_path={movie_info?.poster_path}
+                    title={movie_info?.original_title}
+                />
+                {/* <img
                     src={getPoster(movie_info?.poster_path, 'w154')}
                     width={120}
                     height={170}
                     alt='Film poster'
-                />
+                /> */}
                 <Flex justify='space-between' direction={'column'} w={'100%'} h={'100%'}>
                     <Stack gap={'xs'}>
                         <Group justify='space-between' wrap='nowrap'>
@@ -75,7 +87,9 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                                 lh={'sm'}
                                 underline='never'
                                 p={0}
-                                onClick={onMovieClick}
+                                // onClick={onMovieClick}
+                                component={Link}
+                                href={`${APP_ROUTES.MOVIES}/${movie_info.id}`}
                                 variant='subtle'
                                 bg={'transparent'}
                                 style={{ wordWrap: 'break-word', display: 'inline-block' }}
@@ -86,9 +100,9 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                             </Anchor>
                             <Flex gap={'4px'} wrap={'nowrap'} align={'center'}>
                                 <ActionIcon variant='transparent' onClick={onStarClick}>
-                                    <img
+                                    <Image
                                         style={{ border: 'none' }}
-                                        src={isRated ? purpleStar : star}
+                                        src={isRated ? purpleStar : star.src}
                                     />
                                 </ActionIcon>
                                 {isRated && (
@@ -102,7 +116,7 @@ export const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                             {release_year}
                         </Text>
                         <Group>
-                            <Image lh={'sm'} w={'24px'} src={yellowStar} />
+                            <Image lh={'sm'} w={'24px'} src={yellowStar.src} />
                             <Text lh={'sm'} fw='600' size='lg' c={theme.colors.gray[9]}>
                                 {movie_info?.vote_average?.toFixed(1)}
                             </Text>

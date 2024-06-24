@@ -1,7 +1,6 @@
 import { Flex } from '@mantine/core';
 
 import RatingInput from './RatingInput';
-import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import {
     decrementRatingFrom,
     decrementRatingTo,
@@ -10,7 +9,8 @@ import {
     incrementRatingTo,
     setRatingFrom,
     setRatingTo,
-} from '@redux/reducers/filtersSlice';
+} from '@/redux/reducers/filtersSlice';
+import { useAppSelector } from '@/hooks';
 
 const RatingsFilter = () => {
     const { ratingFrom, ratingTo } = useAppSelector(filtersSelector);

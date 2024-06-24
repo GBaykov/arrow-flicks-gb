@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { Select, Title } from '@mantine/core';
 
 import commonClasses from '../MoviesFilters.module.css';
-import ChevronIcon from '@components/icons/ChevronIcon';
-import { filtersYears, setReleaseYear } from '@redux/reducers/filtersSlice';
-import { getMoviesYears } from '@components/utils';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { filtersYears, setReleaseYear } from '@/redux/reducers/filtersSlice';
+import { getMoviesYears } from '@/components/utils';
+import ChevronIcon from '@/components/icons/ChevronIcon';
 
 export const ReleaseYearFilter = () => {
     const [yearOptions, setYearOptions] = useState<Array<string>>([]);

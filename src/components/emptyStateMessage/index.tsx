@@ -4,18 +4,13 @@ import { EmptyDataItem } from '@/constants/empty';
 import { Button, Flex, Stack, Title } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 type EmptyStateMessageProps = {
     info: EmptyDataItem;
 };
 
 export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
-    // const navigate = useNavigate();
     const router = useRouter();
-    // const onButtonClick = () => {
-    //     navigate(PATHS.MAIN);
-    // };
 
     return (
         <Flex mt={'87px'} w={'100%'} bg='transparent' justify={'center'} align={'center'}>

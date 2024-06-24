@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { Button, Flex, Stack } from '@mantine/core';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { filtersSelector, resetFilters } from '@redux/reducers/filtersSlice';
+
 import { GenresFilter } from './GenresFilter';
 import { ReleaseYearFilter } from './ReleaseYearFilter';
 import RatingsFilter from './RatingsFilter';
 import classes from './MoviesFilters.module.css';
 import { SortBy } from './SortBy';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { filtersSelector, resetFilters } from '@/redux/reducers/filtersSlice';
 
 export const MoviesFilters = () => {
     const dispatch = useAppDispatch();

@@ -1,10 +1,11 @@
 import { Card } from '@mantine/core';
-import { MovieDetails } from '@redux/appTypes';
+
 import { FC } from 'react';
 
 import { MovieTrailer } from './MovieTrailer';
 import { MovieDescription } from './MovieDescription';
 import { MovieProduction } from './MoviePropduction';
+import { MovieDetails } from '@/redux/appTypes';
 
 type MovieDetailsBodyProps = {
     movie_details: MovieDetails;

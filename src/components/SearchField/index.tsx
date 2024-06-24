@@ -1,6 +1,6 @@
-import SearchIcon from '@components/icons/SearchIcon';
 import { Button, TextInput } from '@mantine/core';
 import button_classes from '../../modules.styles/Button.module.css';
+import SearchIcon from '../icons/SearchIcon';
 
 interface SearchFieldProps {
     value: string;

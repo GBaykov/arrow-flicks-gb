@@ -1,9 +1,9 @@
 import { Select, Title } from '@mantine/core';
 import commonClasses from '../MoviesFilters.module.css';
-import { filtersSortBy, setSortBy } from '@redux/reducers/filtersSlice';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { DEFAULT_SORT_OPTION, sortData } from '@constants/general';
-import ChevronIcon from '@components/icons/ChevronIcon';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { filtersSortBy, setSortBy } from '@/redux/reducers/filtersSlice';
+import { DEFAULT_SORT_OPTION, sortData } from '@/constants/general';
+import ChevronIcon from '@/components/icons/ChevronIcon';
 
 export const SortBy = () => {
     const sortBy = useAppSelector(filtersSortBy);

@@ -1,7 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { paramsConstructor } from '@/components/utils';
-import { Genres } from '../appTypes';
+import { GenreResponce, GenreType, Genres, MovieDetails, MoviesResponce } from '../appTypes';
+import { API_BASE_URL, API_ROUTES } from '@/constants/app';
+import { FiltersState } from '../reducers/filtersSlice';
+import { setMovieDetails, setMovieList } from '../reducers/moviesSlice';
+
 export const headers = {
     accept: 'application/json',
     'Content-Type': 'application/json',
@@ -10,13 +14,13 @@ export const headers = {
 export const moviesAPI = createApi({
     reducerPath: 'moviesAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: API_URL,
+        baseUrl: API_BASE_URL,
     }),
     tagTypes: ['Movies'],
 
     endpoints: (builder) => ({
         getGenreList: builder.query<Genres, void>({
-            query: () => ApiEndpoints.GENRE_LIST,
+            query: () => API_ROUTES.GENRES,
             transformResponse: (response: GenreResponce) => {
                 const genres =
                     response.genres?.map(({ id, name }: GenreType) => ({
@@ -45,7 +49,7 @@ export const moviesAPI = createApi({
                     page,
                 });
                 return {
-                    url: ApiEndpoints.DISCOVER_MOVIES,
+                    url: API_ROUTES.MOVIES,
 
                     method: 'GET',
                     headers,
@@ -62,7 +66,7 @@ export const moviesAPI = createApi({
         }),
         getMovieDetails: builder.query<MovieDetails, string>({
             query: (id) => ({
-                url: `${ApiEndpoints.MOVIE_DEAILS}/${id}?append_to_response=videos`,
+                url: `${API_ROUTES.MOVIES}/${id}?append_to_response=videos`,
                 method: 'GET',
                 headers,
             }),
@@ -77,10 +81,4 @@ export const moviesAPI = createApi({
     }),
 });
 
-export const {
-    useGetGenreListQuery,
-    useGetMoviesQuery,
-    useGetMovieDetailsQuery,
-    useLazyGetMoviesQuery,
-    useLazyGetMovieDetailsQuery,
-} = moviesAPI;
+export const { useGetGenreListQuery, useGetMoviesQuery, useGetMovieDetailsQuery } = moviesAPI;

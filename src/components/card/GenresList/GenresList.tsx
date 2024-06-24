@@ -1,5 +1,5 @@
+import { useGetGenreListQuery } from '@/redux/services/moviesService';
 import { Group, Text, useMantineTheme } from '@mantine/core';
-import { useGetGenreListQuery } from '@redux/services/moviesService';
 
 type GenresListProps = {
     genreIds: number[];

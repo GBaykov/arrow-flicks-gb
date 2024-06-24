@@ -1,8 +1,7 @@
 import { Group, Image, Text, useMantineTheme } from '@mantine/core';
 import yellowStar from '../../../assets/icons/yellowStar.svg';
 import { FC } from 'react';
-
-import { voteCountReduction } from '@components/utils';
+import { voteCountReduction } from '@/components/utils';
 
 type MovieDetailsVotesProps = {
     vote_average: number;

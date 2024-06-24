@@ -1,15 +1,14 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { Button, Divider, Group, Modal, Rating, Title, em, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-
-import { appModal, setAppModal } from '@redux/reducers/appSlice';
 
 import { FC, useEffect, useState } from 'react';
 
 import button_classes from '../../modules.styles/Button.module.css';
-import { StoragedItem } from '@redux/appTypes';
+import { appModal, setAppModal } from '@/redux/reducers/appSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { StoragedItem } from '@/redux/appTypes';
 
 export const AppModal: FC = () => {
     const chosenMovie = useAppSelector(appModal);

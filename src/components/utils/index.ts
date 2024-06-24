@@ -1,8 +1,6 @@
-import noPosterImg from '../../assets/images/noPoster.png';
 import noIcon from '../../assets/icons/noCompanyIcon.svg';
 import { FiltersState } from '@/redux/reducers/filtersSlice';
 import { GenreType } from '@/redux/appTypes';
-import { IMG_BASE_URL } from '@/constants/general';
 
 export const getMoviesYears = () => {
     const FirstFilmYear = 1895;
@@ -54,13 +52,13 @@ export const voteCountReduction = (v?: number) => {
     return String(num);
 };
 
-export const getPoster = (path?: string, poster_width?: string, type?: 'Image' | 'Icon') => {
-    if (type === 'Icon') {
-        return path ? `${IMG_BASE_URL}${poster_width}${path}` : noIcon;
-    } else {
-        return path ? `${IMG_BASE_URL}${poster_width}${path}` : noPosterImg;
-    }
-};
+// export const getPoster = (path?: string, poster_width?: string, type?: 'Image' | 'Icon') => {
+//     if (type === 'Icon') {
+//         return path ? `${IMG_BASE_URL}${poster_width}${path}` : noIcon;
+//     } else {
+//         return path ? `${IMG_BASE_URL}${poster_width}${path}` : noPosterImg;
+//     }
+// };
 
 export function chunk<T>(array: T[], size: number): T[][] {
     if (!array.length) {

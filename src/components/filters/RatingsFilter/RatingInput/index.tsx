@@ -6,8 +6,8 @@ import { UnknownAction } from '@reduxjs/toolkit';
 
 import commonClasses from '../../MoviesFilters.module.css';
 import RatingControlButton from '../RatingControlButton';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { MAX_RATING, MIN_RATING } from '@constants/general';
+import { useAppDispatch } from '@/hooks';
+import { MAX_RATING, MIN_RATING } from '@/constants/general';
 
 interface RatingInputProps {
     label?: string;

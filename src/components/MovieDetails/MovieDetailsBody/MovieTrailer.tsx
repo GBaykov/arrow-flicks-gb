@@ -1,5 +1,6 @@
+import { MovieVideo } from '@/redux/appTypes';
 import { Divider, Group, Title } from '@mantine/core';
-import { MovieVideo } from '@redux/appTypes';
+
 import { FC } from 'react';
 
 type MovieTrailerProps = {

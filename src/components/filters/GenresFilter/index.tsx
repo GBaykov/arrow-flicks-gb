@@ -2,10 +2,10 @@ import { Loader, MultiSelect, Title } from '@mantine/core';
 
 import commonClasses from '../MoviesFilters.module.css';
 import classes from './GenresFilter.module.css';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { filtersGenres, setGenres } from '@redux/reducers/filtersSlice';
-import { useGetGenreListQuery } from '@redux/services/moviesService';
-import ChevronIcon from '@components/icons/ChevronIcon';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { filtersGenres, setGenres } from '@/redux/reducers/filtersSlice';
+import { useGetGenreListQuery } from '@/redux/services/moviesService';
+import ChevronIcon from '@/components/icons/ChevronIcon';
 
 export const GenresFilter = () => {
     const selectedGenres = useAppSelector(filtersGenres);
@@ -29,9 +29,7 @@ export const GenresFilter = () => {
                 root: commonClasses.filterRoot,
                 wrapper: commonClasses.filterWrapper,
                 input: commonClasses.inputRoot,
-
                 label: commonClasses.filterLabel,
-
                 dropdown: commonClasses.selectDropdown,
                 option: commonClasses.selectOption,
                 pill: classes.pill,

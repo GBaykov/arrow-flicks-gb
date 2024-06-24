@@ -1,6 +1,6 @@
-import pageNotFound from '../assets/images/pageNotFound.png';
-import dataNotFound from '../assets/images/dataNotFound.png';
-import empty from '../assets/images/empty.png';
+import pageNotFound from '@/assets/images/pageNotFound.png';
+import dataNotFound from '@/assets/images/dataNotFound.png';
+import empty from '@/assets/images/empty.png';
 
 export type EmptyDataItem = {
     img: string;
@@ -16,18 +16,18 @@ export type EmptyDataType = {
 
 export const EmptyData: EmptyDataType = {
     page_not_found: {
-        img: pageNotFound,
+        img: pageNotFound.src,
         discrition: `We can’t find the page you are looking for`,
         btn_text: 'Go Home',
     },
 
     data_not_found: {
-        img: dataNotFound,
+        img: dataNotFound.src,
         discrition: `We don't have such movies, look for another one`,
     },
 
     emty: {
-        img: empty,
+        img: empty.src,
 
         discrition: `You haven't rated any films yet`,
         btn_text: 'Find movies',
