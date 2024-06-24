@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { createBrowserHistory } from 'history';
-import { RouterState, createReduxHistoryContext } from 'redux-first-history';
+
 import appReducer, { AppState, appSlice } from './reducers/appSlice';
 import moviesReducer, { MoviesState, moviesSlice } from './reducers/moviesSlice';
 import filtersReducer, { FiltersState, filtersSlice } from './reducers/filtersSlice';
@@ -33,7 +32,6 @@ export const makeStore = () =>
 // export const history = createReduxHistory(store);
 
 export type ApplicationState = Readonly<{
-    router: RouterState;
     [appSlice.name]: AppState;
     [moviesSlice.name]: MoviesState;
     [filtersSlice.name]: FiltersState;

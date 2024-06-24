@@ -1,7 +1,7 @@
 import { Loader, MultiSelect, Title } from '@mantine/core';
 
-import commonClasses from '../MoviesFilters.module.css';
-import classes from './GenresFilter.module.css';
+import commonClasses from '@/styles/MoviesFilters.module.css';
+import classes from '@/styles/GenresFilter.module.css';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { filtersGenres, setGenres } from '@/redux/reducers/filtersSlice';
 import { useGetGenreListQuery } from '@/redux/services/moviesService';

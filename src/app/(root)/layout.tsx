@@ -1,27 +1,24 @@
 'use client';
 
+import React from 'react';
 import { AppShell, Box, Burger, Flex, Group, Stack, Text, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { FC, ReactNode } from 'react';
 import appLogo from '@/assets/icons/logo.svg';
-// import '../../modules.styles/Active.module.css';
-// import { StyledLink } from '../../components/StyledLink';
+
 import { APP_ROUTES } from '@/constants/app';
 import { StyledLink } from '@/components/StyledLink';
-// import { APP_ROUTES } from 'src/constants/app';
 
 export type AppLayutProps = {
     children: ReactNode;
 };
 
-const AppLayout: FC<AppLayutProps> = ({ children }) => {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const [opened, { toggle }] = useDisclosure();
     const theme = useMantineTheme();
 
     return (
         <Box pos='relative' m={'0 auto'} w={'100%'} h={'100%'} bg={theme.colors.gray[1]}>
-            {/* <AppModal /> */}
-
             <Flex justify={'center'}>
                 <AppShell
                     w={'100%'}
@@ -70,4 +67,4 @@ const AppLayout: FC<AppLayutProps> = ({ children }) => {
     );
 };
 
-export default AppLayout;
+export default MainLayout;

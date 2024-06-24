@@ -1,5 +1,5 @@
 import { Select, Title } from '@mantine/core';
-import commonClasses from '../MoviesFilters.module.css';
+import commonClasses from '@/styles/MoviesFilters.module.css';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { filtersSortBy, setSortBy } from '@/redux/reducers/filtersSlice';
 import { DEFAULT_SORT_OPTION, sortData } from '@/constants/general';

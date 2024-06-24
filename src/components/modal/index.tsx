@@ -5,7 +5,7 @@ import { useMediaQuery } from '@mantine/hooks';
 
 import { FC, useEffect, useState } from 'react';
 
-import button_classes from '../../modules.styles/Button.module.css';
+import button_classes from '@/styles/Button.module.css';
 import { appModal, setAppModal } from '@/redux/reducers/appSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { StoragedItem } from '@/redux/appTypes';

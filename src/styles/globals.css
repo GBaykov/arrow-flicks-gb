@@ -1,4 +1,4 @@
-body {
+/* body {
     width: 100%;
     position: relative;
     display: flex;
@@ -60,4 +60,13 @@ button:active {
         background-color: var(--mantine-color-purple-5);
         color: var(--mantine-color-gray-0);
     }
+} */
+html,
+body {
+    height: 100%;
+    min-height: 100dvh;
+}
+
+body {
+    background-color: var(--mantine-color-grey-1);
 }

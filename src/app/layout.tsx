@@ -1,10 +1,14 @@
-import { MantineProvider } from '@mantine/core';
-import { Provider } from 'react-redux';
-import { AppMantineTheme } from '../mantine.theme';
+import React from 'react';
+
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 import { AppModal } from '../components/modal';
 import StoreProvider from './StoreProvider';
-// import { store } from '../redux/configure-store';
-// import {  store } from '@redux/configure-store.ts';
+
+
+import '@mantine/core/styles.css';
+import '@/styles/globals.css';
+import { AppMantineTheme, resolver } from '@/styles/theme';
 
 export const metadata = {
     title: 'ArrowFlicks',
@@ -14,6 +18,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <html lang='en'>
         <head>
+            <ColorSchemeScript forceColorScheme='light' />
             <link rel='shortcut icon' href='/logo.svg' />
             <meta
                 name='viewport'
@@ -21,7 +26,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
             />
         </head>
         <body>
-            <MantineProvider theme={AppMantineTheme}>
+            <MantineProvider
+                theme={AppMantineTheme}
+                forceColorScheme='light'
+                cssVariablesResolver={resolver}
+            >
                 <StoreProvider>
                     {children}
                     <AppModal />

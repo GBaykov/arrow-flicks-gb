@@ -4,7 +4,7 @@ import { NumberInput, Stack, Title } from '@mantine/core';
 
 import { UnknownAction } from '@reduxjs/toolkit';
 
-import commonClasses from '../../MoviesFilters.module.css';
+import commonClasses from '@/styles/MoviesFilters.module.css';
 import RatingControlButton from '../RatingControlButton';
 import { useAppDispatch } from '@/hooks';
 import { MAX_RATING, MIN_RATING } from '@/constants/general';

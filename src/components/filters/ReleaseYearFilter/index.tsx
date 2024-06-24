@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Select, Title } from '@mantine/core';
 
-import commonClasses from '../MoviesFilters.module.css';
+import commonClasses from '@/styles/MoviesFilters.module.css';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { filtersYears, setReleaseYear } from '@/redux/reducers/filtersSlice';
 import { getMoviesYears } from '@/components/utils';
