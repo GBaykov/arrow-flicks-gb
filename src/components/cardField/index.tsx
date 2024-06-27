@@ -14,7 +14,7 @@ export type CardField = {
     movies: MoviesList;
 };
 
-export const CardField: FC = () => {
+const CardField: FC = () => {
     const { selectedGenres, selectedYear, ratingFrom, ratingTo, sortBy, page } =
         useAppSelector(filtersSelector);
 
@@ -63,3 +63,4 @@ export const CardField: FC = () => {
         </>
     );
 };
+export default CardField;

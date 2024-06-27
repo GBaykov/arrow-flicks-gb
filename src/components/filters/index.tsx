@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { filtersSelector, resetFilters } from '@/redux/reducers/filtersSlice';
 import { GenresFilter } from './GenresFilter';
 
-export const MoviesFilters = () => {
+const MoviesFilters = () => {
     const dispatch = useAppDispatch();
     const { selectedGenres, selectedYear, ratingFrom, ratingTo } = useAppSelector(
         (state) => state.filters,
@@ -53,3 +53,4 @@ export const MoviesFilters = () => {
         </Stack>
     );
 };
+export default MoviesFilters;

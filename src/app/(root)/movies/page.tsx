@@ -1,7 +1,8 @@
 'use client';
 
-import { CardField } from '@/components/cardField';
-import { MoviesFilters } from '@/components/filters';
+import CardField from '@/components/cardField';
+import MoviesFilters from '@/components/filters';
+
 import { Container, Title } from '@mantine/core';
 
 const HomePage = () => (
@@ -11,6 +12,7 @@ const HomePage = () => (
         </Title>
         <MoviesFilters />
         <CardField />
+        {/* <p>'wwwwwwwwwwwwwwwwwwwwwwwwwwwwww'</p> */}
     </Container>
 );
 
