@@ -22,6 +22,7 @@ export const moviesAPI = createApi({
         getGenreList: builder.query<Genres, void>({
             query: () => API_ROUTES.GENRES,
             transformResponse: (response: GenreResponce) => {
+                console.log(response)
                 const genres =
                     response.genres?.map(({ id, name }: GenreType) => ({
                         value: id.toString(),
@@ -49,6 +50,7 @@ export const moviesAPI = createApi({
                     page,
                 });
                 return {
+                    
                     url: API_ROUTES.MOVIES,
 
                     method: 'GET',

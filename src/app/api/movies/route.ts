@@ -2,6 +2,7 @@ import { API_ENDPOINTS, API_LANGUAGE } from '@/constants/api';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
+    console.log(request, '----------------------')
     const searchParams = request.nextUrl.searchParams;
     // const query = searchParams.get('query');
     const { ACCESS_TOKEN_VALUE } = process.env;
@@ -18,7 +19,8 @@ export async function GET(request: NextRequest) {
             'Content-Type': 'application/json',
         },
     });
+    console.log(searchParams)
     const data = await response.json();
-
+    console.log(data)
     return NextResponse.json(data);
 }

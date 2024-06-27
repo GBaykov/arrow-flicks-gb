@@ -8,14 +8,15 @@ import { MovieDuration } from './MovieDuration';
 import { MoviePrimiere } from './MoviePremiere';
 import { MovieBudget } from './MovieBudget';
 import { MovieGenres } from './MovieGenres';
-import { MoviePoster } from '@/components/card/MoviePoster';
+
 import { MovieDetails } from '@/redux/appTypes';
+import MoviePoster from '@/components/FilmCard/MoviePoster/MoviePoster';
 
 type MovieDetailsHeadProps = {
     movie_details: MovieDetails;
 };
 
-export const MovieDetailsHead: FC<MovieDetailsHeadProps> = ({ movie_details }) => {
+ const MovieDetailsHead: FC<MovieDetailsHeadProps> = ({ movie_details }) => {
     const theme = useMantineTheme();
     const release_year = movie_details?.release_date.split('-')[0];
     return (
@@ -61,3 +62,5 @@ export const MovieDetailsHead: FC<MovieDetailsHeadProps> = ({ movie_details }) =
         </Card>
     );
 };
+
+export default MovieDetailsHead

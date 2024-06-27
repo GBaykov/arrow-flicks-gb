@@ -7,7 +7,8 @@ import { FC, ReactNode } from 'react';
 import appLogo from '@/assets/icons/logo.svg';
 
 import { APP_ROUTES } from '@/constants/app';
-import { StyledLink } from '@/components/StyledLink';
+import StyledLink from '@/components/StyledLink/StyledLink';
+
 
 export type AppLayutProps = {
     children: ReactNode;

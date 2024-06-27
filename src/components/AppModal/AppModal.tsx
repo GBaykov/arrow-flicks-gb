@@ -10,7 +10,7 @@ import { appModal, setAppModal } from '@/redux/reducers/appSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { StoragedItem } from '@/redux/appTypes';
 
-export const AppModal: FC = () => {
+ const AppModal: FC = () => {
     const chosenMovie = useAppSelector((state) => state.app.movieForModal);
     const dispatch = useAppDispatch();
 
@@ -140,3 +140,5 @@ export const AppModal: FC = () => {
         </Modal.Root>
     );
 };
+
+export default AppModal

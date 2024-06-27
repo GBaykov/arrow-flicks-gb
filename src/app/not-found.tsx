@@ -3,8 +3,9 @@
 import { FC } from 'react';
 import { Group, Image, Text, useMantineTheme } from '@mantine/core';
 import appLogo from '@/assets/icons/logo.svg';
-import { EmptyStateMessage } from '@/components/emptyStateMessage';
+
 import { EmptyData } from '@/constants/empty';
+import EmptyStateMessage from '@/components/emptyStateMessage';
 
 const NotFound: FC = () => {
     const theme = useMantineTheme();

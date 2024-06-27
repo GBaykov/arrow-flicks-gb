@@ -1,6 +1,6 @@
 import { Flex } from '@mantine/core';
 
-import RatingInput from './RatingInput';
+import RatingInput from './RatingInput/RatingInput';
 import {
     decrementRatingFrom,
     decrementRatingTo,

@@ -11,7 +11,7 @@ type MovieDetailsBodyProps = {
     movie_details: MovieDetails;
 };
 
-export const MovieDetailsBody: FC<MovieDetailsBodyProps> = ({ movie_details }) => {
+ const MovieDetailsBody: FC<MovieDetailsBodyProps> = ({ movie_details }) => {
     return (
         <Card p={{ base: 'xs', xs: 'md', sm: 'xl' }} radius={'lg'}>
             <MovieTrailer trailers={movie_details?.videos?.results} />
@@ -20,3 +20,4 @@ export const MovieDetailsBody: FC<MovieDetailsBodyProps> = ({ movie_details }) =
         </Card>
     );
 };
+export default MovieDetailsBody;

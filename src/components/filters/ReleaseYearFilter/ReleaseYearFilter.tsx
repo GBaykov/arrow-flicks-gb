@@ -8,7 +8,7 @@ import { filtersYears, setReleaseYear } from '@/redux/reducers/filtersSlice';
 import { getMoviesYears } from '@/components/utils';
 import ChevronIcon from '@/components/icons/ChevronIcon';
 
-export const ReleaseYearFilter = () => {
+ const ReleaseYearFilter = () => {
     const [yearOptions, setYearOptions] = useState<Array<string>>([]);
 
     const selectedYear = useAppSelector(filtersYears);
@@ -39,3 +39,4 @@ export const ReleaseYearFilter = () => {
         />
     );
 };
+export default ReleaseYearFilter;

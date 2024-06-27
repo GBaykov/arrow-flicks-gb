@@ -9,7 +9,7 @@ type EmptyStateMessageProps = {
     info: EmptyDataItem;
 };
 
-export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
+ const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
     const router = useRouter();
 
     return (
@@ -33,3 +33,4 @@ export const EmptyStateMessage: FC<EmptyStateMessageProps> = ({ info }) => {
         </Flex>
     );
 };
+export default EmptyStateMessage

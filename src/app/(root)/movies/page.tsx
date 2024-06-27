@@ -1,7 +1,9 @@
 'use client';
 
-import CardField from '@/components/cardField';
-import MoviesFilters from '@/components/filters';
+
+import CardField from '@/components/CardField/CardField';
+import MoviesFilters from '@/components/filters/MoviesFilters';
+
 
 import { Container, Title } from '@mantine/core';
 

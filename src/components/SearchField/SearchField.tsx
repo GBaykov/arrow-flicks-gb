@@ -8,7 +8,7 @@ interface SearchFieldProps {
     onSearchSubmit: () => void;
 }
 
-export const SearchField = ({ value, setValue, onSearchSubmit }: SearchFieldProps) => (
+ const SearchField = ({ value, setValue, onSearchSubmit }: SearchFieldProps) => (
     <TextInput
         onSubmit={onSearchSubmit}
         value={value}
@@ -39,3 +39,5 @@ export const SearchField = ({ value, setValue, onSearchSubmit }: SearchFieldProp
         rightSectionWidth={100}
     />
 );
+
+export default SearchField

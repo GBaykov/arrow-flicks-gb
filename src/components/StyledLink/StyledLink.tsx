@@ -6,7 +6,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 
 type StyledLinkProps = React.PropsWithChildren<NavLinkProps & Pick<LinkProps, 'href'>>;
 
-export const StyledLink: FC<StyledLinkProps> = ({ ...props }) => {
+ const StyledLink: FC<StyledLinkProps> = ({ ...props }) => {
     const currentRoute = useSelectedLayoutSegment();
 
     const isActive = currentRoute === props.href.toString().slice(1);
@@ -26,3 +26,4 @@ export const StyledLink: FC<StyledLinkProps> = ({ ...props }) => {
         </NavLink>
     );
 };
+export default StyledLink

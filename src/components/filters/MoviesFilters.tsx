@@ -3,14 +3,17 @@
 import { useEffect, useState } from 'react';
 import { Button, Flex, Stack } from '@mantine/core';
 
-import { ReleaseYearFilter } from './ReleaseYearFilter';
-import RatingsFilter from './RatingsFilter';
+
+import RatingsFilter from './RatingsFilter/RatingsFilter';
 import classes from '@/styles/MoviesFilters.module.css';
 
-import { SortBy } from './SortBy';
+
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { filtersSelector, resetFilters } from '@/redux/reducers/filtersSlice';
-import { GenresFilter } from './GenresFilter';
+
+import ReleaseYearFilter from './ReleaseYearFilter/ReleaseYearFilter';
+import SortBy from './SortBy/SortBy';
+import GenresFilter from './GenresFilter/GenresFilter';
 
 const MoviesFilters = () => {
     const dispatch = useAppDispatch();

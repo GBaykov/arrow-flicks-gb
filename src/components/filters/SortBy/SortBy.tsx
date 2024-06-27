@@ -5,7 +5,7 @@ import { filtersSortBy, setSortBy } from '@/redux/reducers/filtersSlice';
 import { DEFAULT_SORT_OPTION, sortData } from '@/constants/general';
 import ChevronIcon from '@/components/icons/ChevronIcon';
 
-export const SortBy = () => {
+ const SortBy = () => {
     const sortBy = useAppSelector(filtersSortBy);
     const dispatch = useAppDispatch();
 
@@ -33,3 +33,5 @@ export const SortBy = () => {
         />
     );
 };
+
+export default SortBy;

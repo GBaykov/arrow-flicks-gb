@@ -1,39 +1,36 @@
-## ArrowFlicks-GB приложение для получения информации о фильмах в соответствии с дизайном (https://www.figma.com/design/VkLZt5T4dZQQ3cEhWcnhyG/Movie-Search-App?node-id=18006-4373&t=mar5GdrxXCJO7Dkd-0)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-you should use a VPN to make the app work properly
+## Getting Started
 
-Прокси сервер для приложения
-deployment for https://github.com/GBaykov/TMDB-api-proxy
-'https://tmdb-api-proxy.onrender.com'; (используется в проекте)
-'https://exciting-analysis-production.up.railway.app'; (запасной деплой на случай проблем с основным)
+First, run the development server:
 
-## Страница “Поиск фильмов”
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-1. Пользователь видит список доступных фильмов, а также фильтры для сужения поиска.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-1. Пользователь может нажать на фильм и попасть на страницу `“[Фильм](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”` для получения детальной информации о нем.
-1. Пользователь может оценить фильм, нажав на звездочку, и тем самым сохранить его в оцененные фильмы.
-1. Пользователь может удалить фильм из оцененного, нажав еще раз на звездочку и подтвердив действие в модальном окне.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Страница “Оцененное”
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-1. Пользователь видит список оцененных фильмов и соответствующие им оценки.
-2. Пользователь может изменить оценку фильма.
-3. Пользователь может искать оцененные фильмы по их названию.
-4. Пользователь может удалить фильм из оцененного, нажав еще раз на звездочку и подтвердив действие в модальном окне.
-5. Пользователь может нажать на фильм и попасть на страницу `“[Фильм](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”` для получения детальной информации о нем.
+## Learn More
 
-## Страница “Фильм”
+To learn more about Next.js, take a look at the following resources:
 
-Пользователь видит детали фильма в соответствии с дизайном.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-# **Дополнительная функциональность**
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
--   Отображать loader ([пример](https://mantine.dev/core/loader/)) во время ожидания ответа сервера.
--   Показывать empty state, если список фильмов пуст на страницах `“[Поиск фильмов](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”` и `“[Оцененное](https://www.notion.so/c3a7adc40e5d4e0d9d3d3e5462a576bc?pvs=21)”.`
--   Реализовать постраничную пагинацию.
--   Проксировать все запросы к TMDB API.
--   Валидировать значения фильтров как на клиенте, так и на сервере (прокси).
--   Минимальная ширина страницы, при которой она отображается корректно – 320рх.
-    Дизайна для мобильной версии нет, делай на свое усмотрение.
-    Все указанные в задании элементы присутствуют как на десктопной, так и на мобильной версии.
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

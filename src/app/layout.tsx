@@ -1,14 +1,17 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import { AppModal } from '../components/modal';
-import StoreProvider from './StoreProvider';
+
+ import StoreProvider from './StoreProvider';
 
 
 import '@mantine/core/styles.css';
 import '@/styles/globals.css';
 import { AppMantineTheme, resolver } from '@/styles/theme';
+import AppModal from '@/components/AppModal/AppModal';
+import { store } from '@/redux/configure-store';
 
 export const metadata = {
     title: 'ArrowFlicks',
@@ -31,6 +34,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
                 forceColorScheme='light'
                 cssVariablesResolver={resolver}
             >
+               
                 <StoreProvider>
                     {children}
                     <AppModal />
@@ -39,6 +43,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
                     {children}
                     <AppModal />
                 </Provider> */}
+              
             </MantineProvider>
         </body>
     </html>

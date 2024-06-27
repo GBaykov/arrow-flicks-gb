@@ -1,8 +1,10 @@
 'use client';
 
-import { SearchField } from '@/components/SearchField';
-import { FilmCard } from '@/components/card';
-import { EmptyStateMessage } from '@/components/emptyStateMessage';
+
+import FilmCard from '@/components/FilmCard/FilmCard';
+import SearchField from '@/components/SearchField/SearchField';
+import EmptyStateMessage from '@/components/emptyStateMessage';
+
 import { AppPagination } from '@/components/pagination/AppPagination';
 import { chunk } from '@/components/utils';
 import { EmptyData } from '@/constants/empty';

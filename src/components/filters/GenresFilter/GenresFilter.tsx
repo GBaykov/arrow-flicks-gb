@@ -7,7 +7,7 @@ import { filtersGenres, setGenres } from '@/redux/reducers/filtersSlice';
 import { useGetGenreListQuery } from '@/redux/services/moviesService';
 import ChevronIcon from '@/components/icons/ChevronIcon';
 
-export const GenresFilter = () => {
+ const GenresFilter = () => {
     const selectedGenres = useAppSelector(filtersGenres);
     const dispatch = useAppDispatch();
 
@@ -38,3 +38,4 @@ export const GenresFilter = () => {
         />
     );
 };
+export default GenresFilter

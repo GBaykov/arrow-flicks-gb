@@ -1,7 +1,8 @@
 'use client';
 
-import { MovieDetailsBody } from '@/components/MovieDetails/MovieDetailsBody';
-import { MovieDetailsHead } from '@/components/MovieDetails/MovieDetailsHead';
+
+import MovieDetailsBody from '@/components/MovieDetails/MovieDetailsBody/MovieDetailsBody';
+import MovieDetailsHead from '@/components/MovieDetails/MovieDetailsHead/MovieDetailsHead';
 import { APP_ROUTES } from '@/constants/app';
 import { useGetMovieDetailsQuery } from '@/redux/services/moviesService';
 import { Anchor, Breadcrumbs, Center, Loader, Stack } from '@mantine/core';
