@@ -1,30 +1,32 @@
 .root {
-    color: var(--mantine-color-gray-9);
-    border-radius: 8px;
-    background-color: transparent;
+  color: var(--mantine-color-gray-9);
+  border-radius: 8px;
+  background-color: transparent;
+  text-align: start;
 
-    /* &[data-activelink='true'] {
+  /* &[data-activelink='true'] {
         color: var(--mantine-color-purple-5);
         background-color: var(--mantine-color-purple-2);
     } */
 }
 
 .root:hover {
-    background-color: transparent;
-    color: var(--mantine-color-purple-4);
+  background-color: transparent;
+  color: var(--mantine-color-purple-4);
 }
 .active {
-    color: var(--mantine-color-purple-5);
-    background-color: var(--mantine-color-purple-2);
+  color: var(--mantine-color-purple-5);
+  background-color: var(--mantine-color-purple-2);
 }
 
 .root:active {
-    color: var(--mantine-color-purple-5);
-    background-color: var(--mantine-color-purple-2);
+  color: var(--mantine-color-purple-5);
+  background-color: var(--mantine-color-purple-2);
 }
 
 .label {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 140%;
+  text-align: start;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
 }

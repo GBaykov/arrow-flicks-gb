@@ -1,86 +1,92 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { paramsConstructor } from '@/components/utils';
-import { GenreResponce, GenreType, Genres, MovieDetails, MoviesResponce } from '../appTypes';
-import { API_BASE_URL, API_ROUTES } from '@/constants/app';
-import { FiltersState } from '../reducers/filtersSlice';
-import { setMovieDetails, setMovieList } from '../reducers/moviesSlice';
+import { paramsConstructor } from "@/components/utils";
+import {
+  GenreResponce,
+  GenreType,
+  Genres,
+  MovieDetails,
+  MoviesResponce,
+} from "../appTypes";
+import { API_BASE_URL, API_ROUTES } from "@/constants/app";
+import { FiltersState } from "../reducers/filtersSlice";
+import { setMovieDetails, setMovieList } from "../reducers/moviesSlice";
 
 export const headers = {
-    accept: 'application/json',
-    'Content-Type': 'application/json',
+  accept: "application/json",
+  "Content-Type": "application/json",
 };
 
 export const moviesAPI = createApi({
-    reducerPath: 'moviesAPI',
-    baseQuery: fetchBaseQuery({
-        baseUrl: API_BASE_URL,
+  reducerPath: "moviesAPI",
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_BASE_URL,
+  }),
+  tagTypes: ["Movies"],
+
+  endpoints: (builder) => ({
+    getGenreList: builder.query<Genres, void>({
+      query: () => API_ROUTES.GENRES,
+      transformResponse: (response: GenreResponce) => {
+        const genres =
+          response.genres?.map(({ id, name }: GenreType) => ({
+            value: id.toString(),
+            label: name,
+          })) || [];
+
+        return { genres };
+      },
     }),
-    tagTypes: ['Movies'],
+    getMovies: builder.query<MoviesResponce, FiltersState>({
+      query: ({
+        selectedGenres,
+        selectedYear,
+        ratingFrom,
+        ratingTo,
+        sortBy,
+        page = 1,
+      }: FiltersState) => {
+        const args = paramsConstructor({
+          selectedGenres,
+          selectedYear,
+          ratingFrom,
+          ratingTo,
+          sortBy,
+          page,
+        });
+        return {
+          url: API_ROUTES.MOVIES,
 
-    endpoints: (builder) => ({
-        getGenreList: builder.query<Genres, void>({
-            query: () => API_ROUTES.GENRES,
-            transformResponse: (response: GenreResponce) => {
-                console.log(response)
-                const genres =
-                    response.genres?.map(({ id, name }: GenreType) => ({
-                        value: id.toString(),
-                        label: name,
-                    })) || [];
+          method: "GET",
+          headers,
+          params: args,
+        };
+      },
 
-                return { genres };
-            },
-        }),
-        getMovies: builder.query<MoviesResponce, FiltersState>({
-            query: ({
-                selectedGenres,
-                selectedYear,
-                ratingFrom,
-                ratingTo,
-                sortBy,
-                page = 1,
-            }: FiltersState) => {
-                const args = paramsConstructor({
-                    selectedGenres,
-                    selectedYear,
-                    ratingFrom,
-                    ratingTo,
-                    sortBy,
-                    page,
-                });
-                return {
-                    
-                    url: API_ROUTES.MOVIES,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
 
-                    method: 'GET',
-                    headers,
-                    params: args,
-                };
-            },
-
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                const { data } = await queryFulfilled;
-
-                dispatch(setMovieList(data.results));
-            },
-            providesTags: ['Movies'],
-        }),
-        getMovieDetails: builder.query<MovieDetails, string>({
-            query: (id) => ({
-                url: `${API_ROUTES.MOVIES}/${id}?append_to_response=videos`,
-                method: 'GET',
-                headers,
-            }),
-
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                const { data } = await queryFulfilled;
-
-                dispatch(setMovieDetails(data));
-            },
-            providesTags: ['Movies'],
-        }),
+        dispatch(setMovieList(data.results));
+      },
     }),
+    getMovieDetails: builder.query<MovieDetails, string>({
+      query: (id) => ({
+        url: `${API_ROUTES.MOVIES}/${id}?append_to_response=videos`,
+        method: "GET",
+        headers,
+      }),
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+
+        dispatch(setMovieDetails(data));
+      },
+    }),
+  }),
 });
 
-export const { useGetGenreListQuery, useGetMoviesQuery, useGetMovieDetailsQuery } = moviesAPI;
+export const {
+  useGetGenreListQuery,
+  useGetMoviesQuery,
+  useGetMovieDetailsQuery,
+} = moviesAPI;
