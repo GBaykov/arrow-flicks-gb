@@ -70,7 +70,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <Text fw={600} size={"xxl"} c={theme.colors.purple[5]}>
                 ArrowFlicks
               </Text>
-              <Stack mt={80} gap={"md"} w={"100%"}>
+              <Stack mt={80} gap={"md"} w={"100%"} justify={"flex-start"}>
                 <StyledLink href={APP_ROUTES.MOVIES}>Movies</StyledLink>
                 <StyledLink href={APP_ROUTES.RATED}>Rated movies</StyledLink>
               </Stack>

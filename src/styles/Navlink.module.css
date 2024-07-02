@@ -2,12 +2,6 @@
   color: var(--mantine-color-gray-9);
   border-radius: 8px;
   background-color: transparent;
-  text-align: start;
-
-  /* &[data-activelink='true'] {
-        color: var(--mantine-color-purple-5);
-        background-color: var(--mantine-color-purple-2);
-    } */
 }
 
 .root:hover {
@@ -25,8 +19,10 @@
 }
 
 .label {
-  text-align: start;
   font-weight: 400;
   font-size: 16px;
   line-height: 140%;
+}
+.inner {
+  justify-content: flex-start;
 }

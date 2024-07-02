@@ -19,6 +19,7 @@ const StyledLink: FC<StyledLinkProps> = ({ ...props }) => {
       classNames={{
         root: navlink_classes.root,
         label: navlink_classes.label,
+        inner: navlink_classes.inner,
       }}
       className={` ${isActive && navlink_classes.active}`}
       fz={"lg"}
