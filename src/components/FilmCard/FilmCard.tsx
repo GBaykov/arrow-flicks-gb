@@ -22,7 +22,7 @@ import GenresList from "./GenresList/GenresList";
 
 import { MovieItem, StoragedItem } from "@/redux/appTypes";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { appModal, setAppModal } from "@/redux/reducers/appSlice";
+import { setAppModal } from "@/redux/reducers/appSlice";
 import Link from "next/link";
 import { APP_ROUTES } from "@/constants/app";
 import { voteCountReduction } from "../utils";
@@ -37,10 +37,6 @@ const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
 
   const dispatch = useAppDispatch();
   const chosenMovie = useAppSelector((state) => state.app.movieForModal);
-
-  // const onMovieClick = () => {
-  //     navigate(`${PATHS.MAIN}/${movie_info?.id}`, { state: movie_info?.id });
-  // };
 
   const storagedRated = localStorage.getItem("rated");
 
@@ -81,12 +77,6 @@ const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
           poster_path={movie_info?.poster_path}
           title={movie_info?.original_title}
         />
-        {/* <img
-                    src={getPoster(movie_info?.poster_path, 'w154')}
-                    width={120}
-                    height={170}
-                    alt='Film poster'
-                /> */}
         <Flex
           justify="space-between"
           direction={"column"}
@@ -99,7 +89,6 @@ const FilmCard: FC<FilmCardProps> = ({ movie_info }) => {
                 lh={"sm"}
                 underline="never"
                 p={0}
-                // onClick={onMovieClick}
                 component={Link}
                 href={`${APP_ROUTES.MOVIES}/${movie_info.id}`}
                 variant="subtle"

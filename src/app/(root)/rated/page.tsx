@@ -11,7 +11,6 @@ import { MAX_CARDS_PER_RATEDPAGE } from "@/constants/general";
 import { useAppSelector } from "@/hooks";
 
 import { MovieItem, StoragedItem } from "@/redux/appTypes";
-import { appModal } from "@/redux/reducers/appSlice";
 import { Group, SimpleGrid, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 
@@ -19,7 +18,6 @@ const RatedPage = () => {
   const [value, setValue] = useState("");
   const chosenMovie = useAppSelector((state) => state.app.movieForModal);
 
-  //   const storagedRated = localStorage.getItem("rated");
   const storagedRated =
     typeof window !== "undefined" ? localStorage.getItem("rated") : "";
   const ratedMovies: StoragedItem[] = storagedRated
@@ -65,7 +63,6 @@ const RatedPage = () => {
       setActivePage(totalPages);
     }
   }, [totalPages]);
-  console.log(movieList);
 
   return (
     <>

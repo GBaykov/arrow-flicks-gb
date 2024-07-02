@@ -4,7 +4,7 @@ import purpleStar from "../../../assets/icons/purpleStar.svg";
 import star from "../../../assets/icons/star.svg";
 import { MovieDetails, StoragedItem, StoragedMovie } from "@/redux/appTypes";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { appModal, setAppModal } from "@/redux/reducers/appSlice";
+import { setAppModal } from "@/redux/reducers/appSlice";
 
 type MovieTitleWithRateProps = {
   movie_details: MovieDetails;
@@ -13,7 +13,6 @@ export const MovieTitleWithRate: FC<MovieTitleWithRateProps> = ({
   movie_details,
 }) => {
   const dispatch = useAppDispatch();
-  // const storagedRated = localStorage.getItem("rated");
   const storagedRated =
     typeof window !== "undefined" ? localStorage.getItem("rated") : "";
 

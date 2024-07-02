@@ -22,14 +22,7 @@ import { StoragedItem } from "@/redux/appTypes";
 const AppModal: FC = () => {
   const chosenMovie = useAppSelector((state) => state.app.movieForModal);
   const dispatch = useAppDispatch();
-  // const [storagedRated, setStoragedRated] = useState('')
 
-  // useEffect(() => {
-  //    setStoragedRated
-
-  //   },[]);
-
-  //   const storagedRated = localStorage.getItem("rated");
   const storagedRated =
     typeof window !== "undefined" ? localStorage.getItem("rated") : "";
 

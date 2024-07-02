@@ -1,12 +1,8 @@
-import { Button, ButtonProps, NavLink, NavLinkProps } from "@mantine/core";
+import { Button, ButtonProps } from "@mantine/core";
 import Link, { LinkProps } from "next/link";
 import { FC } from "react";
 import navlink_classes from "@/styles/Navlink.module.css";
 import { useSelectedLayoutSegment } from "next/navigation";
-
-// type StyledLinkProps = React.PropsWithChildren<
-//   NavLinkProps & Pick<LinkProps, "href">
-// >;
 
 type StyledLinkProps = React.PropsWithChildren<
   ButtonProps & Pick<LinkProps, "href">

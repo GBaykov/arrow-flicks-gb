@@ -12,7 +12,6 @@ const HomePage = () => (
     </Title>
     <MoviesFilters />
     <CardField />
-    {/* <p>'wwwwwwwwwwwwwwwwwwwwwwwwwwwwww'</p> */}
   </Container>
 );
 

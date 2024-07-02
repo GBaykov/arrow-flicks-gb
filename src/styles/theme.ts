@@ -13,7 +13,6 @@ import {
   rem,
   virtualColor,
 } from "@mantine/core";
-import classes from "./overrides.module.css";
 
 const variantColorResolver: VariantColorsResolver = (input) => {
   const defaultResolvedColors = defaultVariantColorsResolver(input);
@@ -57,7 +56,6 @@ export const AppMantineTheme = createTheme({
   fontFamily: inter.style.fontFamily,
   primaryColor: "purple",
   primaryShade: 5,
-  //   variantColorResolver,
   colors: {
     primary: virtualColor({
       name: "primary",
@@ -119,10 +117,9 @@ export const AppMantineTheme = createTheme({
   },
 
   headings: {
-    // properties for all headings
     fontWeight: "400",
     fontFamily: "Inter",
-    // properties for individual headings, all of them are optional
+
     sizes: {
       h1: { fontWeight: "700", fontSize: rem(32), lineHeight: "1.4" },
       h2: { fontWeight: "600", fontSize: rem(24), lineHeight: "1.4" },
@@ -147,35 +144,6 @@ export const AppMantineTheme = createTheme({
   },
 
   focusRing: "never",
-  //   components: {
-  //     Button: {
-  //       classNames: { root: classes.buttonOverrides },
-  //     },
-  //   },
-  components: {
-    Button: Button.extend({
-      // classNames: {
-      //     root: 'pagination-root-class',
-      //     control: 'pagination-control-class',
-      //     dots: '.mantine-Pagination-dots',
-      // },
-      styles: {
-        root: {
-          // backgroundColor: 'var(--mantine-color-purple-5)',
-          // hover: {
-          //     backgroundColor: 'var(--mantine-color-purple-4)',
-          // },
-          // active: {
-          //     backgroundColor: 'var(--mantine-color-purple-6)',
-          // },
-        },
-        loader: {},
-        inner: {},
-        section: {},
-        label: {},
-      },
-    }),
-  },
 });
 
 export const resolver: CSSVariablesResolver = (theme) => ({

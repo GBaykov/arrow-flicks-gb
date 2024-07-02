@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  // const query = searchParams.get('query');
   const { ACCESS_TOKEN_VALUE } = process.env;
 
   if (!ACCESS_TOKEN_VALUE) {

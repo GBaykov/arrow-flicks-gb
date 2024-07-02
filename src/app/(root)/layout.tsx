@@ -12,7 +12,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 import appLogo from "@/assets/icons/logo.svg";
 
 import { APP_ROUTES } from "@/constants/app";

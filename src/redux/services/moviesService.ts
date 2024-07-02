@@ -22,7 +22,6 @@ export const moviesAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL,
   }),
-  tagTypes: ["Movies"],
 
   endpoints: (builder) => ({
     getGenreList: builder.query<Genres, void>({
