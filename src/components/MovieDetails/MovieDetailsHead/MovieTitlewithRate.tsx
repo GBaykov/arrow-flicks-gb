@@ -13,7 +13,9 @@ export const MovieTitleWithRate: FC<MovieTitleWithRateProps> = ({
   movie_details,
 }) => {
   const dispatch = useAppDispatch();
-  const storagedRated = localStorage.getItem("rated");
+  // const storagedRated = localStorage.getItem("rated");
+  const storagedRated =
+    typeof window !== "undefined" ? localStorage.getItem("rated") : "";
 
   const ratedMovies: StoragedItem[] = storagedRated
     ? JSON.parse(storagedRated)
