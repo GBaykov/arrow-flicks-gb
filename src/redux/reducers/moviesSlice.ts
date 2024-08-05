@@ -1,6 +1,6 @@
-import { ApplicationState } from '@redux/configure-store';
-import { GenreType, MovieDetails, MoviesList } from '@redux/appTypes';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { GenreType, MovieDetails, MoviesList } from '../appTypes';
+import { ApplicationState } from '../configure-store';
 
 export type MoviesState = {
     movies_list: MoviesList;

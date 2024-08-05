@@ -1,6 +1,6 @@
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { MovieDescriptionLabel } from './MovieDescriptionLabel';
-import { GenreType } from '@redux/appTypes';
+import { GenreType } from '@/redux/appTypes';
 
 type MovieGenresProps = {
     genres: GenreType[];
